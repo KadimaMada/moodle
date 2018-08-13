@@ -6,12 +6,12 @@
 
     {{{ output.standard_top_of_body_html }}}
 
-    {{>theme_boost/navbar}}
+    {{>theme_kmboost/navbar}}
 
     <div id="page" class="container-fluid">
-        {{{ output.full_header }}}
+        <div style = "display: none;">{{{ output.full_header }}}</div>
 
-        <div id="page-content" class="row">
+        <div id="page-content" class ="row">
             <div id="region-main-box" class="col-12">
                 {{#hasregionmainsettingsmenu}}
                     <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
