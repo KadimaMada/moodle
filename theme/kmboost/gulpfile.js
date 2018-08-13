@@ -25,7 +25,7 @@ gulp.task("style", function() {
       autoprefixer({browsers: ["last 2 versions"]}),
       mqpacker({sort: true})
     ]))
-    .pipe(rename("style.css"))
+    .pipe(rename("style/style.css"))
     .pipe(gulp.dest('.'));
 });
 

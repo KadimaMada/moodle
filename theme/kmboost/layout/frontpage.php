@@ -59,5 +59,6 @@ $templatecontext['flatnavigation'] = $PAGE->flatnav;
 $widgets = $PAGE->get_renderer('theme_kmboost', 'widgets');
 $templatecontext['mycoursescarusel']=$widgets->my_courses_slick(true);
 
-echo $OUTPUT->render_from_template('theme_kmboost/frontpage', $templatecontext);
 
+$PAGE->requires->js_call_amd('theme_kmboost/slick-init', 'init');
+echo $OUTPUT->render_from_template('theme_kmboost/frontpage', $templatecontext);

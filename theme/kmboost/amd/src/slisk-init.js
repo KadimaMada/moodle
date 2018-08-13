@@ -1,0 +1,9 @@
+define(['jquery', 'theme_kmboost/slick'], function($, slick) {
+
+    return {
+        init: function() {
+          console.dir('slick init');
+        }
+    };
+
+});
