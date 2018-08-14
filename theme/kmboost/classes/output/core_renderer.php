@@ -14,25 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace theme_kmboost\output;
+
+
+defined('MOODLE_INTERNAL') || die;
+
 /**
- * Theme functions.
+ * Renderers to align Moodle's HTML with that expected by Bootstrap
  *
- * @package    theme_kmboost
- * @copyright  2016 Frédéric Massart - FMCorz.net
+ * @package    kmboost
+ * @copyright  2012 Bas Brands, www.basbrands.nl
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+class core_renderer extends \theme_boost\output\core_renderer {
 
-function theme_kmboost_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    if ($context->contextlevel == CONTEXT_SYSTEM and ($filearea === 'logo' )) {
-        $theme = theme_config::load('kmboost');
-        // By default, theme files must be cache-able by both browsers and proxies.
-        if (!array_key_exists('cacheability', $options)) {
-            $options['cacheability'] = 'public';
-        }
-        return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
-    } else {
-        send_file_not_found();
+    public function get_logo_url(){
+        global $PAGE;
+        return $PAGE->theme->setting_file_url('logo', 'logo');
     }
 }
