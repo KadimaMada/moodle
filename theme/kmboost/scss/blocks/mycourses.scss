@@ -1,0 +1,51 @@
+@import "../variables";
+
+$image-size: 50px;
+
+.mycoursesslick{
+  border-top: 1px solid $primary-color;
+  border-bottom: 1px solid $primary-color;
+  height: 13.5em;
+  .slider {
+    .slick-list {
+      .slick-track {
+        .slick-slide {
+          border-right: 1px solid $primary-color;
+          &:first-child {
+            border-left: 1px solid $primary-color;
+          }
+          .slider-item {
+            //width: 7.5em;
+            a {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              img {
+                border-radius: 50%;
+                width: $image-size;
+                height: $image-size;
+                margin-bottom: 16px;
+              }
+              h2 {
+                font-size: 12px;
+                color: $primary-color;
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+  .btn-slider {
+    width: 20px;
+    height: 40px;
+    border: none;
+    &-prev {
+      background: url([[pix:theme_kmboost|slider-arrow-left-icon]]) no-repeat center center;
+    }
+    &-next {
+      background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center;
+    }
+  }
+}
