@@ -173,5 +173,9 @@
           color: #491571;
           margin: 0;
           text-align: center; }
+        .circle-list-wrapper .circle-list .circle-link .circle-content .image {
+          width: calc(107px - 20px);
+          height: calc(107px - 20px);
+          border-radius: 50%; }
     .circle-list-wrapper .circle-list .circle-link:nth-child(2n) .circle {
       border-color: #00ddbf #00ddbf #491571 #491571; }

@@ -56,6 +56,11 @@ $circle-border: 6px;
             margin: 0;
             text-align: center;
           }
+          .image {
+            width: calc(#{$circle-size} - 20px);
+            height: calc(#{$circle-size} - 20px);
+            border-radius: 50%;
+          }
         }
       }
     }
