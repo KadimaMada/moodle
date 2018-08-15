@@ -69,8 +69,8 @@
   display: none; }
 
 .mycoursesslick {
-  border-top: 1px solid #491571;
-  border-bottom: 1px solid #491571;
+  border-top: 0.3px solid #491571;
+  border-bottom: 0.3px solid #491571;
   height: 9.5em;
   display: -ms-flexbox;
   display: flex;
@@ -109,8 +109,69 @@
     width: 20px;
     height: 40px;
     border: none;
-    margin: 0 2.5em; }
+    margin: 0 2.5em;
+    cursor: pointer;
+    outline: none; }
     .mycoursesslick .btn-slider-prev {
       background: url([[pix:theme_kmboost|slider-arrow-left-icon]]) no-repeat center center; }
     .mycoursesslick .btn-slider-next {
       background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center; }
+
+.pagelayout-frontpage .card {
+  border: none; }
+  .pagelayout-frontpage .card .card-body {
+    padding: 0; }
+    .pagelayout-frontpage .card .card-body [role='main'] {
+      display: none; }
+
+.circle-list-wrapper {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+  margin-top: 36px; }
+  .circle-list-wrapper .circle-list {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (calc(107px - 6px))[6];
+        grid-template-columns: repeat(6, calc(107px - 6px));
+    -ms-grid-rows: calc(107px - 6px);
+        grid-template-rows: calc(107px - 6px);
+    border-bottom: 0.3px solid #491571;
+    padding-bottom: 50px; }
+    .circle-list-wrapper .circle-list .circle-link:hover {
+      text-decoration: none; }
+    .circle-list-wrapper .circle-list .circle-link .circle {
+      background: none;
+      width: 107px;
+      height: 107px;
+      border: 6px solid;
+      border-color: #491571 #491571 #00ddbf #00ddbf;
+      border-radius: 50%;
+      transform: rotate(45deg);
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+          align-items: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+      overflow: hidden;
+      padding: 10px; }
+      .circle-list-wrapper .circle-list .circle-link .circle-content {
+        transform: rotate(-45deg);
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: center;
+            justify-content: center;
+        -ms-flex-align: center;
+            align-items: center; }
+        .circle-list-wrapper .circle-list .circle-link .circle-content .title {
+          font-size: 12px;
+          font-weight: bold;
+          color: #491571;
+          margin: 0;
+          text-align: center; }
+    .circle-list-wrapper .circle-list .circle-link:nth-child(2n) .circle {
+      border-color: #00ddbf #00ddbf #491571 #491571; }
