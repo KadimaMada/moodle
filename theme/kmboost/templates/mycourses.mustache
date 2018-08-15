@@ -16,16 +16,3 @@
     <button id="mycoursesnext" class="btn-slider btn-slider-next" />
   </div>
 </div>
-
-{{#js}}
-  require(['jquery','theme_kmboost/slick'], function($, slick) {
-
-    $('.slider').slick({
-      infinite: true,
-      slidesToShow: 6,
-      slidesToScroll: 1,
-      prevArrow: '#mycoursesprev',
-      nextArrow: '#mycoursesnext',
-    });
-  });
-{{/js}}

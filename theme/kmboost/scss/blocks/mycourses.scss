@@ -5,17 +5,21 @@ $image-size: 50px;
 .mycoursesslick{
   border-top: 1px solid $primary-color;
   border-bottom: 1px solid $primary-color;
-  height: 13.5em;
+  height: 9.5em;
+  display: flex;
+  align-items: center;
+  padding: 0 5em;
   .slider {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
     .slick-list {
       .slick-track {
+        display: flex;
         .slick-slide {
-          border-right: 1px solid $primary-color;
-          &:first-child {
-            border-left: 1px solid $primary-color;
-          }
+          width: 7.5em;
           .slider-item {
-            //width: 7.5em;
+            border-left: 1px solid $primary-color;
             a {
               display: flex;
               flex-direction: column;
@@ -41,6 +45,7 @@ $image-size: 50px;
     width: 20px;
     height: 40px;
     border: none;
+    margin: 0 2.5em;
     &-prev {
       background: url([[pix:theme_kmboost|slider-arrow-left-icon]]) no-repeat center center;
     }
