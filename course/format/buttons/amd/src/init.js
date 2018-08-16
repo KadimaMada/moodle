@@ -27,6 +27,8 @@ define(['jquery','format_buttons/slick'], function($, slick) {
     $('#section' + currentSection).toggleClass('d-none');
     initSlider($('#section'+currentSection+' .slider.labels'),0);
     labelsEvents(currentSection);
+    initPrevNextBtns(currentSection);
+    initPrevNextBtnsEvents();
   }
 
   function sectionsEvents(){
@@ -42,6 +44,8 @@ define(['jquery','format_buttons/slick'], function($, slick) {
         unslickLabels();
         initSlider($('#section' + this.dataset.section + ' .slider.labels'),0);
         labelsEvents(this.dataset.section);
+        initPrevNextBtns(this.dataset.section);
+        xsDropdown(this.dataset.section);
       });
     }
   }
@@ -57,6 +61,10 @@ define(['jquery','format_buttons/slick'], function($, slick) {
         var equils = $('[data-label-content="' + this.dataset.label + '"]');
         loop($('#section' + currentSection + ' .label-content'));
         $('[data-label-content="' + this.dataset.label + '"]').toggleClass('d-none');
+        initPrevNextBtns(currentSection);
+        if (window.innerWidth < 767 && $('#section' + currentSection + ' .labels-wrapper').hasClass('expand')){
+          $('#section' + currentSection + ' .labels-wrapper').removeClass('expand');
+        }
       });
     }
     var checkLabel = document.querySelector('#section' + currentSection + ' .nav-item.active');
@@ -71,13 +79,13 @@ define(['jquery','format_buttons/slick'], function($, slick) {
 
   // if elem only - horizontal, 2 attr - vertical;
   function initSlider(elem, vert){
-    var dir, resp=[], brakepoints= [1200, 992, 540], brp, slides=4;
+    var dir, resp=[], brakepoints= [1200, 992, 768], brp, slides=4;
     (document.dir == "rtl")?dir = true:dir = false;
-    (vert !== undefined)?vert = true:vert = false;
+    if (vert !== undefined){vert = true; dir = false}else{vert = false;}
     // responsiveness / dropdown on xs vert
     if (vert){
       for (var i=0; i<brakepoints.length; i++){
-        if (brakepoints[i] == 540){
+        if (brakepoints[i] == 768){
           // add dropdown touch event
           brp = {
             breakpoint: brakepoints[i],
@@ -90,6 +98,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
             settings: {
               slidesToShow: slides,
               slidesToScroll: 1,
+              rtl:false,
             }
           };
           resp.push(brp);
@@ -102,6 +111,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
           settings: {
             slidesToShow: --slides,
             slidesToScroll: 1,
+            rtl: dir,
           }
         };
         resp.push(brp);
@@ -114,7 +124,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
       arrows: true,
       vertical: vert,
       verticalSwiping: vert,
-      rtl: dir,
+      rtl:dir,
       slidesToShow: 4,
       slidesToScroll: 1,
       responsive:resp,
@@ -163,19 +173,45 @@ define(['jquery','format_buttons/slick'], function($, slick) {
     }
   }
 
-  // bottom prev|next buttons for labels on xs breakpoint
-  // function xsButtons(){
-  //   var btns = '<button class="label-prev" onclick=""></button>';
-  //   var block = document.createElement('div');
-  // }
-  // function slideLabel(dir){
-  //   if (dir == 'prev'){
-  //     labelSlider.slick('slickPrev');
-  //   } else if (dir == 'next'){
-  //     labelSlider.slick('slickNext');
-  //   }
-  // }
+  function xsDropdown(currentSection){
+    if (window.innerWidth < 767){
+      $('#section' + currentSection + ' .labels-wrapper').toggleClass('expand');
+    }
+  }
 
+  function initPrevNextBtns(currentSection){
+    var active = $('#section'+currentSection+' .nav-item.active');
+
+    var current = $('.label-active');
+    var prevBtn = $('.label-prev');
+    var nextBtn = $('.label-next');
+
+    current.children().remove();
+    prevBtn.children().remove();
+    nextBtn.children().remove();
+    active.children().clone().appendTo(".label-active");
+    active.prev().children().clone().appendTo(".label-prev");
+    active.next().children().clone().appendTo(".label-next");
+  }
+
+  function initPrevNextBtnsEvents(){
+    var prevBtn = $('.label-prev');
+    var nextBtn = $('.label-next');
+    for (var i=0; i<prevBtn.length;i++){
+      var item = prevBtn[i];
+      item.addEventListener('click', function(){
+        active = $('#section'+localStorage.getItem('lastSection')+' .nav-item.active');
+        active.prev().trigger('click');
+      });
+    }
+    for (var i=0; i<nextBtn.length;i++){
+      var item = nextBtn[i];
+      item.addEventListener('click', function(){
+        active = $('#section'+localStorage.getItem('lastSection')+' .nav-item.active');
+        active.next().trigger('click');
+      });
+    }
+  }
 
     return {
         init: function() {
