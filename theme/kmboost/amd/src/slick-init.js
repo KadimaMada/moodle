@@ -3,6 +3,7 @@ define(['jquery', 'theme_kmboost/slick'], function($, slick) {
     return {
         init: function() {
             console.dir('slick init');
+            var dir = $('html').attr('dir');
             $('.slider').slick({
                 infinite: true,
                 slidesToShow: 4,
@@ -10,6 +11,7 @@ define(['jquery', 'theme_kmboost/slick'], function($, slick) {
                 prevArrow: '#mycoursesprev',
                 nextArrow: '#mycoursesnext',
                 variableWidth: true,
+                rtl: dir === 'rtl'
             });
         }
     };

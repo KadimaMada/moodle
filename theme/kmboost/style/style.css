@@ -68,6 +68,18 @@
 .slick-arrow.slick-hidden {
   display: none; }
 
+[dir="ltr"] .mycoursesslick .btn-slider-prev {
+  background: url([[pix:theme_kmboost|slider-arrow-left-icon]]) no-repeat center center; }
+
+[dir="ltr"] .mycoursesslick .btn-slider-next {
+  background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center; }
+
+[dir="rtl"] .mycoursesslick .btn-slider-prev {
+  background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center; }
+
+[dir="rtl"] .mycoursesslick .btn-slider-next {
+  background: url([[pix:theme_kmboost|slider-arrow-left-icon]]) no-repeat center center; }
+
 .mycoursesslick {
   border-top: 0.3px solid #491571;
   border-bottom: 0.3px solid #491571;
