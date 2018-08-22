@@ -1,0 +1,75 @@
+@import "../variables";
+
+#{$LTR} {
+  .header-navbar {
+    .header2 {
+      .tabs {
+        left: 50%;
+        right: auto;
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+}
+
+#{$RTL} {
+  .header-navbar {
+    .header2 {
+      .tabs {
+        right: 50%;
+        left: auto;
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+}
+
+.header-navbar {
+  .header1 {
+    .navbar {
+      background: $primary-color;
+      color: $white;
+      .user-settings {
+        display: none;
+      }
+    }
+    .btn-menu {
+      background: $primary-color;
+      border: none;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      outline: none;
+      box-shadow: none;
+      &>i {
+        font-size: 32px;
+        width: auto;
+        height: auto;
+        color: #B3FC27;
+      }
+    }
+  }
+  .header2 {
+    position: relative;
+    top: $header1-height;
+    height: $header2-height;
+    max-height: $header2-height;
+    position: relative;
+    box-shadow: none;
+    z-index: 2;
+    .tabs {
+      position: absolute;
+      .navbar-nav {
+        margin: 0;
+        .nav-item {
+          a {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+}

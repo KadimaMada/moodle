@@ -11,3 +11,12 @@ $extra_bold: 800;
 $primary-color: #491571;
 $secondary-color: #00ddbf;
 $white: #fffff;
+
+// dimentions
+
+$header1-height: 50px;
+$header2-height: 62px;
+$header-height: $header1-height + $header2-height;
+
+$RTL: '[dir="rtl"]';
+$LTR: '[dir="ltr"]';
