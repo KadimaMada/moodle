@@ -192,21 +192,9 @@
     .circle-list-wrapper .circle-list .circle-link:nth-child(2n) .circle {
       border-color: #00ddbf #00ddbf #491571 #491571; }
 
-[dir="ltr"] .header-navbar .header2 .tabs {
-  left: 50%;
-  right: auto;
-  transform: translate(-50%, 0); }
-
-[dir="rtl"] .header-navbar .header2 .tabs {
-  right: 50%;
-  left: auto;
-  transform: translate(-50%, 0); }
-
 .header-navbar .header1 .navbar {
   background: #491571;
   color: #fffff; }
-  .header-navbar .header1 .navbar .user-settings {
-    display: none; }
 
 .header-navbar .header1 .btn-menu {
   background: #491571;
@@ -233,15 +221,32 @@
   top: 50px;
   height: 62px;
   max-height: 62px;
-  position: relative;
   box-shadow: none;
   z-index: 2; }
-  .header-navbar .header2 .tabs {
-    position: absolute; }
-    .header-navbar .header2 .tabs .navbar-nav {
-      margin: 0; }
-      .header-navbar .header2 .tabs .navbar-nav .nav-item a {
+  .header-navbar .header2 .tabs .navbar-nav {
+    margin: 0; }
+    .header-navbar .header2 .tabs .navbar-nav .nav-item a {
+      color: #491571; }
+  .header-navbar .header2 .user-settings {
+    border-left: 1px solid #491571;
+    margin: 0; }
+    .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle::after {
+      display: none; }
+    .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+      -ms-flex-align: center;
+          align-items: center; }
+      .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .usertext {
         color: #491571; }
+      .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .userpicture {
+        border-radius: 0;
+        width: 20px;
+        height: 20px; }
+    .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .caret {
+      display: none; }
 
 #nav-drawer {
   background: #F7F2FC;

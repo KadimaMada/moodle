@@ -1,37 +1,10 @@
 @import "../variables";
 
-#{$LTR} {
-  .header-navbar {
-    .header2 {
-      .tabs {
-        left: 50%;
-        right: auto;
-        transform: translate(-50%, 0);
-      }
-    }
-  }
-}
-
-#{$RTL} {
-  .header-navbar {
-    .header2 {
-      .tabs {
-        right: 50%;
-        left: auto;
-        transform: translate(-50%, 0);
-      }
-    }
-  }
-}
-
 .header-navbar {
   .header1 {
     .navbar {
       background: $primary-color;
       color: $white;
-      .user-settings {
-        display: none;
-      }
     }
     .btn-menu {
       background: $primary-color;
@@ -57,16 +30,43 @@
     top: $header1-height;
     height: $header2-height;
     max-height: $header2-height;
-    position: relative;
     box-shadow: none;
     z-index: 2;
     .tabs {
-      position: absolute;
       .navbar-nav {
         margin: 0;
         .nav-item {
           a {
             color: $primary-color;
+          }
+        }
+      }
+    }
+    .user-settings {
+      border-left: 1px solid $primary-color;
+      margin: 0;
+      .nav-item {
+        .usermenu {
+          .dropdown-toggle {
+            &::after {
+              display: none;
+            }
+            .userbutton {
+              display: flex;
+              flex-direction: row-reverse;
+              align-items: center;
+              .usertext {
+                color: $primary-color;
+              }
+              .userpicture {
+                border-radius: 0;
+                width: 20px;
+                height: 20px;
+              }
+            }
+            .caret {
+              display: none;
+            }
           }
         }
       }
