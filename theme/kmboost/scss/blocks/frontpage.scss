@@ -72,3 +72,19 @@ $circle-border: 6px;
     }
   }
 }
+
+@media #{$is-laptop} {
+  .circle-list-wrapper {
+    .circle-list {
+      grid-template-columns: repeat(4, calc(#{$circle-size} - #{$circle-border}));
+    }
+  }
+}
+
+@media #{$is-mobile} {
+  .circle-list-wrapper {
+    .circle-list {
+      grid-template-columns: repeat(3, calc(#{$circle-size} - #{$circle-border}));
+    }
+  }
+}

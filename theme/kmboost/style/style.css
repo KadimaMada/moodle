@@ -222,14 +222,30 @@
   height: 62px;
   max-height: 62px;
   box-shadow: none;
-  z-index: 2; }
-  .header-navbar .header2 .tabs .navbar-nav {
-    margin: 0; }
-    .header-navbar .header2 .tabs .navbar-nav .nav-item a {
-      color: #491571; }
+  z-index: 2;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  padding: 0 15px; }
+  .header-navbar .header2 .tabs {
+    display: -ms-flexbox;
+    display: flex; }
+    .header-navbar .header2 .tabs .navbar-nav {
+      margin: 0;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+          align-items: center; }
+      .header-navbar .header2 .tabs .navbar-nav .nav-item a {
+        color: #491571; }
   .header-navbar .header2 .user-settings {
     border-left: 1px solid #491571;
-    margin: 0; }
+    margin: 15px 0;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center; }
     .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle::after {
       display: none; }
     .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton {
@@ -257,3 +273,36 @@
     color: #491571; }
     #nav-drawer .list-group .list-group-item.active {
       background: #e4d6f2; }
+    @media only screen and (min-width: 576px) and (max-width: 768px) {
+  .circle-list-wrapper .circle-list {
+    -ms-grid-columns: (calc(107px - 6px))[4];
+    grid-template-columns: repeat(4, calc(107px - 6px)); } }
+    @media only screen and (max-width: 576px) {
+  .mycoursesslick {
+    padding: 0;
+    border-top: none; }
+  .mycoursesslick .btn-slider {
+    margin: 0 1em; }
+  .circle-list-wrapper .circle-list {
+    -ms-grid-columns: (calc(107px - 6px))[3];
+    grid-template-columns: repeat(3, calc(107px - 6px)); }
+  .header-navbar .header1 .navbar {
+    max-height: 42px;
+    border-bottom: 1px solid #491571;
+    padding: 0; }
+  .header-navbar .header1 .navbar .btn-menu {
+    margin-left: 4px; }
+  .header-navbar .header2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1051;
+    height: 41px;
+    width: calc(100% - 48px);
+    box-shadow: none;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: end;
+    justify-content: flex-end; }
+  .header-navbar .header2 .user-settings {
+    border: none; } }

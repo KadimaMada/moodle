@@ -32,9 +32,15 @@
     max-height: $header2-height;
     box-shadow: none;
     z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
     .tabs {
+      display: flex;
       .navbar-nav {
         margin: 0;
+        display: flex;
+        align-items: center;
         .nav-item {
           a {
             color: $primary-color;
@@ -44,7 +50,9 @@
     }
     .user-settings {
       border-left: 1px solid $primary-color;
-      margin: 0;
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
       .nav-item {
         .usermenu {
           .dropdown-toggle {
@@ -69,6 +77,35 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media #{$is-mobile} {
+  .header-navbar {
+    .header1 {
+      .navbar {
+        max-height: 42px;
+        border-bottom: 1px solid $primary-color;
+        padding: 0;
+        .btn-menu {
+          margin-left: 4px;
+        }
+      }
+    }
+    .header2 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1051;
+      height: 41px;
+      width: calc(100% - 48px);
+      box-shadow: none;
+      display: flex;
+      justify-content: flex-end;
+      .user-settings {
+        border: none;
       }
     }
   }

@@ -82,3 +82,13 @@ $image-size: 50px;
     }
   }
 }
+
+@media #{$is-mobile} {
+  .mycoursesslick {
+    padding: 0;
+    border-top: none;
+    .btn-slider {
+      margin: 0 1em;
+    }
+  }
+}
