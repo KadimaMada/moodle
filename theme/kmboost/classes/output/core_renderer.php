@@ -16,7 +16,6 @@
 
 namespace theme_kmboost\output;
 
-
 defined('MOODLE_INTERNAL') || die;
 
 use custom_menu;
@@ -33,7 +32,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
     public function get_logo_url(){
         global $PAGE;
-        return $PAGE->theme->setting_file_url('logo', 'logo');
+
+        $url = $PAGE->theme->setting_file_url('logo', 'logo');
+        if (empty($url)) {
+            //TODO REMOVE OB PRODUCTION
+            $url = "https://shiur4u.org/pluginfile.php/1/theme_elegance/logo/1535022405/logo.png";
+        }
+
+        return $url;
     }
 
     public function custom_menu($custommenuitems = '') {
