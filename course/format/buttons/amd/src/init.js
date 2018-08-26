@@ -29,6 +29,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
     labelsEvents(currentSection);
     initPrevNextBtns(currentSection);
     initPrevNextBtnsEvents();
+    tooltipEvents();
   }
 
   function sectionsEvents(){
@@ -50,40 +51,57 @@ define(['jquery','format_buttons/slick'], function($, slick) {
     }
   }
 
-  function labelsEvents(currentSection){
-    var labels = $('#section' + currentSection + ' .nav-item');
-    for (var i = 0; i < labels.length; i++) {
-      var item = labels[i];
-      item.addEventListener('click', function() {
-        addToStorage('lastLabel', this.dataset.label);
-        loopActive(labels, item);
-        $('[data-label="' + this.dataset.label + '"]').toggleClass('active');
-        var equils = $('[data-label-content="' + this.dataset.label + '"]');
-        loop($('#section' + currentSection + ' .label-content'));
-        $('[data-label-content="' + this.dataset.label + '"]').toggleClass('d-none');
-        initPrevNextBtns(currentSection);
-        if (window.innerWidth < 767 && $('#section' + currentSection + ' .labels-wrapper').hasClass('expand')){
-          $('#section' + currentSection + ' .labels-wrapper').removeClass('expand');
-        }
+  function tooltipEvents() {
+    var tooltips = $('.section-tooltip');
+    for(var i=0; i<tooltips.length; i++){
+      var item = tooltips[i];
+      item.addEventListener('click', function(){
+        var summary = $('.slider.sections .nav-item[data-section="'+this.dataset.section+'"] .section-description').html();
+        $('#section' + this.dataset.section + ' .label-content-wrapper').prepend('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Section tooltip: </strong>'+summary+'</div>');
       });
     }
-    var checkLabel = document.querySelector('#section' + currentSection + ' .nav-item.active');
-    if (checkLabel == null){
-      var check = document.querySelector('#section'+currentSection+' .label-item');
-      check.classList += ' active';
-      var equils = $('[data-label-content="' + check.dataset.label + '"]');
-      loop($('#section' + currentSection + ' .label-content'));
-      $('[data-label-content="' + check.dataset.label + '"]').toggleClass('d-none');
+  }
+
+  function labelsEvents(currentSection){
+    var labels = $('#section' + currentSection + ' .nav-item');
+    if (labels.length == 0){
+      $('#section' + currentSection + ' .label-content-wrapper').children().remove();
+      $('#section' + currentSection + ' .label-content-wrapper').append('<div class="alert alert-danger" role="alert">Sorry, there is no labels in this topic.</div>');
+    } else {
+      for (var i = 0; i < labels.length; i++) {
+        var item = labels[i];
+        item.addEventListener('click', function() {
+          addToStorage('lastLabel', this.dataset.label);
+          loopActive(labels, item);
+          $('[data-label="' + this.dataset.label + '"]').toggleClass('active');
+          var equils = $('[data-label-content="' + this.dataset.label + '"]');
+          loop($('#section' + currentSection + ' .label-content'));
+          $('[data-label-content="' + this.dataset.label + '"]').toggleClass('d-none');
+          initPrevNextBtns(currentSection);
+          if (window.innerWidth < 767 && $('#section' + currentSection + ' .labels-wrapper').hasClass('expand')){
+            $('#section' + currentSection + ' .labels-wrapper').removeClass('expand');
+          }
+        });
+      }
+      var checkLabel = document.querySelector('#section' + currentSection + ' .nav-item.active');
+      if (checkLabel == null){
+        var check = document.querySelector('#section'+currentSection+' .label-item');
+        check.classList += ' active';
+        var equils = $('[data-label-content="' + check.dataset.label + '"]');
+        loop($('#section' + currentSection + ' .label-content'));
+        $('[data-label-content="' + check.dataset.label + '"]').toggleClass('d-none');
+      }
     }
   }
 
   // if elem only - horizontal, 2 attr - vertical;
   function initSlider(elem, vert){
-    var dir, resp=[], brakepoints= [1200, 992, 768], brp, slides=4;
+    var dir, resp=[], brakepoints= [1200, 992, 768], brp, slides;
     (document.dir == "rtl")?dir = true:dir = false;
     if (vert !== undefined){vert = true; dir = false}else{vert = false;}
     // responsiveness / dropdown on xs vert
     if (vert){
+      slides = 5;
       for (var i=0; i<brakepoints.length; i++){
         if (brakepoints[i] == 768){
           // add dropdown touch event
@@ -105,11 +123,12 @@ define(['jquery','format_buttons/slick'], function($, slick) {
         }
       }
     } else {
+      slides = 4;
       for (var i=0; i<brakepoints.length; i++){
         brp = {
           breakpoint: brakepoints[i],
           settings: {
-            slidesToShow: --slides,
+            slidesToShow: slides-i-1,
             slidesToScroll: 1,
             rtl: dir,
           }
@@ -117,7 +136,6 @@ define(['jquery','format_buttons/slick'], function($, slick) {
         resp.push(brp);
       }
     }
-
     var slickConfig = {
       dots: false,
       autoplay: false,
@@ -125,7 +143,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
       vertical: vert,
       verticalSwiping: vert,
       rtl:dir,
-      slidesToShow: 4,
+      slidesToShow: slides,
       slidesToScroll: 1,
       responsive:resp,
     };
@@ -181,17 +199,28 @@ define(['jquery','format_buttons/slick'], function($, slick) {
 
   function initPrevNextBtns(currentSection){
     var active = $('#section'+currentSection+' .nav-item.active');
+    activeSlide = active.parent().parent();
 
-    var current = $('.label-active');
-    var prevBtn = $('.label-prev');
-    var nextBtn = $('.label-next');
+    $('.label-active').children().remove();
+    $('.label-prev').children().remove();
+    $('.label-next').children().remove();
 
-    current.children().remove();
-    prevBtn.children().remove();
-    nextBtn.children().remove();
-    active.children().clone().appendTo(".label-active");
-    active.prev().children().clone().appendTo(".label-prev");
-    active.next().children().clone().appendTo(".label-next");
+    if (window.innerWidth < 767){
+      active.children().clone().appendTo(".label-active");
+      active.prev().children().clone().appendTo(".label-prev");
+      active.next().children().clone().appendTo(".label-next");
+    } else {
+      activeSlide.prev().children().children().children().clone().appendTo(".label-prev");
+      activeSlide.next().children().children().children().clone().appendTo(".label-next");
+
+        // var prevBtn = document.querySelector('#section'+currentSection+' .label-prev');
+        // prevBtn.dataset.content = prevBtn.innerText;
+        //
+        // var inner = document.querySelector('#section'+currentSection+' .label-next div').innerHtml;
+        // console.log(inner);
+        // var nextBtn = document.querySelector('#section'+currentSection+' .label-next');
+        // nextBtn.dataset.content = inner;
+    }
   }
 
   function initPrevNextBtnsEvents(){
@@ -201,14 +230,24 @@ define(['jquery','format_buttons/slick'], function($, slick) {
       var item = prevBtn[i];
       item.addEventListener('click', function(){
         active = $('#section'+localStorage.getItem('lastSection')+' .nav-item.active');
-        active.prev().trigger('click');
+        activeSlide = active.parent().parent();
+        if (window.innerWidth < 767){
+          active.prev().trigger('click');
+        } else {
+          activeSlide.prev().children().children().children().trigger('click');
+        }
       });
     }
     for (var i=0; i<nextBtn.length;i++){
       var item = nextBtn[i];
       item.addEventListener('click', function(){
         active = $('#section'+localStorage.getItem('lastSection')+' .nav-item.active');
-        active.next().trigger('click');
+        activeSlide = active.parent().parent();
+        if (window.innerWidth < 767){
+          active.next().trigger('click');
+        } else {
+          activeSlide.next().children().children().children().trigger('click');
+        }
       });
     }
   }

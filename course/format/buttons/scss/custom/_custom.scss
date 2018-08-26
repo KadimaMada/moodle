@@ -1,13 +1,17 @@
+// hot fix - must be changed in renderer.php
+ul.buttons{
+  padding:0;
+}
 .sections-wrapper{
   display: flex;
   flex: 1;
   .slider.sections{
     max-width:100%;
     &.slick-slider{
+      float: left;
       .slick-arrow{
         width:2rem;
         height:2rem;
-        margin-top: -1rem;
         &.slick-prev{
           left:-1.5rem;
           top:50%;
@@ -18,78 +22,143 @@
         }
       }
       .nav-item{
-      box-sizing: border-box;
-      border: 1px solid transparent;
-      margin-top:12px;
-      background-color: #ddd;
-      transition: all .3s ease-in-out;
-      .section-title {
-        font-size: 1.3rem;
-        line-height: 60px;
-      }
-      .section-description{
-        min-height: 1.375rem;
-        opacity:0;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+        margin-top:12px;
+        background-color: #ddd;
         transition: all .3s ease-in-out;
-      }
-      .section-icon{
-        opacity:0;
-        transition: all .3s ease-in-out;
-      }
-      .section-tooltip{
-        font-family: --font-family-sans-serif;
-        font-size: 2rem;
-        font-weight: bold;
-        color:#7bc0de;
-        opacity:0;
-        transition: all .3s ease-in-out;
-      }
-      &:hover{
-        margin-top: 0;
-        padding: 12px 0 0 0;
-        background-color: #b7b7b7;
-        transition: all .3s ease-in-out;
-        .section-description{
-          opacity: 1;
-          transition: all .3s ease-in-out;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        .section-header{
+          max-width: 100%;
+          margin-top: 12px;
+          div{
+            max-width: 132px;
+          }
+          .section-title {
+            font-size: 1.15rem;
+            line-height: 1.5rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 100%;
+          }
+          .section-description{
+            height: 1.375rem;
+            opacity:1;
+            transition: all .3s ease-in-out;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 100%;
+            p{
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+          }
         }
         .section-icon{
+          margin:10px;
           opacity:1;
-          background-color: #5bc0de;
-        }
-      }
-      &.active {
-        background-color: #fff;
-        margin-top: 0;
-        padding: 12px 0 0 0;
-        border:1px solid #b7b7b7;
-        border-bottom-color: transparent;
-        transition: all .3s ease-in-out;
-        .section-icon{
-          opacity:1;
-          background-color: #5bc0de;
+          background-color: #7af2ff;
           transition: all .3s ease-in-out;
         }
         .section-tooltip{
-          opacity:1;
+          box-sizing: content-box;
+          font-family: --font-family-sans-serif;
+          font-size: 2rem;
+          font-weight: bold;
+          color:#7bc0de;
+          opacity:0;
+          padding:0.25rem;
+          margin:0.25rem;
+          border: 3px solid transparent;
+          border-radius: 50%;
+          width:1.5rem;
+          height:1.5rem;
+          text-align: center;
           transition: all .3s ease-in-out;
         }
-        .section-description{
-          opacity: 1;
+        &:hover{
+          margin-top: 0;
+          padding: 12px 0 0 0;
+          background-color: #b7b7b7;
           transition: all .3s ease-in-out;
+          .section-description{
+            opacity: 1;
+            transition: all .3s ease-in-out;
+          }
+          .section-icon{
+            opacity:1;
+            background-color: #5bc0de;
+            transition: all .3s ease-in-out;
+          }
+          .section-tooltip{
+            opacity:1;
+            transition: all .3s ease-in-out;
+          }
+        }
+        &.active {
+          background-color: #fff;
+          margin-top: 0;
+          padding: 12px 0 0 0;
+          border:1px solid #b7b7b7;
+          border-bottom-color: transparent;
+          transition: all .3s ease-in-out;
+          .section-icon{
+            opacity:1;
+            // background-color: #5bc0de;
+            transition: all .3s ease-in-out;
+          }
+          .section-tooltip{
+            opacity:1;
+            transition: all .3s ease-in-out;
+            &:hover{
+              border-color: #7bc0de;
+            }
+          }
+          .section-description{
+            opacity: 1;
+            transition: all .3s ease-in-out;
+          }
         }
       }
-    }
     }
   }
 }
 .labels-wrapper{
   .slider.labels{
-    &.slick-slider{
-      .nav-item{
-        max-width:90%;
-      }
-      .slick-arrow{
+    .nav-item{
+        font-size: 1.15rem;
+        line-height: 1.375rem;
+        .label-header{
+          max-width:100%;
+          // padding:1.375rem 5px;
+          margin:30px 12px;
+          div{
+            max-width: 80px;
+            .label-title{
+              box-sizing: border-box;
+              max-width: 100%;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+          }
+          .label-icon{
+            // padding:14px;
+            margin:0 8px;
+            &:before{
+              box-sizing: border-box;
+              // font-size: 14px;
+              width:28px;
+              height:28px;
+            }
+          }
+        }
+    }
+    .slick-arrow{
         width:100%;
         height:2rem;
         padding-left: 50%;
@@ -100,25 +169,24 @@
           }
         }
         &.slick-next{
-          background: linear-gradient(to bottom, transparent 0%, #fff 50%, #fff 100%);
+          background: linear-gradient(to bottom, transparent 0%, #fff 25%, #fff 100%);
           bottom:0;
           &:before{
             margin-left:-1rem;
           }
         }
-      }
     }
   }
 }
 .slick-slider{
   text-overflow: ellipsis;
   white-space: nowrap;
-  // overflow: hidden;
   .slick-slide{
     cursor: pointer;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin:0 1px;
     transition: all .3s ease-in-out;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .slick-arrow{
     position: absolute;
@@ -126,32 +194,65 @@
     background-color: transparent;
     outline: 0;
     color: transparent;
+    cursor: pointer;
     &:focus{
       outline: 0;
     }
     &.slick-prev:before{
       content: '';
       display: block;
-      width:1.5rem;
-      height:1.5rem;
+      width:12px;
+      height:12px;
       border-top: 1px solid transparent;
       border-right: 1px solid transparent;
-      border-bottom: 1px solid #000;
-      border-left: 1px solid #000;
+      border-bottom: 3px solid #5bc0de;
+      border-left: 3px solid #5bc0de;
+      border-radius: 3px;
     }
     &.slick-next:before{
       content: '';
       display: block;
-      width:1.5rem;
-      height:1.5rem;
+      width:12px;
+      height:12px;
       border-top: 1px solid transparent;
       border-right: 1px solid transparent;
-      border-bottom: 1px solid #000;
-      border-left: 1px solid #000;
+      border-bottom: 3px solid #5bc0de;
+      border-left: 3px solid #5bc0de;
+      border-radius: 3px;
     }
     // &.slick-disabled:before{
     //   opacity: 0;
     // }
+  }
+}
+.label-content-wrapper {
+  position: relative;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  margin: 24px 1px;
+  padding: 1vh;
+  .alert{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    box-shadow: 2px 2px 5px #000;
+  }
+}
+.label-content{
+  // height:58vh;
+  // overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
+  img{
+    box-sizing: border-box;
+    max-width: 100%;
+    height:auto;
+  }
+  .mediaplugin{
+    box-sizing: border-box;
+    max-width: 100%;
+    height:auto;
   }
 }
 .label-content-controls{
@@ -160,6 +261,22 @@
   margin:0;
   text-overflow: ellipsis;
   white-space: nowrap;
+  .label-header{
+    max-width: 100%;
+    div{
+      max-width: 100%;
+      .label-title{
+        box-sizing: border-box;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+    .label-icon{
+      display: none;
+    }
+  }
   .label-prev{
     position: relative;
     border:0;
@@ -173,13 +290,7 @@
       width: 1rem;
       height:1rem;
       display:block;
-      position: absolute;
-      left: -1.5rem;
-      top:.5rem;
-      border-top: 1px solid transparent;
-      border-right: 1px solid transparent;
-      border-bottom: 1px solid #000;
-      border-left: 1px solid #000;
+      border:0;
       transform: rotate(45deg);
     }
   }
@@ -202,13 +313,7 @@
       width: 1rem;
       height:1rem;
       display:block;
-      position: absolute;
-      right: -1.5rem;
-      top:.5rem;
-      border-top: 1px solid transparent;
-      border-right: 1px solid transparent;
-      border-bottom: 1px solid #000;
-      border-left: 1px solid #000;
+      border:0;
       transform: rotate(225deg);
     }
   }
