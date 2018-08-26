@@ -49,11 +49,11 @@ $templatecontext = [
     'bodyattributes' => $bodyattributes,
     'navdraweropen' => $navdraweropen,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
-    'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu)
+    'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
+    'loggedin' => isloggedin()?0:1
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
-
 
 //get my courses carusel
 $widgets = $PAGE->get_renderer('theme_kmboost', 'widgets');

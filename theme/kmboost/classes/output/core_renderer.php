@@ -34,10 +34,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $PAGE;
 
         $url = $PAGE->theme->setting_file_url('logo', 'logo');
-        if (empty($url)) {
-            //TODO REMOVE OB PRODUCTION
-            $url = "https://shiur4u.org/pluginfile.php/1/theme_elegance/logo/1535022405/logo.png";
-        }
+//        if (empty($url)) {
+//            //TODO REMOVE OB PRODUCTION
+//            $url = "https://shiur4u.org/pluginfile.php/1/theme_elegance/logo/1535022405/logo.png";
+//        }
 
         return $url;
     }
@@ -51,15 +51,20 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         $mycoursespattern="[mycourses]";
         if (strpos($custommenuitems,$mycoursespattern)) {
-            $courses = enrol_get_all_users_courses($USER->id, true, null, 'visible DESC, sortorder ASC');
-            $mycourses = [];
-            if (!empty($courses)) {
-                foreach ($courses as $currcourse) {
-                    $mycourses[] = "-" . format_string($currcourse->fullname) . "|" . new moodle_url($CFG->wwwroot . "/course/view.php?id=" . $currcourse->id) . "\r\n";
+
+            if (isloggedin()){
+                $courses = enrol_get_all_users_courses($USER->id, true, null, 'visible DESC, sortorder ASC');
+                $mycourses = [];
+                if (!empty($courses)) {
+                    foreach ($courses as $currcourse) {
+                        $mycourses[] = "-" . format_string($currcourse->fullname) . "|" . new moodle_url($CFG->wwwroot . "/course/view.php?id=" . $currcourse->id) . "\r\n";
+                    }
                 }
+                $text = get_string('mycourses');
+                $text .= "\r\n" . implode('', $mycourses);
+            }else{
+                $text="";
             }
-            $text = get_string('mycourses');
-            $text .= "\r\n" . implode('', $mycourses);
             $custommenuitems = str_replace($mycoursespattern, $text, $custommenuitems);
         }
         $custommenu = new custom_menu($custommenuitems, current_language());

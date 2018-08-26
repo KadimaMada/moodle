@@ -19,9 +19,6 @@
 }}
 <div class="header-navbar">
     <nav class="header1 fixed-top">
-        <div>
-            <a href=""><img src="{{{output.core_renderer}}}" alt="{{sitename}}" title="{{sitename}}" /></a>
-        </div>
             <div class="navbar navbar-light navbar-expand moodle-has-zindex">
                 <div data-region="drawer-toggle" class="d-inline-block mr-3">
                     <button
@@ -50,12 +47,13 @@
                     {{/ output.should_display_navbar_logo }}
                     <span class="site-name d-none d-md-inline">{{{ sitename }}}</span>
                 </a>
-
                 <!-- search_box -->
             </div>
-
     </nav>
     <div class="header2 navbar-light bg-white navbar-expand moodle-has-zindex">
+        <div>
+            <a href="/"><img width="200" src="{{{output.get_logo_url}}}" alt="{{sitename}}" title="{{sitename}}" /></a>
+        </div>
         <div class="tabs">
             <ul class="navbar-nav d-none d-md-flex">
                 <!-- custom_menu -->
