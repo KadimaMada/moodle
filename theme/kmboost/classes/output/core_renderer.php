@@ -31,15 +31,19 @@ use moodle_url;
 class core_renderer extends \theme_boost\output\core_renderer {
 
     public function get_logo_url(){
-        global $PAGE;
+        global $PAGE,$CFG;
 
-        $url = $PAGE->theme->setting_file_url('logo', 'logo');
-//        if (empty($url)) {
-//            //TODO REMOVE OB PRODUCTION
-//            $url = "https://shiur4u.org/pluginfile.php/1/theme_elegance/logo/1535022405/logo.png";
-//        }
+        if (!empty($this->page->theme->settings->logo)) {
+            $url = $PAGE->theme->setting_file_url('logo', 'logo');
+            // Get a URL suitable for moodle_url.
+            $relativebaseurl = preg_replace('|^https?://|i', '//', $CFG->wwwroot);
+            $url = str_replace($relativebaseurl, '', $url);
 
-        return $url;
+            $relativebaseurl = preg_replace('|^http?://|i', '//', $CFG->wwwroot);
+            $url = str_replace($relativebaseurl, '', $url);
+            return new moodle_url($url);
+        }
+        return parent::get_logo_url();
     }
 
     public function custom_menu($custommenuitems = '') {
