@@ -20,6 +20,7 @@ defined('MOODLE_INTERNAL') || die;
 
 use custom_menu;
 use moodle_url;
+use stdClass;
 /**
  * Renderers to align Moodle's HTML with that expected by Bootstrap
  *
@@ -107,6 +108,26 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         return $content;
     }
+
+
+    /**
+     * Wrapper for header elements.
+     *
+     * @return string HTML to display the main header.
+     */
+    public function full_header() {
+        global $PAGE;
+
+        $header = new stdClass();
+        $header->settingsmenu = $this->context_header_settings_menu();
+        $header->contextheader = $this->context_header();
+        $header->hasnavbar = empty($PAGE->layout_options['nonavbar']);
+        $header->navbar = $this->navbar();
+        $header->pageheadingbutton = $this->page_heading_button();
+        $header->courseheader = $this->course_header();
+        return $this->render_from_template('theme_kmboost/header', $header);
+    }
+
 
 
 }

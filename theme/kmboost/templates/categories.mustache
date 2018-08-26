@@ -6,13 +6,26 @@
 
     {{{ output.standard_top_of_body_html }}}
 
-    {{>theme_boost/navbar}}
+    {{>theme_kmboost/navbar}}
 
     <div id="page" class="container-fluid">
         {{{ output.full_header }}}
 
         <div id="page-content" class="row">
             <div id="region-main-box" class="col-12">
+
+                <div style="background-color:green; border: 5px solid green; width: 100%; height: 100px; ">
+                            Here will be the image of current category
+                </div>
+
+
+                <div style="background-color:orangered; border: 5px solid green; width: 100%; height: 100px; ">
+                    Here will be the list of courses og children categories
+                </div>
+
+
+
+
                 {{#hasregionmainsettingsmenu}}
                     <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
                         <div> {{{ output.region_main_settings_menu }}} </div>
@@ -24,15 +37,6 @@
                             {{#hasregionmainsettingsmenu}}
                                 <div class="region_main_settings_menu_proxy"></div>
                             {{/hasregionmainsettingsmenu}}
-
-                            <div style="border: 5px solid green; ">
-
-
-
-                            </div>
-
-
-
 
                             {{{ output.main_content }}}
                             {{{ output.course_content_footer }}}
