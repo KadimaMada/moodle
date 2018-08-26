@@ -68,6 +68,18 @@
 .slick-arrow.slick-hidden {
   display: none; }
 
+[dir="ltr"] .mycoursesslick .btn-slider-prev {
+  background: url([[pix:theme_kmboost|slider-arrow-left-icon]]) no-repeat center center; }
+
+[dir="ltr"] .mycoursesslick .btn-slider-next {
+  background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center; }
+
+[dir="rtl"] .mycoursesslick .btn-slider-prev {
+  background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center; }
+
+[dir="rtl"] .mycoursesslick .btn-slider-next {
+  background: url([[pix:theme_kmboost|slider-arrow-left-icon]]) no-repeat center center; }
+
 .mycoursesslick {
   border-top: 0.3px solid #491571;
   border-bottom: 0.3px solid #491571;
@@ -180,21 +192,9 @@
     .circle-list-wrapper .circle-list .circle-link:nth-child(2n) .circle {
       border-color: #00ddbf #00ddbf #491571 #491571; }
 
-[dir="ltr"] .header-navbar .header2 .tabs {
-  left: 50%;
-  right: auto;
-  transform: translate(-50%, 0); }
-
-[dir="rtl"] .header-navbar .header2 .tabs {
-  right: 50%;
-  left: auto;
-  transform: translate(-50%, 0); }
-
 .header-navbar .header1 .navbar {
   background: #491571;
   color: #fffff; }
-  .header-navbar .header1 .navbar .user-settings {
-    display: none; }
 
 .header-navbar .header1 .btn-menu {
   background: #491571;
@@ -221,15 +221,48 @@
   top: 50px;
   height: 62px;
   max-height: 62px;
-  position: relative;
   box-shadow: none;
-  z-index: 2; }
+  z-index: 2;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  padding: 0 15px; }
   .header-navbar .header2 .tabs {
-    position: absolute; }
+    display: -ms-flexbox;
+    display: flex; }
     .header-navbar .header2 .tabs .navbar-nav {
-      margin: 0; }
+      margin: 0;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+          align-items: center; }
       .header-navbar .header2 .tabs .navbar-nav .nav-item a {
         color: #491571; }
+  .header-navbar .header2 .user-settings {
+    border-left: 1px solid #491571;
+    margin: 15px 0;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center; }
+    .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle::after {
+      display: none; }
+    .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+      -ms-flex-align: center;
+          align-items: center; }
+      .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .usertext {
+        color: #491571; }
+      .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .userpicture {
+        border-radius: 0;
+        width: 20px;
+        height: 20px; }
+    .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .caret {
+      display: none; }
 
 #nav-drawer {
   background: #F7F2FC;
@@ -240,3 +273,36 @@
     color: #491571; }
     #nav-drawer .list-group .list-group-item.active {
       background: #e4d6f2; }
+    @media only screen and (min-width: 576px) and (max-width: 768px) {
+  .circle-list-wrapper .circle-list {
+    -ms-grid-columns: (calc(107px - 6px))[4];
+    grid-template-columns: repeat(4, calc(107px - 6px)); } }
+    @media only screen and (max-width: 576px) {
+  .mycoursesslick {
+    padding: 0;
+    border-top: none; }
+  .mycoursesslick .btn-slider {
+    margin: 0 1em; }
+  .circle-list-wrapper .circle-list {
+    -ms-grid-columns: (calc(107px - 6px))[3];
+    grid-template-columns: repeat(3, calc(107px - 6px)); }
+  .header-navbar .header1 .navbar {
+    max-height: 42px;
+    border-bottom: 1px solid #491571;
+    padding: 0; }
+  .header-navbar .header1 .navbar .btn-menu {
+    margin-left: 4px; }
+  .header-navbar .header2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1051;
+    height: 41px;
+    width: calc(100% - 48px);
+    box-shadow: none;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: end;
+    justify-content: flex-end; }
+  .header-navbar .header2 .user-settings {
+    border: none; } }
