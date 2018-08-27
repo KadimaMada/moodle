@@ -273,11 +273,56 @@
     color: #491571; }
     #nav-drawer .list-group .list-group-item.active {
       background: #e4d6f2; }
-    @media only screen and (min-width: 576px) and (max-width: 768px) {
+
+#page-course-index-category .current-category {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center; }
+  #page-course-index-category .current-category-title {
+    margin-bottom: 30px; }
+  #page-course-index-category .current-category-image {
+    width: 100%;
+    max-width: 664px; }
+
+#page-course-index-category .categories-wrapper {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+  margin-top: 15px; }
+  #page-course-index-category .categories-wrapper .categories {
+    list-style: none;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -ms-flex-pack: center;
+        justify-content: center;
+    max-width: 460px;
+    padding: 0;
+    margin: 0; }
+    #page-course-index-category .categories-wrapper .categories .category {
+      margin-right: 15px;
+      max-width: 100px;
+      overflow: hidden; }
+      #page-course-index-category .categories-wrapper .categories .category-image {
+        width: 100px;
+        height: 100px; }
+      #page-course-index-category .categories-wrapper .categories .category-label {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+      @media only screen and (min-width: 576px) and (max-width: 768px) {
   .circle-list-wrapper .circle-list {
     -ms-grid-columns: (calc(107px - 6px))[4];
     grid-template-columns: repeat(4, calc(107px - 6px)); } }
-    @media only screen and (max-width: 576px) {
+      @media only screen and (max-width: 576px) {
   .mycoursesslick {
     padding: 0;
     border-top: none; }
