@@ -129,12 +129,23 @@
     .mycoursesslick .btn-slider-next {
       background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center; }
 
-.pagelayout-frontpage .card {
-  border: none; }
-  .pagelayout-frontpage .card .card-body {
-    padding: 0; }
-    .pagelayout-frontpage .card .card-body [role='main'] {
+.pagelayout-frontpage {
+  min-height: 100vh;
+  height: auto;
+  position: relative; }
+  .pagelayout-frontpage #page-wrapper {
+    margin-bottom: 0;
+    padding-bottom: 210px;
+    min-height: auto; }
+    .pagelayout-frontpage #page-wrapper:after {
       display: none; }
+    .pagelayout-frontpage #page-wrapper #region-main .card {
+      border: none;
+      min-height: auto; }
+      .pagelayout-frontpage #page-wrapper #region-main .card .card-body {
+        padding: 0; }
+        .pagelayout-frontpage #page-wrapper #region-main .card .card-body [role='main'] {
+          display: none; }
 
 .circle-list-wrapper {
   display: -ms-flexbox;
@@ -151,7 +162,6 @@
         grid-template-columns: repeat(6, calc(107px - 6px));
     -ms-grid-rows: calc(107px - 6px);
         grid-template-rows: calc(107px - 6px);
-    border-bottom: 0.3px solid #491571;
     padding-bottom: 50px; }
     .circle-list-wrapper .circle-list .circle-link:hover {
       text-decoration: none; }
@@ -325,11 +335,60 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis; }
-      @media only screen and (min-width: 576px) and (max-width: 768px) {
+
+#page-footer {
+  color: #491571;
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
+  #page-footer .container {
+    width: 100%;
+    max-width: 652px;
+    border-top: 1px solid #491571;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    -ms-flex-align: center;
+        align-items: center; }
+    #page-footer .container .links {
+      display: -ms-flexbox;
+      display: flex;
+      margin: 35px 0 30px; }
+      #page-footer .container .links .link {
+        display: -ms-flexbox;
+        display: flex;
+        width: 40px;
+        height: 40px;
+        margin: 0 20px; }
+        #page-footer .container .links .link-facebook {
+          background: url([[pix:theme_kmboost|facebook-icon]]) no-repeat center center; }
+        #page-footer .container .links .link-mail {
+          background: url([[pix:theme_kmboost|mail-icon]]) no-repeat center center; }
+        #page-footer .container .links .link-share {
+          background: url([[pix:theme_kmboost|share-icon]]) no-repeat center center; }
+    #page-footer .container .info {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+          flex-direction: column;
+      -ms-flex-align: center;
+          align-items: center;
+      margin-bottom: 50px; }
+      #page-footer .container .info > p {
+        margin-bottom: 5px; }
+  #page-footer .btn-up {
+    width: 26px;
+    height: 26px;
+    background: url([[pix:theme_kmboost|up-icon]]) no-repeat center center;
+    position: absolute;
+    right: 70px;
+    top: 25%; }
+  @media only screen and (min-width: 576px) and (max-width: 768px) {
   .circle-list-wrapper .circle-list {
     -ms-grid-columns: (calc(107px - 6px))[4];
     grid-template-columns: repeat(4, calc(107px - 6px)); } }
-      @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 576px) {
   .mycoursesslick {
     padding: 0;
     border-top: none; }
@@ -338,14 +397,17 @@
   .circle-list-wrapper .circle-list {
     -ms-grid-columns: (calc(107px - 6px))[3];
     grid-template-columns: repeat(3, calc(107px - 6px)); }
+  .header-navbar .header1 {
+    border-bottom: 1px solid #491571; }
   .header-navbar .header1 .navbar {
     max-height: 42px;
     border-bottom: 1px solid #491571;
-    padding: 0; }
+    padding: 0;
+    box-shadow: none; }
   .header-navbar .header1 .navbar .btn-menu {
     margin-left: 4px; }
   .header-navbar .header2 {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     z-index: 1051;
@@ -360,4 +422,11 @@
   .header-navbar .header2 .logo {
     margin-left: 10px; }
   .header-navbar .header2 .user-settings {
-    border: none; } }
+    border: none; }
+  #page-footer .container .info {
+    margin-bottom: 20px; }
+  #page-footer .container .info > p {
+    margin-bottom: 5px;
+    font-size: 10px; }
+  #page-footer .btn-up {
+    display: none; } }

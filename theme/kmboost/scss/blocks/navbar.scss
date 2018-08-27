@@ -90,17 +90,19 @@
 @media #{$is-mobile} {
   .header-navbar {
     .header1 {
+      border-bottom: 1px solid #491571;
       .navbar {
         max-height: 42px;
         border-bottom: 1px solid $primary-color;
         padding: 0;
+        box-shadow: none;
         .btn-menu {
           margin-left: 4px;
         }
       }
     }
     .header2 {
-      position: absolute;
+      position: fixed;
       top: 0;
       right: 0;
       z-index: 1051;
