@@ -2,6 +2,32 @@
 
 $image-size: 50px;
 
+#{$LTR} {
+  .mycoursesslick{
+    .btn-slider {
+      &-prev {
+        background: url([[pix:theme_kmboost|slider-arrow-left-icon]]) no-repeat center center;
+      }
+      &-next {
+        background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center;
+      }
+    }
+  }
+}
+
+#{$RTL} {
+  .mycoursesslick{
+    .btn-slider {
+      &-prev {
+        background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center;
+      }
+      &-next {
+        background: url([[pix:theme_kmboost|slider-arrow-left-icon]]) no-repeat center center;
+      }
+    }
+  }
+}
+
 .mycoursesslick{
   border-top: 0.3px solid $primary-color;
   border-bottom: 0.3px solid $primary-color;
@@ -53,6 +79,16 @@ $image-size: 50px;
     }
     &-next {
       background: url([[pix:theme_kmboost|slider-arrow-right-icon]]) no-repeat center center;
+    }
+  }
+}
+
+@media #{$is-mobile} {
+  .mycoursesslick {
+    padding: 0;
+    border-top: none;
+    .btn-slider {
+      margin: 0 1em;
     }
   }
 }

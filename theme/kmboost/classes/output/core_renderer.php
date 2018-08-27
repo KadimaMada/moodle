@@ -16,11 +16,11 @@
 
 namespace theme_kmboost\output;
 
-
 defined('MOODLE_INTERNAL') || die;
 
 use custom_menu;
 use moodle_url;
+use stdClass;
 /**
  * Renderers to align Moodle's HTML with that expected by Bootstrap
  *
@@ -32,8 +32,19 @@ use moodle_url;
 class core_renderer extends \theme_boost\output\core_renderer {
 
     public function get_logo_url(){
-        global $PAGE;
-        return $PAGE->theme->setting_file_url('logo', 'logo');
+        global $PAGE,$CFG;
+
+        if (!empty($this->page->theme->settings->logo)) {
+            $url = $PAGE->theme->setting_file_url('logo', 'logo');
+            // Get a URL suitable for moodle_url.
+            $relativebaseurl = preg_replace('|^https?://|i', '//', $CFG->wwwroot);
+            $url = str_replace($relativebaseurl, '', $url);
+
+            $relativebaseurl = preg_replace('|^http?://|i', '//', $CFG->wwwroot);
+            $url = str_replace($relativebaseurl, '', $url);
+            return new moodle_url($url);
+        }
+        return parent::get_logo_url();
     }
 
     public function custom_menu($custommenuitems = '') {
@@ -45,15 +56,20 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         $mycoursespattern="[mycourses]";
         if (strpos($custommenuitems,$mycoursespattern)) {
-            $courses = enrol_get_all_users_courses($USER->id, true, null, 'visible DESC, sortorder ASC');
-            $mycourses = [];
-            if (!empty($courses)) {
-                foreach ($courses as $currcourse) {
-                    $mycourses[] = "-" . format_string($currcourse->fullname) . "|" . new moodle_url($CFG->wwwroot . "/course/view.php?id=" . $currcourse->id) . "\r\n";
+
+            if (isloggedin()){
+                $courses = enrol_get_all_users_courses($USER->id, true, null, 'visible DESC, sortorder ASC');
+                $mycourses = [];
+                if (!empty($courses)) {
+                    foreach ($courses as $currcourse) {
+                        $mycourses[] = "-" . format_string($currcourse->fullname) . "|" . new moodle_url($CFG->wwwroot . "/course/view.php?id=" . $currcourse->id) . "\r\n";
+                    }
                 }
+                $text = get_string('mycourses');
+                $text .= "\r\n" . implode('', $mycourses);
+            }else{
+                $text="";
             }
-            $text = get_string('mycourses');
-            $text .= "\r\n" . implode('', $mycourses);
             $custommenuitems = str_replace($mycoursespattern, $text, $custommenuitems);
         }
         $custommenu = new custom_menu($custommenuitems, current_language());
@@ -92,6 +108,26 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         return $content;
     }
+
+
+    /**
+     * Wrapper for header elements.
+     *
+     * @return string HTML to display the main header.
+     */
+    public function full_header() {
+        global $PAGE;
+
+        $header = new stdClass();
+        $header->settingsmenu = $this->context_header_settings_menu();
+        $header->contextheader = $this->context_header();
+        $header->hasnavbar = empty($PAGE->layout_options['nonavbar']);
+        $header->navbar = $this->navbar();
+        $header->pageheadingbutton = $this->page_heading_button();
+        $header->courseheader = $this->course_header();
+        return $this->render_from_template('theme_kmboost/header', $header);
+    }
+
 
 
 }

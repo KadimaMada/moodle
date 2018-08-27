@@ -1,0 +1,69 @@
+@import "../variables";
+
+#page-footer {
+  color: $primary-color;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  .container {
+    width: 100%;
+    max-width: 652px;
+    border-top: 1px solid $primary-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .links {
+      display: flex;
+      margin: 35px 0 30px;
+      .link {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        margin: 0 20px;
+        &-facebook {
+          background: url([[pix:theme_kmboost|facebook-icon]]) no-repeat center center;
+        }
+        &-mail {
+          background: url([[pix:theme_kmboost|mail-icon]]) no-repeat center center;
+        }
+        &-share {
+          background: url([[pix:theme_kmboost|share-icon]]) no-repeat center center;
+        }
+      }
+    }
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 50px;
+      & > p {
+        margin-bottom: 5px;
+      }
+    }
+  }
+  .btn-up {
+    width: 26px;
+    height: 26px;
+    background: url([[pix:theme_kmboost|up-icon]]) no-repeat center center;
+    position: absolute;
+    right: 70px;
+    top: 25%;
+  }
+}
+
+@media #{$is-mobile} {
+  #page-footer {
+    .container {
+      .info {
+        margin-bottom: 20px;
+        & > p {
+          margin-bottom: 5px;
+          font-size: 10px;
+        }
+      }
+    }
+    .btn-up {
+      display: none;
+    }
+  }
+}

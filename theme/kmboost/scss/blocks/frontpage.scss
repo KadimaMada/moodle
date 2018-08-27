@@ -1,12 +1,26 @@
 @import "../variables";
 
 .pagelayout-frontpage {
-  .card {
-    border: none;
-    .card-body {
-      padding: 0;
-      [role='main'] {
-        display: none;
+  min-height: 100vh;
+  height: auto;
+  position: relative;
+  #page-wrapper {
+    margin-bottom: 0;
+    padding-bottom: 210px;
+    min-height: auto;
+    &:after {
+      display: none;
+    }
+    #region-main {
+      .card {
+        border: none;
+        min-height: auto;
+        .card-body {
+          padding: 0;
+          [role='main'] {
+            display: none;
+          }
+        }
       }
     }
   }
@@ -25,7 +39,6 @@ $circle-border: 6px;
     display: grid;
     grid-template-columns: repeat(6, calc(#{$circle-size} - #{$circle-border}));
     grid-template-rows: calc(#{$circle-size} - #{$circle-border});
-    border-bottom: 0.3px solid $primary-color;
     padding-bottom: 50px;
     .circle-link {
       &:hover {
@@ -69,6 +82,22 @@ $circle-border: 6px;
       .circle {
         border-color: $secondary-color $secondary-color $primary-color $primary-color;
       }
+    }
+  }
+}
+
+@media #{$is-laptop} {
+  .circle-list-wrapper {
+    .circle-list {
+      grid-template-columns: repeat(4, calc(#{$circle-size} - #{$circle-border}));
+    }
+  }
+}
+
+@media #{$is-mobile} {
+  .circle-list-wrapper {
+    .circle-list {
+      grid-template-columns: repeat(3, calc(#{$circle-size} - #{$circle-border}));
     }
   }
 }
