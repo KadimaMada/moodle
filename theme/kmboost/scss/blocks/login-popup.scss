@@ -1,0 +1,88 @@
+@import "../variables";
+
+.login-popup-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.43);
+  width: 100%;
+  height: 100%;
+  z-index: 9999999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  &.open {
+    display: flex;
+  }
+  .login-popup {
+    background: white;
+    max-width: 532px;
+    width: 100%;
+    color: $primary-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 3px 3px 25px 4px rgba(0, 0, 0, 0.43);
+    .title-block {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 26px;
+      .title {
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .sub-title {
+        color: #353535;
+      }
+    }
+    .links {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0 45px;
+      .link {
+        width: 160px;
+        height: 113px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        &-image {
+          margin-top: 10px;
+        }
+        &-label {
+          position: absolute;
+          bottom: 0;
+          color: $primary-color;
+          &:hover {
+            color: $primary-color;
+          }
+        }
+        &-mail {
+          .link-image {
+            width: 56px;
+            height: 42px;
+            background: url([[pix:theme_kmboost|login-popup/mail-icon]]) no-repeat center center;
+          }
+        }
+        &-identification {
+          border-left: 1px solid rgba(0, 0, 0, 0.43);
+          border-right: 1px solid rgba(0, 0, 0, 0.43);
+          .link-image {
+            width: 68px;
+            height: 50px;
+            background: url([[pix:theme_kmboost|login-popup/identification-icon]]) no-repeat center center;
+          }
+        }
+        &-guest {
+          .link-image {
+            width: 53px;
+            height: 53px;
+            background: url([[pix:theme_kmboost|login-popup/guest-icon]]) no-repeat center center;
+          }
+        }
+      }
+    }
+  }
+}

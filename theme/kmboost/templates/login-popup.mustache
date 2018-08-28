@@ -1,0 +1,68 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_boost/login
+
+    Login page template
+
+    Example context (json):
+    {
+        "output": {
+            "doctype": "<!DOCTYPE html>",
+            "page_title": "Login page",
+            "favicon": "favicon.ico",
+            "main_content": "<h1>Headers keep HTML validators happy</h1>"
+        }
+    }
+}}
+<div class="login-popup-wrapper open" id="login-popup-wrapper">
+    <div class="login-popup">
+        <div class="title-block">
+            <h3 class="title">ברוכים הבאים</h3>
+            <h5 class="sub-title">התחבר באמצעות</h5>
+        </div>
+        <div class="links">
+            <a href="/login" class="link link-mail">
+                <div class="link-image"></div>
+                <p class="link-label">דואר אלקטרוני</p>
+            </a>
+            <a href="/" class="link link-identification">
+                <div class="link-image"></div>
+                <p class="link-label">הזדהות אחידה</p>
+            </a>
+            <a href="/" class="link link-guest">
+                <div class="link-image"></div>
+                <p class="link-label">אורח</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+{{#js}}
+    require(['jquery'], function($){
+
+        $('#login-popup-open').on('click', function(event) {
+            $('#login-popup-wrapper').addClass('open');
+        });
+
+        $('#login-popup-close').on('click', function(event) {
+            $('#login-popup-wrapper').removeClass('open');
+        });
+
+    });
+{{/js}}
