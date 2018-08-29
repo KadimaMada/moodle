@@ -384,11 +384,94 @@
     position: absolute;
     right: 70px;
     top: 25%; }
-  @media only screen and (min-width: 576px) and (max-width: 768px) {
+
+.login-popup-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.43);
+  width: 100%;
+  height: 100%;
+  z-index: 9999999;
+  display: none;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center; }
+  .login-popup-wrapper.open {
+    display: -ms-flexbox;
+    display: flex; }
+  .login-popup-wrapper .login-popup {
+    background: white;
+    max-width: 532px;
+    width: 100%;
+    color: #491571;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    -ms-flex-align: center;
+        align-items: center;
+    box-shadow: 3px 3px 25px 4px rgba(0, 0, 0, 0.43); }
+    .login-popup-wrapper .login-popup .title-block {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: center;
+          justify-content: center;
+      -ms-flex-direction: column;
+          flex-direction: column;
+      -ms-flex-align: center;
+          align-items: center;
+      margin-top: 26px; }
+      .login-popup-wrapper .login-popup .title-block .title {
+        font-size: 28px;
+        font-weight: bold; }
+      .login-popup-wrapper .login-popup .title-block .sub-title {
+        color: #353535; }
+    .login-popup-wrapper .login-popup .links {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+      margin: 30px 0 45px; }
+      .login-popup-wrapper .login-popup .links .link {
+        width: 160px;
+        height: 113px;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+            flex-direction: column;
+        -ms-flex-align: center;
+            align-items: center;
+        position: relative; }
+        .login-popup-wrapper .login-popup .links .link-image {
+          margin-top: 10px; }
+        .login-popup-wrapper .login-popup .links .link-label {
+          position: absolute;
+          bottom: 0;
+          color: #491571; }
+          .login-popup-wrapper .login-popup .links .link-label:hover {
+            color: #491571; }
+        .login-popup-wrapper .login-popup .links .link-mail .link-image {
+          width: 56px;
+          height: 42px;
+          background: url([[pix:theme_kmboost|login-popup/mail-icon]]) no-repeat center center; }
+        .login-popup-wrapper .login-popup .links .link-identification {
+          border-left: 1px solid rgba(0, 0, 0, 0.43);
+          border-right: 1px solid rgba(0, 0, 0, 0.43); }
+          .login-popup-wrapper .login-popup .links .link-identification .link-image {
+            width: 68px;
+            height: 50px;
+            background: url([[pix:theme_kmboost|login-popup/identification-icon]]) no-repeat center center; }
+        .login-popup-wrapper .login-popup .links .link-guest .link-image {
+          width: 53px;
+          height: 53px;
+          background: url([[pix:theme_kmboost|login-popup/guest-icon]]) no-repeat center center; }
+        @media only screen and (min-width: 576px) and (max-width: 768px) {
   .circle-list-wrapper .circle-list {
     -ms-grid-columns: (calc(107px - 6px))[4];
     grid-template-columns: repeat(4, calc(107px - 6px)); } }
-  @media only screen and (max-width: 576px) {
+        @media only screen and (max-width: 576px) {
   .mycoursesslick {
     padding: 0;
     border-top: none; }
