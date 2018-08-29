@@ -135,8 +135,7 @@
   position: relative; }
   .pagelayout-frontpage #page-wrapper {
     margin-bottom: 0;
-    padding-bottom: 210px;
-    min-height: auto; }
+    min-height: calc(100vh - 210px); }
     .pagelayout-frontpage #page-wrapper:after {
       display: none; }
     .pagelayout-frontpage #page-wrapper #region-main .card {
@@ -361,9 +360,8 @@
 
 #page-footer {
   color: #491571;
-  position: absolute;
-  bottom: 0;
-  width: 100%; }
+  width: 100%;
+  position: relative; }
   #page-footer .container {
     width: 100%;
     max-width: 652px;
