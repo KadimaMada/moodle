@@ -204,6 +204,10 @@
 .header-navbar .header1 .navbar {
   background: #491571;
   color: #fffff; }
+  .header-navbar .header1 .navbar-brand .logo {
+    display: none !important; }
+  .header-navbar .header1 .navbar-brand .site-name {
+    display: none !important; }
 
 .header-navbar .header1 .btn-menu {
   background: #491571;
@@ -280,6 +284,11 @@
         height: 20px; }
     .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .caret {
       display: none; }
+
+.notloggedin .header2 .user-settings {
+  border: none; }
+  .notloggedin .header2 .user-settings .usermenu {
+    display: none; }
 
 #nav-drawer {
   background: #F7F2FC;
