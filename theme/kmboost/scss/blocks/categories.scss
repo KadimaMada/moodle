@@ -5,44 +5,83 @@ $image-margin: 15px;
 $image-in-row: 4;
 
 #page-course-index-category {
-  .current-category {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    &-title {
-      margin-bottom: 30px;
+  #page-header {
+    & > div {
+      padding-top: 0 !important;
+      padding-bottom: 20px !important;
     }
-    &-image {
-      width: 100%;
-      max-width: 664px;
+    .card {
+      border: none;
+      .card-body {
+        padding: 0;
+        margin-top: 20px;
+        & > div:first-child {
+          display: none !important;
+        }
+        & > div:nth-child(2) {
+          #page-navbar {
+            .breadcrumb {
+              margin: 0;
+              .breadcrumb-item {
+                & > a {
+                  color: #9B9B9B;
+                  &:hover {
+                    color: #9B9B9B;
+                  }
+                  &:before {
+                    color: #9B9B9B;
+                  }
+                }
+              }
+            }
+          }
+          & > div:nth-child(2) {
+            display: none !important;
+          }
+        }
+      }
     }
   }
-  .categories-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 15px;
-    .categories {
-      list-style: none;
+  #page-content {
+    .current-category {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: $image-in-row * ($image-size + $image-margin);
-      padding: 0;
-      margin: 0;
-      .category {
-        margin-right: $image-margin;
-        max-width: $image-size;
-        overflow: hidden;
-        &-image {
-          width: $image-size;
-          height: $image-size;
-        }
-        &-label {
-          font-size: 18px;
-          white-space: nowrap;
+      flex-direction: column;
+      align-items: center;
+      &-title {
+        margin-bottom: 30px;
+      }
+      &-image {
+        width: 100%;
+        max-width: 664px;
+      }
+    }
+    .categories-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 15px;
+      .categories {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: $image-in-row * ($image-size + $image-margin);
+        padding: 0;
+        margin: 0;
+        .category {
+          margin-right: $image-margin;
+          max-width: $image-size;
           overflow: hidden;
-          text-overflow: ellipsis;
+          &-image {
+            width: $image-size;
+            height: $image-size;
+          }
+          &-label {
+            font-size: 18px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
