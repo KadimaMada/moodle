@@ -429,13 +429,12 @@
       .login-popup-wrapper .login-popup .title-block .sub-title {
         color: #353535; }
     .login-popup-wrapper .login-popup .links {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: 160px 160px 160px;
+          grid-template-columns: 160px 160px 160px;
       margin: 30px 0 45px; }
       .login-popup-wrapper .login-popup .links .link {
-        width: 160px;
         height: 113px;
         display: -ms-flexbox;
         display: flex;
@@ -512,4 +511,27 @@
     margin-bottom: 5px;
     font-size: 10px; }
   #page-footer .btn-up {
-    display: none; } }
+    display: none; }
+  .login-popup-wrapper .login-popup {
+    padding: 0 30px;
+    max-width: 200px; }
+  .login-popup-wrapper .login-popup .title-block .title {
+    font-size: 20px; }
+  .login-popup-wrapper .login-popup .title-block .sub-title {
+    font-size: 12px;
+    font-weight: bold; }
+  .login-popup-wrapper .login-popup .links {
+    width: 100%;
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    margin: 10px 0 15px; }
+  .login-popup-wrapper .login-popup .links .link {
+    height: 133px;
+    padding: 20px 0;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.43); }
+  .login-popup-wrapper .login-popup .links .link:first-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.43); }
+  .login-popup-wrapper .login-popup .links .link-label {
+    font-size: 10px;
+    font-weight: bold; } }
