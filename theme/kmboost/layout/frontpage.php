@@ -59,6 +59,16 @@ $templatecontext['flatnavigation'] = $PAGE->flatnav;
 $widgets = $PAGE->get_renderer('theme_kmboost', 'widgets');
 $templatecontext['mycoursescarusel']=$widgets->my_courses_slick(true);
 
+
+$urlouth2="";
+$authplugin = get_auth_plugin('oauth2');
+$potentialidps =  $authplugin->loginpage_idp_list('/');
+foreach ($potentialidps as $idp) {
+    if ($idp['name']=="Google"){
+        $templatecontext['oauth2googleurl']=$idp['url']->out();
+    }
+}
+
 echo $OUTPUT->render_from_template('theme_kmboost/frontpage', $templatecontext);
 $PAGE->requires->js_call_amd('theme_kmboost/slick-init', 'init');
 $PAGE->requires->js_call_amd('theme_kmboost/nagishut-init', 'init');

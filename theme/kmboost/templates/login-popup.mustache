@@ -32,27 +32,27 @@
 <div class="login-popup-wrapper open" id="login-popup-wrapper">
     <div class="login-popup">
         <div class="title-block">
-            <h3 class="title">ברוכים הבאים</h3>
-            <h5 class="sub-title">התחבר באמצעות</h5>
+            <h3 class="title">{{#str}}welcome,theme_kmboost{{/str}}</h3>
+            <h5 class="sub-title">{{#str}}loginas,theme_kmboost{{/str}}</h5>
         </div>
         <div class="links">
-            <a href="/login" class="link link-mail">
+            <a href="/local/contact" class="link link-mail">
                 <div class="link-image"></div>
-                <p class="link-label">דואר אלקטרוני</p>
+                <p class="link-label">{{#str}}email,theme_kmboost{{/str}}</p>
             </a>
-            <a href="/login" class="link link-identification">
+            {{#oauth2googleurl}}
+            <a href="{{{oauth2googleurl}}}" class="link link-identification">
                 <div class="link-image"></div>
-                <p class="link-label">הזדהות אחידה</p>
+                <p class="link-label">{{#str}}oauth2google,theme_kmboost{{/str}}</p>
             </a>
+            {{/oauth2googleurl}}
             <a href="/login" class="link link-guest">
                 <div class="link-image"></div>
-                <p class="link-label">אורח</p>
+                <p class="link-label">{{#str}}guest{{/str}}</p>
             </a>
         </div>
     </div>
 </div>
-
-
 {{#js}}
     require(['jquery'], function($){
 
