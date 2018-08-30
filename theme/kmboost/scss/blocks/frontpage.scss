@@ -6,8 +6,7 @@
   position: relative;
   #page-wrapper {
     margin-bottom: 0;
-    padding-bottom: 210px;
-    min-height: auto;
+    min-height: calc(100vh - 210px);
     &:after {
       display: none;
     }

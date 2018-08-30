@@ -5,6 +5,14 @@
     .navbar {
       background: $primary-color;
       color: $white;
+      &-brand {
+        .logo {
+          display: none !important;
+        }
+        .site-name {
+          display: none !important;
+        }
+      }
     }
     .btn-menu {
       background: $primary-color;
@@ -34,7 +42,8 @@
     z-index: 2;
     display: flex;
     justify-content: space-between;
-    padding: 0 15px;
+    margin: 0 15px;
+    border-bottom: 1px solid $primary-color;
     .logo {
       display: flex;
       align-items: center;
@@ -87,6 +96,17 @@
   }
 }
 
+.notloggedin {
+  .header2 {
+    .user-settings {
+      border: none;
+      .usermenu {
+        display: none;
+      }
+    }
+  }
+}
+
 @media #{$is-mobile} {
   .header-navbar {
     .header1 {
@@ -112,6 +132,8 @@
       display: flex;
       justify-content: space-between;
       padding: 0;
+      margin: 0;
+      border: none;
       .logo {
         margin-left: 10px;
       }
