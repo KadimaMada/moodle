@@ -54,8 +54,7 @@ $string['privacy:drawernavclosed'] = 'The current preference for the navigation 
 $string['privacy:drawernavopen'] = 'The current preference for the navigation drawer is open.';
 $string['logo'] = 'Logo';
 $string['logodesc'] = 'The logo is only displayed in the header of the front page and login page.<br /> If the height of your logo is more than 75px add div.logo {height: 100px;} to the Custom CSS box below, amending accordingly if the height is other than 100px. If a logo is not added here, the logo in Appearance > Logos will be used.';
-$string['welcome'] = 'Welcome';
-$string['loginas'] = 'Login As';
-$string['email'] = 'Email';
-$string['oauth2google'] = 'Gmail';
-
+$string['welcome'] = 'ברוכים הבאים';
+$string['loginas'] = 'התחבר באמצעות';
+$string['email'] = 'דואר אלקטרוני';
+$string['oauth2google'] = 'הזדהות אחידה';
