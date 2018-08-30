@@ -250,16 +250,23 @@ class format_buttons_renderer extends format_topics_renderer
             if(empty($this->get_section_labels($course, $section))){
               continue;
             }
+            // get section name and icon name in array. [1] - section name; [2] - icon name / fa class
+            $sectionnamearr = course_get_format($course)->get_section_name_and_icon($section);
 
             $html .= html_writer::start_tag('li',['class' => 'nav-item mb-auto', 'data-section' => $section]);
             // $html .= html_writer::start_tag('a',['href' => "#section$section",'class' => "nav-link $class", 'aria-controls' => "section-$section"]);
             $html .= html_writer::start_tag('div',['class' => 'd-flex flex-row section-header justify-content-around align-items-center']);
-            $html .= html_writer::tag('span', '', ['class' => 'section-icon d-inline-flex p-3 justify-content-center align-items-center', 'style' => "background: url({$this->courserenderer->image_url('label-default', 'format_buttons')}) no-repeat; background-size: cover;"]);
+            //$html .= html_writer::tag('span', '', ['class' => 'section-icon d-inline-flex p-3 justify-content-center align-items-center '.$sectionnamearr[2], 'style' => "background: url({$this->courserenderer->image_url('label-default', 'format_buttons')}) no-repeat; background-size: cover;"]);  // SG - previouse variant
+            $html .= html_writer::tag('span', '', ['class' => 'section-icon d-inline-flex p-3 justify-content-center align-items-center '.$sectionnamearr[2], 'style' => "font-family: FontAwesome; font-style: normal; font-weight: normal; text-decoration: inherit; line-height:2rem"]);
             $html .= html_writer::start_tag('div',['class' => 'd-flex flex-column section-header']);
-            $html .= html_writer::tag('span', get_section_name($course, $section), ['class' => ' section-title']);
+            $html .= html_writer::tag('span', $sectionnamearr[1], ['class' => ' section-title']);
             $html .= html_writer::tag('span', $thissection->summary, ['class' => 'section-description']);
             $html .= html_writer::end_tag('div');
-            $html .= html_writer::tag('span', 'i', ['class' => 'section-tooltip d-inline-flex p-1 justify-content-center align-items-center', 'title'=>'section tooltip', 'data-info'=>'Tooltip content', 'data-section' => $section]);
+            if ($thissection->summary) {
+              $html .= html_writer::tag('span', 'i', ['class' => 'section-tooltip d-inline-flex p-1 justify-content-center align-items-center', 'title'=>'section tooltip', 'data-info'=>'Tooltip content', 'data-section' => $section]);
+            } else {
+              $html .= html_writer::tag('span', '', ['class' => 'd-inline-flex p-2 justify-content-center align-items-center']);
+            }
             $html .= html_writer::end_tag('div');
             // $html .= html_writer::end_tag('a');
             $html .= html_writer::end_tag('li');
@@ -806,8 +813,9 @@ class format_buttons_renderer extends format_topics_renderer
 
 
                         // $reg = '/\#name(.*?\s)\#icon(.*?\s.*?)\#content(.*?\s.*?)<\/div>/mix';
-                        $reg = '/#name(.*?)<br>.*?#icon(.*?)<br>(.*?)<\/div>/im';
+                        //$reg = '/#name(.*?)<br>.*?#icon(.*?)<br>(.*?)<\/div>/im';
                         // $reg = '/#name(.*)%name.*?\s*#icon(.*)%icon?\s*(.*)<\/div>/im';
+                        $reg = '/[\s\S]*?\[\[(.*?)\]\][\s\S]*?\{\{(.*?)\}\}[\s\S]*?([\s\S]*)<\/div>/im'; // SG - the latest regexp 20180830 - '[[name]] {{icon}} rest of the text'
                         preg_match($reg, $modulehtml, $content);
                         // preg_split($reg, $modulehtml, $content);
 
@@ -831,6 +839,8 @@ class format_buttons_renderer extends format_topics_renderer
         $output = '';
         foreach ($labels as $modnum => $content) {
 
+            $content[2] = strip_tags($content[2]); // SG - strip any tags for icon name  -leave  only pure text
+
             // here we fetch icon url or set default one
             // if (empty($content[2])) {
             //     $liconStyle = 'background: url('.$this->courserenderer->image_url('label-default', 'format_buttons').') no-repeat; background-size: cover; padding:14px;';
@@ -838,7 +848,7 @@ class format_buttons_renderer extends format_topics_renderer
             // } else {
               if(preg_match('/fa-/im', $content[2]) === 1) {
                 // $licon = $this->render_fontawesome($content[2]);
-                $liconStyle = 'font-family: FontAwesome; font-style: normal; font-weight: normal; text-decoration: inherit;';
+                $liconStyle = 'font-family: FontAwesome; font-style: normal; font-weight: normal; text-decoration: inherit; line-height:2rem;';
                 $liconClass = $content[2];
               } else {
                 $liconStyle = 'background: url('.$this->courserenderer->image_url($content[2], 'format_buttons').') no-repeat; background-size: cover; padding:14px;';
@@ -850,7 +860,7 @@ class format_buttons_renderer extends format_topics_renderer
             $output .=  html_writer::start_tag('li',['class' => 'nav-item label-item', 'data-label'=>$modnum]);
             $output .= html_writer::start_tag('div', ['class'=> 'd-flex flex-row label-header align-items-center']);
             // $output .= html_writer::start_tag('a',['href' => "#label{$modnum}",'class' => "nav-link label-link", 'aria-controls' => "label{$modnum}"]);
-            $output .= html_writer::tag('span', '', ['class' => 'label-icon d-inline-flex justify-content-center align-items-center'.$liconClass, 'style' => $liconStyle]);
+            $output .= html_writer::tag('span', '', ['class' => 'label-icon d-inline-flex justify-content-center align-items-center '.$liconClass, 'style' => $liconStyle]);
             $output .= html_writer::start_tag('div', ['class'=> 'd-flex flex-column']);
             $output .= html_writer::tag('span', $content[1], ['class'=>'label-title']);
             $output .= html_writer::end_tag('div');
