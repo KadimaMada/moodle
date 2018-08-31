@@ -41,6 +41,10 @@
       display: grid;
       grid-template-columns: 160px 160px 160px;
       margin: 30px 0 45px;
+      form {
+        display: flex;
+        justify-content: center;
+      }
       .link {
         height: 113px;
         display: flex;
@@ -75,6 +79,10 @@
           }
         }
         &-guest {
+          border: none;
+          background: none;
+          cursor: pointer;
+          outline: none;
           .link-image {
             width: 53px;
             height: 53px;
