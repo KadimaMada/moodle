@@ -8,6 +8,7 @@ $PAGE->set_url('/local/contact/view.php', array());
 $PAGE->set_title($strname);
 
 echo $OUTPUT->header();
+/*
 echo "<form action=\"../../local/contact/index.php\" method=\"post\" class=\"contact-us\">
     <fieldset>
         <label for=\"name\" id=\"namelabel\">Your name <strong class=\"required\">(required)</strong></label><br>
@@ -28,4 +29,6 @@ echo "<form action=\"../../local/contact/index.php\" method=\"post\" class=\"con
         <input type=\"submit\" name=\"submit\" id=\"submit\" value=\"Send\">
     </div>
 </form>";
+*/
+echo $OUTPUT->render_from_template('theme_kmboost/contacts');
 echo $OUTPUT->footer();

@@ -506,6 +506,91 @@
             width: 53px;
             height: 53px;
             background: url([[pix:theme_kmboost|login-popup/guest-icon]]) no-repeat center center; }
+
+#page-local-contact-view #page-wrapper {
+  margin-bottom: 0;
+  min-height: calc(100vh - 210px); }
+  #page-local-contact-view #page-wrapper #page #page-header {
+    display: none; }
+  #page-local-contact-view #page-wrapper #page #page-content #region-main-box .card {
+    border: none;
+    min-height: auto; }
+  #page-local-contact-view #page-wrapper:after {
+    display: none; }
+
+.contacts-wrapper {
+  width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center; }
+  .contacts-wrapper .contacts {
+    width: 100%;
+    max-width: 652px;
+    padding-top: 30px; }
+    .contacts-wrapper .contacts .title {
+      margin-bottom: 20px;
+      font-size: 25px; }
+    .contacts-wrapper .contacts .sub-title {
+      margin-bottom: 40px;
+      font-size: 13px; }
+    .contacts-wrapper .contacts .info {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+      .contacts-wrapper .contacts .info .info-left .info-row {
+        display: -ms-flexbox;
+        display: flex;
+        margin-bottom: 15px; }
+        .contacts-wrapper .contacts .info .info-left .info-row label {
+          min-width: 100px;
+          font-weight: 600; }
+        .contacts-wrapper .contacts .info .info-left .info-row input,
+        .contacts-wrapper .contacts .info .info-left .info-row textarea {
+          border: 1px solid #491571;
+          width: 240px; }
+        .contacts-wrapper .contacts .info .info-left .info-row textarea {
+          height: 100px; }
+      .contacts-wrapper .contacts .info .info-right {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+            flex-direction: column;
+        -ms-flex-align: end;
+            align-items: flex-end; }
+        .contacts-wrapper .contacts .info .info-right .info-row {
+          margin-bottom: 15px;
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-align: center;
+              align-items: center; }
+          .contacts-wrapper .contacts .info .info-right .info-row .icon-wrapper {
+            min-width: 40px;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-pack: center;
+                justify-content: center; }
+          .contacts-wrapper .contacts .info .info-right .info-row .icon-label {
+            margin: 0 10px 0 10px; }
+          .contacts-wrapper .contacts .info .info-right .info-row .icon-phone {
+            width: 11px;
+            height: 19px;
+            background: url([[pix:theme_kmboost|contacts/phone-icon]]) no-repeat center center; }
+          .contacts-wrapper .contacts .info .info-right .info-row .icon-mobile {
+            width: 11px;
+            height: 18px;
+            background: url([[pix:theme_kmboost|contacts/mobile-icon]]) no-repeat center center; }
+          .contacts-wrapper .contacts .info .info-right .info-row .icon-email {
+            width: 18px;
+            height: 18px;
+            background: url([[pix:theme_kmboost|contacts/mail-icon]]) no-repeat center center; }
+          .contacts-wrapper .contacts .info .info-right .info-row .icon-link {
+            width: 16px;
+            height: 16px;
+            background: url([[pix:theme_kmboost|contacts/link-icon]]) no-repeat center center; }
           @media only screen and (min-width: 576px) and (max-width: 768px) {
   .circle-list-wrapper .circle-list {
     -ms-grid-columns: (calc(107px - 6px))[4];
