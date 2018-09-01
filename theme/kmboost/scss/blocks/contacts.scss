@@ -1,0 +1,107 @@
+@import "../variables";
+
+#page-local-contact-view {
+  #page-wrapper {
+    margin-bottom: 0;
+    min-height: calc(100vh - 210px);
+    #page {
+      #page-header {
+        display: none;
+      }
+      #page-content {
+        #region-main-box {
+          .card {
+            border: none;
+            min-height: auto;
+          }
+        }
+      }
+    }
+    &:after {
+      display: none;
+    }
+  }
+
+}
+
+.contacts-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .contacts {
+    width: 100%;
+    max-width: 652px;
+    padding-top: 30px;
+    .title {
+      margin-bottom: 20px;
+      font-size: 25px;
+    }
+    .sub-title {
+      margin-bottom: 40px;
+      font-size: 13px;
+    }
+    .info {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .info-left {
+        .info-row {
+          display: flex;
+          margin-bottom: 15px;
+          label {
+            min-width: 100px;
+            font-weight: 600;
+          }
+          input,
+          textarea {
+            border: 1px solid $primary-color;
+            width: 240px;
+          }
+          textarea {
+            height: 100px;
+          }
+        }
+      }
+      .info-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        .info-row {
+          margin-bottom: 15px;
+          display: flex;
+          align-items: center;
+          .icon-wrapper {
+            min-width: 40px;
+            display: flex;
+            justify-content: center;
+          }
+          .icon {
+            &-label {
+              margin: 0 10px 0 10px;
+            }
+            &-phone {
+              width: 11px;
+              height: 19px;
+              background: url([[pix:theme_kmboost|contacts/phone-icon]]) no-repeat center center;
+            }
+            &-mobile {
+              width: 11px;
+              height: 18px;
+              background: url([[pix:theme_kmboost|contacts/mobile-icon]]) no-repeat center center;
+            }
+            &-email {
+              width: 18px;
+              height: 18px;
+              background: url([[pix:theme_kmboost|contacts/mail-icon]]) no-repeat center center;
+            }
+            &-link {
+              width: 16px;
+              height: 16px;
+              background: url([[pix:theme_kmboost|contacts/link-icon]]) no-repeat center center;
+            }
+          }
+        }
+      }
+    }
+  }
+}

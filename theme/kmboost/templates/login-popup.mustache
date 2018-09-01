@@ -46,10 +46,14 @@
                 <p class="link-label">{{#str}}oauth2google,theme_kmboost{{/str}}</p>
             </a>
             {{/oauth2googleurl}}
-            <a href="/login" class="link link-guest">
-                <div class="link-image"></div>
-                <p class="link-label">{{#str}}guest{{/str}}</p>
-            </a>
+            <form action="/login/index.php" method="post" id="guestlogin">
+                <input type="hidden" name="username" value="guest">
+                <input type="hidden" name="password" value="guest">
+                <button class="link link-guest" type="submit">
+                    <div class="link-image"></div>
+                    <p class="link-label">{{#str}}guest{{/str}}</p>
+                </button>
+            </form>
         </div>
     </div>
 </div>

@@ -1,0 +1,83 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_boost/login
+
+    Login page template
+
+    Example context (json):
+    {
+        "output": {
+            "doctype": "<!DOCTYPE html>",
+            "page_title": "Login page",
+            "favicon": "favicon.ico",
+            "main_content": "<h1>Headers keep HTML validators happy</h1>"
+        }
+    }
+}}
+<div class="contacts-wrapper">
+    <div class="contacts">
+        <h2 class="title">נתקלתם בבעיה כלשהי באתר?</h2>
+        <h5 class="sub-title">מוזמנים ליצור איתנו קשר או למלא את הפרטים ואנו נחזור אליכם בהקדם</h5>
+        <div class="info">
+            <div class="info-left">
+                <div class="info-row">
+                    <label for="info-name">שם מלא</label>
+                    <input type="text" id="info-name">
+                </div>
+                <div class="info-row">
+                    <label for="info-email">כתובת דוא”ל</label>
+                    <input type="email" id="info-email">
+                </div>
+                <div class="info-row">
+                    <label for="info-subject">נושא הפניה</label>
+                    <input type="text" id="info-subject">
+                </div>
+                <div class="info-row">
+                    <label for="info-content">תוכן הפניה</label>
+                    <textarea type="text" id="info-content"></textarea>
+                </div>
+            </div>
+            <div class="info-right">
+                <div class="info-row">
+                    <p class="icon-label">073-3729887</p>
+                    <div class="icon-wrapper">
+                        <span class="icon icon-phone"></span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <p class="icon-label">052-22122777</p>
+                    <div class="icon-wrapper">
+                        <span class="icon icon-mobile"></span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <p class="icon-label">support.km@wokm.org.il</p>
+                    <div class="icon-wrapper">
+                        <span class="icon icon-email"></span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <p class="icon-label">www.wokm.org</p>
+                    <div class="icon-wrapper">
+                        <span class="icon icon-link"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
