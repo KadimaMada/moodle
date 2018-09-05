@@ -11,7 +11,7 @@
 .format-buttons{
   #region-main .card{
     overflow-y: auto;
-    min-height: 52rem;
+    min-height: 56rem;
   }
   ul{
     padding:0;
@@ -153,7 +153,8 @@
             height:88px;
             // margin:30px 12px;
             div{
-              max-width: 80px;
+              min-width: 80px;
+              max-width: 80%;
               max-height:80px;
               overflow-y: hidden;
               .label-title{
@@ -334,9 +335,9 @@
     }
   }
   .section-content{
-      animation: fadeInFromNone 0.3s ease-out;
+      animation: fadeInFromNone 1s linear;
     &.d-none{
-      animation: fadeOutToNone 0.3s ease-out;
+      animation: fadeOutToNone 1s linear;
     }
     &>div{
       padding-bottom: 3rem;
