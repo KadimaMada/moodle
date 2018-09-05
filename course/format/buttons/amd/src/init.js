@@ -57,7 +57,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
       var item = tooltips[i];
       item.addEventListener('click', function(){
         var summary = $('.slider.sections .nav-item[data-section="'+this.dataset.section+'"] .section-description').html();
-        $('#section' + this.dataset.section + ' .label-content-wrapper').prepend('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Section tooltip: </strong>'+summary+'</div>');
+        $('#section' + this.dataset.section + ' .label-content-wrapper').prepend('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>'+summary+'</div>');
       });
     }
   }
@@ -81,6 +81,13 @@ define(['jquery','format_buttons/slick'], function($, slick) {
           if (window.innerWidth < 767 && $('#section' + currentSection + ' .labels-wrapper').hasClass('expand')){
             $('#section' + currentSection + ' .labels-wrapper').removeClass('expand');
           }
+          // var slide = this.parentNode.parentNode;
+          // console.log(slide.dataset.slickIndex);
+          // // console.log(this.parentNode.parentNode.nextAll('.slick-slide'));
+          // console.log(slide.parentNode.childNodes.length);
+          // if(slide.parentNode.childNodes.length-slide.dataset.slickIndex < 4){
+          //   slide.parentNode.style.transform3d = '0px,-90px,0px';
+          // }
         });
       }
       var checkLabel = document.querySelector('#section' + currentSection + ' .nav-item.active');
@@ -101,7 +108,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
     if (vert !== undefined){vert = true; dir = false}else{vert = false;}
     // responsiveness / dropdown on xs vert
     if (vert){
-      slides = 5;
+      slides = 4.5;
       for (var i=0; i<brakepoints.length; i++){
         if (brakepoints[i] == 768){
           // add dropdown touch event
@@ -117,7 +124,8 @@ define(['jquery','format_buttons/slick'], function($, slick) {
               slidesToShow: slides,
               slidesToScroll: 1,
               rtl:false,
-              focusOnSelect: true
+              focusOnSelect: true,
+              focusOnChange: true
             }
           };
           resp.push(brp);
@@ -147,6 +155,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
       slidesToShow: slides,
       slidesToScroll: 1,
       focusOnSelect: true,
+      focusOnChange: true,
       responsive:resp,
     };
     // console.log("rtl:"+slickConfig.rtl);
