@@ -124,6 +124,10 @@ html[dir='rtl']{
     .label-active{
       position: relative;
       color:gold;
+      .label-header{
+        height: inherit;
+        text-align: center;
+      }
     }
     .label-next{
       position: relative;

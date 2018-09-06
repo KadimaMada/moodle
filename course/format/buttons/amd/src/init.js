@@ -81,13 +81,18 @@ define(['jquery','format_buttons/slick'], function($, slick) {
           if (window.innerWidth < 767 && $('#section' + currentSection + ' .labels-wrapper').hasClass('expand')){
             $('#section' + currentSection + ' .labels-wrapper').removeClass('expand');
           }
-          // var slide = this.parentNode.parentNode;
-          // console.log(slide.dataset.slickIndex);
-          // // console.log(this.parentNode.parentNode.nextAll('.slick-slide'));
-          // console.log(slide.parentNode.childNodes.length);
-          // if(slide.parentNode.childNodes.length-slide.dataset.slickIndex < 4){
-          //   slide.parentNode.style.transform3d = '0px,-90px,0px';
-          // }
+          // last 3 items sliding
+          var slide = this.parentNode.parentNode;
+          if(slide.parentNode.childNodes.length > 5 && slide.parentNode.childNodes.length-slide.dataset.slickIndex < 4){
+            var track = this.parentNode.parentNode.parentNode;
+            var trackOffsetBottom = track.offsetTop + track.offsetHeight;
+            var listOffsetBottom = track.parentNode.offsetTop + track.parentNode.offsetHeight;
+            var float = trackOffsetBottom - listOffsetBottom;
+            setTimeout(function(){
+              track.style.transform = 'translate3d(0px,'+ -float +'px,0px)';
+              track.style.transition = 'translate 500ms ease 0s';
+            },800);
+          }
         });
       }
       var checkLabel = document.querySelector('#section' + currentSection + ' .nav-item.active');
