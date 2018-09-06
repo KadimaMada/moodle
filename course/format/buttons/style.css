@@ -256,6 +256,9 @@
     display: none;
     opacity: 0; } }
 
+.format-buttons#page-course-view-buttons .card {
+  border: 0 !important; }
+
 .format-buttons #region-main .card {
   overflow-y: auto;
   min-height: 56rem; }
@@ -294,11 +297,13 @@
             max-width: 132px;
             height: 64px;
             margin: 8px 0;
-            overflow: hidden; }
+            overflow: hidden;
+            justify-content: center; }
             .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item .section-header .section-header-inner .section-title {
               font-size: 18px;
               line-height: 30px;
-              max-width: 100%; }
+              max-width: 100%;
+              max-height: 64px; }
             .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item .section-header .section-header-inner .section-description {
               display: none;
               height: 1.375rem;
@@ -438,6 +443,8 @@
     border-bottom: 3px solid #5bc0de;
     border-left: 3px solid #5bc0de;
     border-radius: 3px; }
+  .format-buttons .slick-slider .slick-arrow.slick-disabled:before {
+    opacity: 0; }
 
 .format-buttons .label-content-wrapper {
   position: relative;
@@ -994,3 +1001,9 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
     top: 475px;
     right: 83.3333333333%;
     width: 16.6666666667%; } }
+
+@media screen and (min-width: 1500px) {
+  .format-buttons #page-content #region-main {
+    max-width: 1500px;
+    margin: 0 auto;
+    float: none; } }

@@ -108,9 +108,9 @@ define(['jquery','format_buttons/slick'], function($, slick) {
 
   // if elem only - horizontal, 2 attr - vertical;
   function initSlider(elem, vert){
-    var dir, resp=[], brakepoints= [1200, 992, 768], brp, slides;
+    var dir, resp=[], brakepoints= [1200, 992, 768], brp, slides, focus;
     (document.dir == "rtl")?dir = true:dir = false;
-    if (vert !== undefined){vert = true; dir = false}else{vert = false;}
+    if (vert !== undefined){vert = true; dir = false; focus = true}else{vert = false; focus = false}
     // responsiveness / dropdown on xs vert
     if (vert){
       slides = 4.5;
@@ -159,8 +159,8 @@ define(['jquery','format_buttons/slick'], function($, slick) {
       rtl:dir,
       slidesToShow: slides,
       slidesToScroll: 1,
-      focusOnSelect: true,
-      focusOnChange: true,
+      focusOnSelect: focus,
+      focusOnChange: focus,
       responsive:resp,
     };
     // console.log("rtl:"+slickConfig.rtl);
