@@ -57,7 +57,11 @@ define(['jquery','format_buttons/slick'], function($, slick) {
       var item = tooltips[i];
       item.addEventListener('click', function(){
         var summary = $('.slider.sections .nav-item[data-section="'+this.dataset.section+'"] .section-description').html();
-        $('#section' + this.dataset.section + ' .label-content-wrapper').prepend('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>'+summary+'</div>');
+        var alert = $('#section' + this.dataset.section + ' .alert');
+        console.log(alert.length);
+        if (alert.length == 0){
+          $('#section' + this.dataset.section + ' .label-content-wrapper').prepend('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>'+summary+'</div>');
+        }
       });
     }
   }
