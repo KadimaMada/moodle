@@ -922,29 +922,30 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
     .format-buttons .label-next:hover .label-icon {
       display: block !important;
       position: absolute;
-      bottom: 1.75rem;
+      bottom: 1.825rem;
       right: 0.25rem;
       opacity: 1;
       color: #000;
       width: 2rem;
       height: 2rem;
+      font-size: 28px;
       z-index: 5; }
     .format-buttons .label-next:hover .label-title {
       display: block !important;
       position: absolute;
       bottom: 1.5rem;
       right: -10.5em;
-      padding: 0 2.5rem;
+      padding: .75rem 2.5rem;
       width: 12.5rem;
       max-width: 12.5rem !important;
       height: 3rem;
-      line-height: 1.5rem;
-      padding-top: .75rem;
+      line-height: 1.825rem;
       opacity: 1;
       color: #000;
       background-color: #fff;
       box-shadow: 2px 2px 3px #000;
-      z-index: 4; }
+      z-index: 4;
+      overflow: hidden; }
   .format-buttons .label-prev:hover {
     max-height: 1rem; }
     .format-buttons .label-prev:hover > div:before {
@@ -952,12 +953,13 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
     .format-buttons .label-prev:hover .label-icon {
       display: block !important;
       position: absolute;
-      bottom: 1.75rem;
+      bottom: 1.825rem;
       right: -0.5rem;
       opacity: 1;
       color: #000;
       width: 2rem;
       height: 2rem;
+      font-size: 28px;
       z-index: 5; }
     .format-buttons .label-prev:hover .label-title {
       display: block !important;
@@ -966,15 +968,15 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
       right: -10.5rem;
       width: 12.5rem;
       max-width: 12.5rem !important;
-      padding: 0 2.5rem;
+      padding: .75rem 2.5rem;
       height: 3rem;
-      line-height: 1.5rem;
-      padding-top: .75rem;
+      line-height: 1.825rem;
       opacity: 1;
       color: #000;
       background-color: #fff;
       box-shadow: 2px 2px 3px #000;
-      z-index: 4; } }
+      z-index: 4;
+      overflow: hidden; } }
 
 @media screen and (min-width: 992px) {
   .format-buttons .sections-wrapper {
