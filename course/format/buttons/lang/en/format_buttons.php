@@ -72,3 +72,22 @@ $string['circle'] = 'Circle';
 $string['square'] = 'Square';
 $string['inlinesections'] = 'Inline sections';
 $string['inlinesections_help'] = 'Give each section a new line.';
+
+// Strings for color options
+$string['course_descr_bg_color'] = 'Course descripion background color';
+$string['section_menu_font_color'] = 'Section menu font color';
+$string['section_menu_icon_color'] = 'Section menu iconcolor';
+$string['section_menu_info_arrows_color'] = 'Section menu info and arrows color';
+$string['selected_section_bg_color'] = 'Selected section background color';
+$string['selected_section_font_color'] = 'Selected section font color';
+$string['selected_section_icon_color'] = 'Selected section icon color';
+$string['label_menu_bg_color'] = 'Label menu background color';
+$string['label_menu_font_color'] = 'Label menu font color';
+$string['label_menu_icon_color'] = 'Label menu icon color';
+$string['label_menu_arrows_color'] = 'Label menu arrows color';
+$string['selected_label_bg_color'] = 'Selected label background color';
+$string['selected_label_font_color'] = 'Selected label font color';
+$string['selected_label_icon_color'] = 'Selected label icon color';
+
+
+
