@@ -1,0 +1,217 @@
+<?php
+
+require_once ($CFG->dirroot.'/mod/kmgoogle/classes/google/vendor/autoload.php');
+
+$credentials_url = kmgoogle_get_credentials_file();
+if($credentials_url){
+    putenv( 'GOOGLE_APPLICATION_CREDENTIALS='.$credentials_url );
+}
+
+
+class google_drive {
+
+    private $client;
+    private $service;
+
+    public function __construct() {
+        $this->client = new Google_Client();
+        $this->client->useApplicationDefaultCredentials();
+        $this->client->setScopes(array(
+            'https://www.googleapis.com/auth/drive',
+            'https://www.googleapis.com/auth/drive.file',
+            //'https://www.googleapis.com/auth/userinfo.email',
+            //'https://www.googleapis.com/auth/userinfo.profile'
+        ));
+        $this->client->setHttpClient( new GuzzleHttp\Client( [ 'verify' => false ] ) );   // disable ssl if necessary
+
+        // Get the API client and construct the service object.
+        $this->service = new Google_Service_Drive($this->client);
+
+        //$this->checkAccessGranted(); //TODO
+    }
+
+    //Parser Google url
+    public function getFileIdFromGoogleUrl($url) {
+
+        $arr = explode('/', $url);
+        foreach ($arr as $item){
+            if(strlen($item) > 25 && strlen($item) < 60){
+                return $item;
+            }
+        }
+
+        return false;
+    }
+
+    //Check if access granted TODO
+    public function checkAccessGranted() {
+            try {
+                $parameters = array();
+                $this->service->files->listFiles($parameters);
+
+            } catch (Exception $e) {
+//                print "An error occurred: " . $e->getMessage();
+                //print_error('invalidkmgoogleid', 'kmgoogle');
+
+            }
+
+        return 'sdsd';
+    }
+
+    //Copy file to new place
+    public function copyFileToFolder($originFileId, $nameFile, $folderId = null) {
+
+        $copiedFile = new Google_Service_Drive_DriveFile();
+
+        if(!empty($nameFile)){
+            $copiedFile->setName($nameFile);
+        }
+
+        if($folderId != null){
+            $copiedFile->setParents(array($folderId));
+        }
+
+        try {
+            return $this->service->files->copy($originFileId, $copiedFile);
+        } catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
+        }
+        return NULL;
+    }
+
+    //Delete file or folder from disk
+    public function deleteFile($fileId) {
+        try {
+            $this->service->files->delete($fileId);
+        } catch (Exception $e) {
+            //print "An error occurred: " . $e->getMessage();
+        }
+    }
+
+    //Set permission for user
+    public function setPermissionForUser($userid, $current_permission, $fileID, $permissionId = null) {
+        global $DB, $USER;
+
+        $user = $DB->get_record('user', array('id' => $userid));
+
+        if($permissionId != null){
+            $this->removePermissionForUser($fileID, $permissionId);
+        }
+
+        if($current_permission == 'edit') $permission = 'writer';
+        if($current_permission == 'comment') $permission = 'commenter';
+        if($current_permission == 'view') $permission = 'reader';
+        if($current_permission == 'nopermission'){
+            return '';
+        }
+
+        /*
+    role	string	The role granted by this permission. While new values may be supported in the future, the following are currently allowed:
+    organizer
+    owner
+    writer
+    commenter
+    reader
+    writable
+
+    type	string	The type of the grantee. Valid values are:
+    user
+    group
+    domain
+    anyone
+         * */
+
+        $this->service->getClient()->setUseBatch(true);
+        try {
+            $batch = $this->service->createBatch();
+
+            $userPermission = new Google_Service_Drive_Permission(array(
+                'type' => 'user',
+                'role' => $permission,
+                'emailAddress' => $user->email
+            ));
+            $request = $this->service->permissions->create(
+                $fileID, $userPermission, array('fields' => 'id'));
+            $batch->add($request, 'user');
+            $results = $batch->execute();
+
+            foreach ($results as $result) {
+                if ($result instanceof Google_Service_Exception) {
+                    // Handle error
+                    //printf($result);
+                } else {
+                    return $result->id;
+                    //printf("Permission ID: %s\n", $result->id);
+                }
+            }
+        } finally {
+            $this->service->getClient()->setUseBatch(false);
+        }
+
+        return false;
+    }
+
+    public function removePermissionForUser($fileId, $permissionId) {
+        try {
+            $this->service->permissions->delete($fileId, $permissionId);
+        } catch (Exception $e) {
+            //print "An error occurred: " . $e->getMessage();
+        }
+    }
+
+    //Create folder TODO not used
+    public function createFolder($foldername) {
+        $mimeType = 'application/vnd.google-apps.folder';
+
+        $list = $this->getAllFilesGDrive();
+        foreach($list as $file){
+            if($file->name == $foldername && $file->mimetype == $mimeType){
+                return $file->id;
+            }
+        }
+
+        $fileMetadata = new Google_Service_Drive_DriveFile(array(
+            'name' => $foldername,
+            'mimeType' => $mimeType));
+        $file = $this->service->files->create($fileMetadata, array('fields' => 'id'));
+        return $file->id;
+    }
+
+    //Get files on Googlr Drive TODO not used
+    public function getAllFilesGDrive() {
+        $list = array();
+        $result = array();
+        $pageToken = null;
+
+        do {
+            try {
+                $parameters = array();
+                if ($pageToken) {
+                    $parameters['pageToken'] = $pageToken;
+                }
+                $files = $this->service->files->listFiles($parameters);
+
+                $list = array_merge($list, $files->getFiles());
+
+                $pageToken = $files->getNextPageToken();
+            } catch (Exception $e) {
+                print "An error occurred: " . $e->getMessage();
+                $pageToken = NULL;
+            }
+        } while ($pageToken);
+
+        foreach ($list as $file) {
+            $obj = new \stdClass();
+            $obj->id = $file->getId();
+            $obj->name = $file->getName();
+            $obj->mimetype = $file->getMimeType();
+            $obj->parent = $file->getParents();
+
+            $result[] = $obj;
+        }
+
+
+        return $result;
+    }
+
+}
