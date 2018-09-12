@@ -106,6 +106,10 @@ function kmgoogle_build_select_name_file($courseid){
     $result = kmgoogle_get_groups_on_course($courseid);
     $result = array_merge(kmgoogle_get_collections_on_course($courseid), $result);
 
+    $obj = get_course($courseid);
+    $result[] = $obj->fullname;
+    $result[] = $obj->shortname;
+
     return $result;
 }
 

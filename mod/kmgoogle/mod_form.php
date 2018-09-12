@@ -73,10 +73,12 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         //Width Iframe
         $mform->addElement('text', 'iframewidth', get_string('iframewidth', 'kmgoogle'));
         $mform->setType('iframewidth', PARAM_INT);
+        $mform->setDefault('iframewidth',600);
 
         //Height Iframe
         $mform->addElement('text', 'iframeheight', get_string('iframeheight', 'kmgoogle'));
         $mform->setType('iframeheight', PARAM_INT);
+        $mform->setDefault('iframeheight',600);
 
         //Target Iframe
         $options = array('0' => get_string("otherblank", "kmgoogle"),
