@@ -52,59 +52,63 @@ class format_buttons extends format_topics
             $courseconfig = get_config('moodlecourse');
             // SG - Add course options for format_buttons
             $courseformatoptions['course_descr_bg_color'] = array(
-                'default' => '',
+                'default' => '#000',
+                'type' => PARAM_RAW,
+            );
+            $courseformatoptions['section_menu_bg_color'] = array(
+                'default' => '#ddd',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['section_menu_font_color'] = array(
-                'default' => '',
+                'default' => '#000',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['section_menu_icon_color'] = array(
-                'default' => '',
+                'default' => '#000',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['section_menu_info_arrows_color'] = array(
-                'default' => '',
+                'default' => '#7bc0de',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_section_bg_color'] = array(
-                'default' => '',
+                'default' => '#aaa',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_section_font_color'] = array(
-                'default' => '',
+                'default' => '#000',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_section_icon_color'] = array(
-                'default' => '',
+                'default' => '#000',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['label_menu_bg_color'] = array(
-                'default' => '',
+                'default' => '#fff',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['label_menu_font_color'] = array(
-                'default' => '',
+                'default' => '#000',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['label_menu_icon_color'] = array(
-                'default' => '',
+                'default' => '#000',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['label_menu_arrows_color'] = array(
-                'default' => '',
+                'default' => '#7bc0de',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_label_bg_color'] = array(
-                'default' => '',
+                'default' => '#fff',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_label_font_color'] = array(
-                'default' => '',
+                'default' => '#000',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_label_icon_color'] = array(
-                'default' => '',
+                'default' => '#000',
                 'type' => PARAM_RAW,
             );
 
@@ -176,60 +180,64 @@ class format_buttons extends format_topics
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
             
             // SG - Add course options for format_buttons
-            $courseformatoptions['course_descr_bg_color'] = array(
+            $courseformatoptionsedit['course_descr_bg_color'] = array(
                 'label' => get_string('course_descr_bg_color', 'format_buttons'),
                 'element_type' => 'text',
                 //'element_color' => true // SG - option for $this->create_edit_form_elements. TOREMOVE lately
             );
-            $courseformatoptions['section_menu_font_color'] = array(
+            $courseformatoptionsedit['section_menu_bg_color'] = array(
+                'label' => get_string('section_menu_bg_color', 'format_buttons'),
+                'element_type' => 'text',
+            );
+            $courseformatoptionsedit['section_menu_font_color'] = array(
                 'label' => get_string('section_menu_font_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['section_menu_icon_color'] = array(
+            $courseformatoptionsedit['section_menu_icon_color'] = array(
                 'label' => get_string('section_menu_icon_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['section_menu_info_arrows_color'] = array(
+            $courseformatoptionsedit['section_menu_info_arrows_color'] = array(
                 'label' => get_string('section_menu_info_arrows_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['selected_section_bg_color'] = array(
+            $courseformatoptionsedit['selected_section_bg_color'] = array(
                 'label' => get_string('selected_section_bg_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['selected_section_font_color'] = array(
+            $courseformatoptionsedit['selected_section_font_color'] = array(
                 'label' => get_string('selected_section_font_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['selected_section_icon_color'] = array(
+            $courseformatoptionsedit['selected_section_icon_color'] = array(
                 'label' => get_string('selected_section_icon_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['label_menu_bg_color'] = array(
+            $courseformatoptionsedit['label_menu_bg_color'] = array(
                 'label' => get_string('label_menu_bg_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['label_menu_font_color'] = array(
+            $courseformatoptionsedit['label_menu_font_color'] = array(
                 'label' => get_string('label_menu_font_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['label_menu_icon_color'] = array(
+            $courseformatoptionsedit['label_menu_icon_color'] = array(
                 'label' => get_string('label_menu_icon_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['label_menu_arrows_color'] = array(
+            $courseformatoptionsedit['label_menu_arrows_color'] = array(
                 'label' => get_string('label_menu_arrows_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['selected_label_bg_color'] = array(
+            $courseformatoptionsedit['selected_label_bg_color'] = array(
                 'label' => get_string('selected_label_bg_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['selected_label_font_color'] = array(
+            $courseformatoptionsedit['selected_label_font_color'] = array(
                 'label' => get_string('selected_label_font_color', 'format_buttons'),
                 'element_type' => 'text',
             );
-            $courseformatoptions['selected_label_icon_color'] = array(
+            $courseformatoptionsedit['selected_label_icon_color'] = array(
                 'label' => get_string('selected_label_icon_color', 'format_buttons'),
                 'element_type' => 'text',
             );
@@ -563,7 +571,7 @@ class format_buttons extends format_topics
                 //$PAGE->requires->js_init_call('M.util.init_colour_picker', array('id_'.$optionname, array('selector'=>'.fitem', 'style'=>'backgroundColor')));
                 //$elements[] = call_user_func_array(array($mform, 'addElement'), array('html', '<div class="admin_colourpicker"></div>'));
                 //$mform->addElement('html', '<div class="admin_colourpicker"></div>');
-            //}    
+            //}
         }
 
         if (!$forsection && empty($this->courseid)) {
@@ -579,7 +587,6 @@ class format_buttons extends format_topics
 
         return $elements;                
     }
-
 
 }
 

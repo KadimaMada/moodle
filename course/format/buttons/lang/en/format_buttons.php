@@ -75,6 +75,7 @@ $string['inlinesections_help'] = 'Give each section a new line.';
 
 // Strings for color options
 $string['course_descr_bg_color'] = 'Course descripion background color';
+$string['section_menu_bg_color'] = 'Section menu background color';
 $string['section_menu_font_color'] = 'Section menu font color';
 $string['section_menu_icon_color'] = 'Section menu iconcolor';
 $string['section_menu_info_arrows_color'] = 'Section menu info and arrows color';
