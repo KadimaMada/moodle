@@ -105,6 +105,7 @@ html[dir='rtl']{
       border:0;
       background-color: inherit;
       color:#000;
+      color:var(--buttons-label-font-color);
       outline:none;
       &>div:before{
         content:'';
@@ -118,12 +119,15 @@ html[dir='rtl']{
         border-right: 1px solid transparent;
         border-bottom: 1px solid #000;
         border-left: 1px solid #000;
+        border-bottom-color: var(--buttons-label-controls-color);
+        border-left-color: var(--buttons-label-controls-color);
         transform: rotate(45deg);
       }
     }
     .label-active{
       position: relative;
       color:gold;
+      color:var(--buttons-label-font-color);
       .label-header{
         height: inherit;
         text-align: center;
@@ -134,6 +138,7 @@ html[dir='rtl']{
       border:0;
       background-color: inherit;
       color:#000;
+      color:var(--buttons-label-font-color);
       outline:none;
       &>div:before{
         content:'';
@@ -147,6 +152,8 @@ html[dir='rtl']{
         border-right: 1px solid transparent;
         border-bottom: 1px solid #000;
         border-left: 1px solid #000;
+        border-bottom-color: var(--buttons-label-controls-color);
+        border-left-color: var(--buttons-label-controls-color);
         transform: rotate(225deg);
       }
     }

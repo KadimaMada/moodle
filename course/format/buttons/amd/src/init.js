@@ -60,7 +60,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
         var alert = $('#section' + this.dataset.section + ' .alert');
         console.log(alert.length);
         if (alert.length == 0){
-          $('#section' + this.dataset.section + ' .label-content-wrapper').prepend('<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>'+summary+'</div>');
+          $('#section' + this.dataset.section + ' .label-content-wrapper').prepend('<div class="alert alert-custom alert-dismissible"><button type="button" class="close" data-dismiss="alert">&times;</button>'+summary+'</div>');
         }
       });
     }

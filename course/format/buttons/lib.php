@@ -52,7 +52,7 @@ class format_buttons extends format_topics
             $courseconfig = get_config('moodlecourse');
             // SG - Add course options for format_buttons
             $courseformatoptions['course_descr_bg_color'] = array(
-                'default' => '#000',
+                'default' => '#7af2ff',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['section_menu_bg_color'] = array(
@@ -72,7 +72,7 @@ class format_buttons extends format_topics
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_section_bg_color'] = array(
-                'default' => '#aaa',
+                'default' => '#fff',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_section_font_color'] = array(
@@ -84,7 +84,7 @@ class format_buttons extends format_topics
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['label_menu_bg_color'] = array(
-                'default' => '#fff',
+                'default' => '#7af2ff',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['label_menu_font_color'] = array(
@@ -100,7 +100,7 @@ class format_buttons extends format_topics
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_label_bg_color'] = array(
-                'default' => '#fff',
+                'default' => '#85c7ce',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_label_font_color'] = array(
@@ -178,7 +178,7 @@ class format_buttons extends format_topics
             );
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
-            
+
             // SG - Add course options for format_buttons
             $courseformatoptionsedit['course_descr_bg_color'] = array(
                 'label' => get_string('course_descr_bg_color', 'format_buttons'),
@@ -242,7 +242,7 @@ class format_buttons extends format_topics
                 'element_type' => 'text',
             );
 
-            
+
             $courseconfig = get_config('moodlecourse');
             $max = $courseconfig->maxsections;
             if (!isset($max) || !is_numeric($max)) {
@@ -483,12 +483,12 @@ class format_buttons extends format_topics
 
     /**
      * Parse section name to divide it for section name and icon name
-     * 
+     *
      * @param str Raw string name from DB
      * @return array Array: [0] - raw name, [1] - section name, [2] - icon name / fa class
      */
     public function parse_section_name($sectionnameraw) {
-        
+
         $reg = '/(.*?)\{\{(.*?)\}\}/im'; // SG - regexp 20180830 - 'sectionname {{icon}}'
         preg_match($reg, $sectionnameraw, $sectionnamearr);
 
@@ -511,8 +511,8 @@ class format_buttons extends format_topics
         /*
         //$elements = parent::create_edit_form_elements($mform, $forsection);
         //print_object($this->course_format_options(true));
-        
-        //print_object($elements);        
+
+        //print_object($elements);
         // foreach ($elements as $arr => $element) {
         //     if (get_class($element) === 'MoodleQuickForm_text'){
 
@@ -525,15 +525,15 @@ class format_buttons extends format_topics
         $picturelinkimagedraftid = file_get_submitted_draft_itemid('picturelinkimage');
         file_prepare_draft_area($picturelinkimagedraftid, $context->id, 'format_picturelink', 'picturelinkimage', $COURSE->id,
                         array('subdirs' => false));
-        $mform->setDefault('picturelinkimage', $picturelinkimagedraftid); 
-        
+        $mform->setDefault('picturelinkimage', $picturelinkimagedraftid);
+
         // SG - allow only 1 file upload - ugly hack
         foreach ($elements as $arr => $element) {
             if (get_class($element) === 'MoodleQuickForm_filemanager'){
-                $element->setMaxfiles(1); 
-                $element->setSubdirs(false);   
+                $element->setMaxfiles(1);
+                $element->setSubdirs(false);
             }
-        } 
+        }
         */
 
         $elements = array();
@@ -585,7 +585,7 @@ class format_buttons extends format_topics
             }
         }
 
-        return $elements;                
+        return $elements;
     }
 
 }
