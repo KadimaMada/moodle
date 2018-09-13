@@ -31,6 +31,14 @@ define(['jquery'], function($) {
 
             //Disable select in form
             $('.disable_select select').prop('disabled', true);
+
+            $('#id_submitmechanism').on('change', function() {
+                if(this.value == '0'){
+                    $('#id_numberattempts').prop('disabled', true);
+                }else{
+                    $('#id_numberattempts').prop('disabled', false);
+                }
+            });
         }
     };
 

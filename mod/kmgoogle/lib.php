@@ -193,9 +193,11 @@ function kmgoogle_extend_settings_navigation($settings, $surveynode) {
     global $PAGE;
 
     if (has_capability('mod/kmgoogle:readresponses', $PAGE->cm->context)) {
-        $responsesnode = $surveynode->add(get_string("responsereports", "survey"));
-
         $url = new moodle_url('/mod/kmgoogle/report.php', array('id' => $PAGE->cm->id));
-        $responsesnode->add(get_string("summary", "kmgoogle"), $url);
+
+//        $responsesnode = $surveynode->add(get_string("responsereports", "survey"));
+//        $responsesnode->add(get_string("summary", "kmgoogle"), $url);
+
+        $surveynode->add(get_string("summary", "kmgoogle"), $url);
     }
 }

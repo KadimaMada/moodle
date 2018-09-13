@@ -291,6 +291,14 @@ function user_can_answer($instanceid){
         return false;
     }
 
+    //Count of answers
+    if($kmgoogle->submitmechanism && $kmgoogle->numberattempts){
+        $answers = $DB->get_record("kmgoogle_answers", array("instanceid" => $instanceid, "userid" => $USER->id));
+        if(count($answers) > $kmgoogle->numberattempts){
+            return false;
+        }
+    }
+
     return true;
 }
 

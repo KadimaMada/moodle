@@ -16,16 +16,17 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
 
         $strrequired = get_string('required');
 
+        $kmgoogle = $DB->get_record('kmgoogle', array('id' => $this->_instance));
+
         //Disabled field
         $select_disable = array();
         $input_disable = array();
         $checkbox_disable = array();
         if(kmgoogle_if_users_used_mod()){
             $select_disable = ['class' => 'disable_select'];
-            $input_disable =  array("readonly"=>"");
+            $input_disable =  array("disabled"=>"");
             $checkbox_disable =  array("disabled"=>"");
         }
-
 
 //-------------------------------------------------------------------------------
         $mform->addElement('header', 'general', get_string('general', 'form'));
@@ -43,7 +44,8 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         foreach (kmgoogle_build_select_name_file($COURSE->id) as $name) {
             $options[$name] = $name;
         }
-        $options = array(''=>get_string('choose').'...') + $options;
+        //$options = array(''=>get_string('choose').'...') + $options;
+        $options = array(''=>get_string('default_name', 'kmgoogle')) + $options;
         $mform->addElement('select', 'namefile', get_string("kmgoogleplace", "kmgoogle"), $options, $select_disable);
         //$mform->addRule('namefile', $strrequired, 'required', null, 'client');
         $mform->addHelpButton('namefile', 'kmgoogleplace', 'kmgoogle');
@@ -123,21 +125,27 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         );
         $mform->addElement('select', 'studenttoclick', get_string("studenttoclick", "kmgoogle"), $options, $select_disable);
 
-        //Student consent is required for the submission statement
-        $options = array('0' => get_string("no"),
-                         '1' => get_string("yes"),
-        );
-        $mform->addElement('select', 'studentconsent', get_string("studentconsent", "kmgoogle"), $options, $select_disable);
+//        //Student consent is required for the submission statement
+//        $options = array('0' => get_string("no"),
+//                         '1' => get_string("yes"),
+//        );
+//        $mform->addElement('select', 'studentconsent', get_string("studentconsent", "kmgoogle"), $options, $select_disable);
 
         //Submitting mechanism
         $options = array('0' => get_string("automatic", "kmgoogle"),
-                         '1' => get_string("unlimited"),
+                         '1' => get_string("manually", "kmgoogle"),
         );
         $mform->addElement('select', 'submitmechanism', get_string("submitmechanism", "kmgoogle"), $options, $select_disable);
+
+        //Disable field
+        if(!$kmgoogle->submitmechanism){
+            $input_disable =  array("disabled"=>"");
+        }
 
         //Maximum number of attempts
         $mform->addElement('text', 'numberattempts', get_string('numberattempts', 'kmgoogle'), $input_disable);
         $mform->setType('numberattempts', PARAM_INT);
+        $mform->setDefault('numberattempts',10);
 
 
         //Standard form elements

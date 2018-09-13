@@ -48,6 +48,7 @@ class report_table extends table_sql {
             $columns[] = 'picture';
         }
         $columns[] = 'username';
+        $columns[] = 'activityname';
         $columns[] = 'url';
         $columns[] = 'timecreated';
         $this->define_columns($columns);
@@ -58,12 +59,14 @@ class report_table extends table_sql {
             $headers[] = get_string('user_image', 'kmgoogle');
         }
         $headers[] = get_string('first_last_name', 'kmgoogle');
+        $headers[] = get_string('activityname', 'kmgoogle');
         $headers[] = get_string('url_google_drive', 'kmgoogle');
         $headers[] = get_string('submitted_on', 'kmgoogle');
         $this->define_headers($headers);
 
         $this->no_sorting('picture');
         $this->no_sorting('username');
+        $this->no_sorting('activityname');
     }
 
     /**
@@ -95,6 +98,13 @@ class report_table extends table_sql {
         } else {
             return '<a href="/user/profile.php?id='.$values->userid.'">'.$user->firstname.' '.$user->lastname.'</a>';
         }
+    }
+
+    function col_activityname($values) {
+        global $DB;
+        // If the data is being downloaded than we don't want to show HTML.
+        $kmgoogle = $DB->get_record("kmgoogle", array('id' => $values->instanceid));
+        return $kmgoogle->name;
     }
 
     function col_url($values) {
@@ -132,7 +142,7 @@ if (! $course = $DB->get_record("course", array("id" => $cm->course))) {
     print_error('coursemisconf');
 }
 
-$PAGE->set_url('/mod/kmgoogle/view.php', array('id' => $id));
+$PAGE->set_url('/mod/kmgoogle/report.php', array('id' => $id));
 require_login($course, false, $cm);
 $context = context_module::instance($cm->id);
 
@@ -156,6 +166,7 @@ if (!$table->is_downloading()) {
     $PAGE->set_heading(get_string('report'));
     $PAGE->navbar->add(get_string('report'), new moodle_url('/mod/kmgoogle/report.php', array('id' => $id)));
     echo $OUTPUT->header();
+    echo $OUTPUT->heading($kmgoogle->name);
 
     //If student needed click
     if($kmgoogle->studenttoclick) {
@@ -174,9 +185,32 @@ if (!$table->is_downloading()) {
 
 }
 
+
 //Work out the sql for the table.
-$where = ' instanceid='.$cm->instance.' ';
-$table->set_sql('*', "{kmgoogle_answers}", $where);
+switch ($kmgoogle->natureofserving) {
+    case 0:
+        $where = ' GROUP BY instanceid, userid ';
+        break;
+    case 1:
+        $where = ' WHERE instanceid='.$cm->instance.' GROUP BY userid ';
+        break;
+    default:
+        $where = ' WHERE instanceid='.$cm->instance.' GROUP BY userid ';
+}
+
+$fields = '*';
+$from = '
+(SELECT * FROM
+    (
+        SELECT *
+        FROM {kmgoogle_answers}
+        ORDER BY timecreated DESC
+    ) AS answers
+    '.$where.'
+) AS groups
+';
+
+$table->set_sql($fields, $from, 'id');
 
 $table->define_baseurl("$CFG->wwwroot/mod/kmgoogle/report.php?id=$id");
 
