@@ -71,10 +71,36 @@ html[dir='rtl']{
     .labels-wrapper{
       height:0;
       overflow:hidden;
-      transition: all .3s ease-in-out;
+      transition: height .8s ease-in-out;
       &.expand{
         height:auto;
-        transition: all .3s ease-in-out;
+        transition: height .8s ease-in-out;
+        max-height:484px;
+        overflow-y: scroll;
+          &::-webkit-scrollbar {
+              width: 4px;
+              height: 5px;
+              cursor: pointer;
+          }
+           &::-webkit-scrollbar-track {
+             // background-color: #b4c1c7;
+             background-color: transparent;
+             // border-radius: 8px;
+             cursor: pointer;
+              // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+          }
+           &::-webkit-scrollbar-thumb {
+            // background-color: $primary-color;
+            background: #D5D5D4;
+            // outline: 1px solid slategrey;
+            // border-radius: 8px;
+            height: 1px;
+            width: 1px;
+            cursor: pointer;
+          }
+          ::-webkit-scrollbar-thumb:hover {
+            background: $dark_dark_gray;
+          }
       }
       .slider.labels{
         .nav-item{

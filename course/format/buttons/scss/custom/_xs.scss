@@ -71,15 +71,56 @@ html[dir='rtl']{
     .labels-wrapper{
       height:0;
       overflow:hidden;
-      transition: all .3s ease-in-out;
+      transition: heigth .3s linear;
       &.expand{
-        height:auto;
-        transition: all .3s ease-in-out;
+        height: auto;
+        transition: height .3s linear;
+        max-height:484px;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+          width: 4px;
+          height: 5px;
+          cursor: pointer;
+        }
+        &::-webkit-scrollbar-track {
+          // background-color: #b4c1c7;
+          background-color: transparent;
+          // border-radius: 8px;
+          cursor: pointer;
+          // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        }
+        &::-webkit-scrollbar-thumb {
+          // background-color: $primary-color;
+          background: #D5D5D4;
+          // outline: 1px solid slategrey;
+          // border-radius: 8px;
+          height: 1px;
+          width: 1px;
+          cursor: pointer;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: $dark_dark_gray;
+        }
+        .slider.labels{
+          .nav-item{
+            height: 88px;
+            transition: height .3s linear;
+          }
+        }
+        &.collapsing{
+          .slider.labels{
+            .nav-item{
+              height: 0;
+              transition: height .3s linear;
+            }
+          }
+        }
       }
       .slider.labels{
-        overflow-y: scroll;
         .nav-item{
           width:100%;
+          height: 0;
+          transition: height .3s linear;
         }
       }
     }
