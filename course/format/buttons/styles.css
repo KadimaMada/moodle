@@ -622,8 +622,16 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
     cursor: pointer; }
   .format-buttons .sections-content-wrapper .labels-wrapper.expand ::-webkit-scrollbar-thumb:hover{
     background: #787a7a; }
+  .format-buttons .sections-content-wrapper .labels-wrapper.expand .slider.labels .nav-item{
+    height: 88px;
+    transition: height .3s linear; }
+  .format-buttons .sections-content-wrapper .labels-wrapper.expand.collapsing .slider.labels .nav-item{
+    height: 0;
+    transition: height .3s linear; }
   .format-buttons .sections-content-wrapper .labels-wrapper .slider.labels .nav-item{
-    width: 100%; }
+    width: 100%;
+    height: 0;
+    transition: height .3s linear; }
   .format-buttons .label-content-controls{
     position: relative;
     padding: 15px 0;

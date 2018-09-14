@@ -101,10 +101,26 @@ html[dir='rtl']{
           ::-webkit-scrollbar-thumb:hover {
             background: $dark_dark_gray;
           }
+          .slider.labels{
+            .nav-item{
+              height: 88px;
+              transition: height .3s linear;
+            }
+          }
+          &.collapsing{
+            .slider.labels{
+              .nav-item{
+                height: 0;
+                transition: height .3s linear;
+              }
+            }
+          }
       }
       .slider.labels{
         .nav-item{
           width:100%;
+          height: 0;
+          transition: height .3s linear;
         }
       }
     }

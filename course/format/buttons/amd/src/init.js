@@ -54,7 +54,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
   }
 
   function xsSectionArrowsEvents() {
-    if (window.innerWidth < 767){
+    if (window.innerWidth <= 767){
       $('.slider.sections .slick-arrow').on('click', function(){
         $('.slider.sections .slick-slide.slick-current.slick-active .nav-item').click();
         $('.labels-wrapper.expand').removeClass('expand');
@@ -93,7 +93,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
           loop($('#section' + currentSection + ' .label-content'));
           $('[data-label-content="' + this.dataset.label + '"]').toggleClass('d-none');
           initPrevNextBtns(currentSection);
-          if (window.innerWidth < 767 && $('#section' + currentSection + ' .labels-wrapper').hasClass('expand')){
+          if (window.innerWidth <= 767 && $('#section' + currentSection + ' .labels-wrapper').hasClass('expand')){
             $('#section' + currentSection + ' .labels-wrapper').addClass('collapsing');
             setTimeout(function(){
               $('#section' + currentSection + ' .labels-wrapper').removeClass('collapsing');
