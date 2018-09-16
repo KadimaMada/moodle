@@ -1,9 +1,11 @@
 // @import "globals/font";
 @import "variables";
 
+// @import "cssvariables"; -  for testing css variables
+
 @import "blocks/base";
 @import "blocks/slick";
-@import "blocks/temp";
+// @import "blocks/temp";
 
 // custom styles
 @import "custom/custom";

@@ -422,6 +422,31 @@ class format_buttons_renderer extends format_topics_renderer
         } else {
             $sectionvisible = 1;
         }
+
+        /*
+        * Course format options render for frontend
+        */
+        $csscoloroptions = ""; 
+        $csscoloroptions .= ":root{";
+        $csscoloroptions .= "--buttons-course-description: ".$course->course_descr_bg_color.";";
+        $csscoloroptions .= "--buttons-section-bg-color: ".$course->section_menu_bg_color.";";  
+        $csscoloroptions .= "--buttons-section-font-color: ".$course->section_menu_font_color.";";  
+        $csscoloroptions .= "--buttons-section-icon-color: ".$course->section_menu_icon_color.";";  
+        $csscoloroptions .= "--buttons-section-info-color: ".$course->section_menu_info_arrows_color.";";  
+        $csscoloroptions .= "--buttons-section-active-bg: ".$course->selected_section_bg_color.";";  
+        $csscoloroptions .= "--buttons-section-active-font-color: ".$course->selected_section_font_color.";";  
+        $csscoloroptions .= "--buttons-section-active-icon-color: ".$course->selected_section_icon_color.";";  
+        $csscoloroptions .= "--buttons-label-bg: ".$course->label_menu_bg_color.";"; 
+        $csscoloroptions .= "--buttons-label-font-color: ".$course->label_menu_font_color.";"; 
+        $csscoloroptions .= "--buttons-label-icon-color: ".$course->label_menu_icon_color.";"; 
+        $csscoloroptions .= "--buttons-label-controls-color: ".$course->label_menu_arrows_color.";";  
+        $csscoloroptions .= "--buttons-label-active-bg: ".$course->selected_label_bg_color.";"; 
+        $csscoloroptions .= "--buttons-label-active-font-color: ".$course->selected_label_font_color.";"; 
+        $csscoloroptions .= "--buttons-label-active-icon-color: ".$course->selected_label_icon_color.";"; 
+        $csscoloroptions .= "}"; 
+
+        echo html_writer::tag('style', $csscoloroptions);
+
         // old htmlsection
         // $htmlsection = false;
         // foreach ($modinfo->get_section_info_all() as $section => $thissection) {
