@@ -840,7 +840,8 @@ class format_buttons_renderer extends format_topics_renderer
                         // $reg = '/\#name(.*?\s)\#icon(.*?\s.*?)\#content(.*?\s.*?)<\/div>/mix';
                         //$reg = '/#name(.*?)<br>.*?#icon(.*?)<br>(.*?)<\/div>/im';
                         // $reg = '/#name(.*)%name.*?\s*#icon(.*)%icon?\s*(.*)<\/div>/im';
-                        $reg = '/[\s\S]*?\[\[(.*?)\]\][\s\S]*?\{\{(.*?)\}\}[\s\S]*?([\s\S]*)<\/div>/im'; // SG - the latest regexp 20180830 - '[[name]] {{icon}} rest of the text'
+                        // $reg = '/[\s\S]*?\[\[(.*?)\]\][\s\S]*?\{\{(.*?)\}\}[\s\S]*?([\s\S]*)<\/div>/im'; // SG - the lpreviouse regexp 20180830 - '[[name]] {{icon}} rest of the text'
+                        $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                         preg_match($reg, $modulehtml, $content);
                         // preg_split($reg, $modulehtml, $content);
 
