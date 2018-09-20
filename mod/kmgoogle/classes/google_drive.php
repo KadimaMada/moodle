@@ -43,6 +43,27 @@ class google_drive {
         return false;
     }
 
+    //Get Mime type of file
+    public function typeOfFile($fileId) {
+        try {
+            $file = $this->service->files->get($fileId);
+            $arr = explode('.', $file->getMimeType());
+            return $arr[count($arr)-1];
+        } catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
+        }
+    }
+
+    //Get Name of file
+    public function nameOfFile($fileId) {
+        try {
+            $file = $this->service->files->get($fileId);
+            return $file->getName();
+        } catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
+        }
+    }
+
     //Check if access granted TODO
     public function checkAccessGranted() {
             try {
@@ -65,6 +86,9 @@ class google_drive {
 
         if(!empty($nameFile)){
             $copiedFile->setName($nameFile);
+        }else{
+            $name = $this->nameOfFile($originFileId);
+            $copiedFile->setName($name);
         }
 
         if($folderId != null){
@@ -77,6 +101,49 @@ class google_drive {
             print "An error occurred: " . $e->getMessage();
         }
         return NULL;
+    }
+
+    //Create folder
+    public function createFolder($nameFile, $fileId = null) {
+        $mimeType = 'application/vnd.google-apps.folder';
+
+//        $list = $this->getAllFilesGDrive();
+//        foreach($list as $file){
+//            if($file->name == $foldername && $file->mimetype == $mimeType){
+//                return $file->id;
+//            }
+//        }
+
+        $copiedFile = new Google_Service_Drive_DriveFile();
+
+        if(!empty($nameFile)){
+            $copiedFile->setName($nameFile);
+        }else{
+            if($fileId != null){
+                $name = $this->nameOfFile($fileId);
+                $copiedFile->setName($name);
+            }
+        }
+
+        $copiedFile->setMimeType($mimeType);
+
+        return $this->service->files->create($copiedFile, array('fields' => 'id'));
+    }
+
+    //copy files from folder to folder
+    public function copyFilesFromFolderToFolder($sourceFileId, $targetFileId) {
+        $pageToken = NULL;
+
+        $optParams = array(
+            'pageSize' => 10,
+            'fields' => "nextPageToken, files(contentHints/thumbnail,fileExtension,iconLink,id,name,size,thumbnailLink,webContentLink,webViewLink,mimeType,parents)",
+            'q' => "'".$sourceFileId."' in parents"
+        );
+        $files = $this->service->files->listFiles($optParams);
+
+        foreach($files as $file){
+            $this->copyFileToFolder($file->getId(), $file->getName(), $targetFileId);
+        }
     }
 
     //Delete file or folder from disk
@@ -131,7 +198,7 @@ class google_drive {
                 'emailAddress' => $user->email
             ));
             $request = $this->service->permissions->create(
-                $fileID, $userPermission, array('fields' => 'id'));
+                $fileID, $userPermission, array('fields' => 'id', 'sendNotificationEmail' => false));
             $batch->add($request, 'user');
             $results = $batch->execute();
 
@@ -157,24 +224,6 @@ class google_drive {
         } catch (Exception $e) {
             //print "An error occurred: " . $e->getMessage();
         }
-    }
-
-    //Create folder TODO not used
-    public function createFolder($foldername) {
-        $mimeType = 'application/vnd.google-apps.folder';
-
-        $list = $this->getAllFilesGDrive();
-        foreach($list as $file){
-            if($file->name == $foldername && $file->mimetype == $mimeType){
-                return $file->id;
-            }
-        }
-
-        $fileMetadata = new Google_Service_Drive_DriveFile(array(
-            'name' => $foldername,
-            'mimeType' => $mimeType));
-        $file = $this->service->files->create($fileMetadata, array('fields' => 'id'));
-        return $file->id;
     }
 
     //Get files on Googlr Drive TODO not used

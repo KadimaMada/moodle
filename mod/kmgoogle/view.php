@@ -94,7 +94,7 @@ if(!$kmgoogle->ififrame){
 if(user_can_answer($cm->instance)){
     echo '<br />';
     echo '<br />';
-    echo '<input type="submit" class="btn btn-primary" value="'.get_string("answer").'" />';
+    echo '<input type="submit" class="btn btn-primary" value="'.get_string("answer", 'kmgoogle').'" />';
     echo '</div>';
     echo "</form>";
     echo $OUTPUT->footer();

@@ -36,4 +36,12 @@ if(no_permission_for_user($cm->instance)) {
     exit;
 }
 
-echo '<iframe src="'.$kmgoogle->copiedgoogleurl.'" width=100% height=100% align="left"></iframe>';
+global $GoogleDrive;
+$copyFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
+if($GoogleDrive->typeOfFile($copyFileId) == 'folder'){
+    echo '<span><h1>'.$GoogleDrive->nameOfFile($copyFileId).'</h1></span>';
+    echo '<br>';
+    echo '<iframe src="https://drive.google.com/embeddedfolderview?id='.$copyFileId.'#list" width=100% height=100% align="left"></iframe>';
+}else{
+    echo '<iframe src="'.$kmgoogle->copiedgoogleurl.'" width=100% height=100% align="left"></iframe>';
+}

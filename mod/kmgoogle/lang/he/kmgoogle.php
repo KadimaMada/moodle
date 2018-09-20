@@ -81,3 +81,4 @@ $string['December'] = "דצמבר";
 $string['Date_of_last_submission'] = "תאריך ההגשה האחרון";
 $string['change_date'] = "שינוי";
 $string['default_name'] = "שם ברירת המחדל";
+$string['answer'] = "הגשה";

@@ -323,11 +323,17 @@ function kmgoogle_copy_google_url($kmgoogle){
         $name = $kmgoogle->namefile;
     }
 
-    if(!empty($kmgoogle->googlefolderurl)){
-        $folderid = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->googlefolderurl);
-        $newFile = $GoogleDrive->copyFileToFolder($sourceFileId, $name, $folderid);
-    }else{
-        $newFile = $GoogleDrive->copyFileToFolder($sourceFileId, $name, null);
+    //If Folder
+    if($GoogleDrive->typeOfFile($sourceFileId) == 'folder'){
+        $newFile = $GoogleDrive->createFolder($name, $sourceFileId);
+        $GoogleDrive->copyFilesFromFolderToFolder($sourceFileId, $newFile->getId());
+    }else {
+        if (!empty($kmgoogle->googlefolderurl)) {
+            $folderid = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->googlefolderurl);
+            $newFile = $GoogleDrive->copyFileToFolder($sourceFileId, $name, $folderid);
+        } else {
+            $newFile = $GoogleDrive->copyFileToFolder($sourceFileId, $name, null);
+        }
     }
 
     return str_replace($sourceFileId, $newFile->getId(), $kmgoogle->sourcegoogleurl);

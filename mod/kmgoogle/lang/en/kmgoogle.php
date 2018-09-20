@@ -81,3 +81,4 @@ $string['December'] = "December";
 $string['Date_of_last_submission'] = "Date of last submission";
 $string['change_date'] = "Change";
 $string['default_name'] = "Default name";
+$string['answer'] = "Answer";

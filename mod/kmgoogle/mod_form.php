@@ -138,7 +138,7 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         $mform->addElement('select', 'submitmechanism', get_string("submitmechanism", "kmgoogle"), $options, $select_disable);
 
         //Disable field
-        if(!$kmgoogle->submitmechanism){
+        if(!empty($kmgoogle->submitmechanism) && !$kmgoogle->submitmechanism){
             $input_disable =  array("disabled"=>"");
         }
 
