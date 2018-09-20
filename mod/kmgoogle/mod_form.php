@@ -119,11 +119,11 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         );
         $mform->addElement('select', 'natureofserving', get_string("natureofserving", "kmgoogle"), $options, $select_disable);
 
-        //Requires students to click
-        $options = array('0' => get_string("no"),
-                         '1' => get_string("yes"),
-        );
-        $mform->addElement('select', 'studenttoclick', get_string("studenttoclick", "kmgoogle"), $options, $select_disable);
+//        //Requires students to click
+//        $options = array('0' => get_string("no"),
+//                         '1' => get_string("yes"),
+//        );
+//        $mform->addElement('select', 'studenttoclick', get_string("studenttoclick", "kmgoogle"), $options, $select_disable);
 
 //        //Student consent is required for the submission statement
 //        $options = array('0' => get_string("no"),

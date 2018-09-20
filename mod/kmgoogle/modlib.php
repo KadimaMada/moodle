@@ -108,7 +108,7 @@ function kmgoogle_build_select_name_file($courseid){
     $result = array_merge(kmgoogle_get_collections_on_course($courseid), $result);
 
     $obj = get_course($courseid);
-    $result[] = $obj->fullname;
+    //$result[] = $obj->fullname;
     $result[] = $obj->shortname;
 
     return $result;
@@ -283,9 +283,9 @@ function user_can_answer($instanceid){
     }
 
     //If student needed click
-    if(!$kmgoogle->studenttoclick || $kmgoogle->datelastsubmit <= time()) {
-        return false;
-    }
+//    if(!$kmgoogle->studenttoclick || $kmgoogle->datelastsubmit <= time()) {
+//        return false;
+//    }
 
     $permission = $DB->get_record("kmgoogle_permission", array("instanceid" => $instanceid, "userid" => $USER->id));
     if(empty($permission) || $permission->permission == 'nopermission' || $permission->permission == 'view'){
@@ -316,7 +316,12 @@ function kmgoogle_copy_google_url($kmgoogle){
     global $DB, $USER, $COURSE, $GoogleDrive;
 
     $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->sourcegoogleurl);
-    $name = $kmgoogle->namefile;
+
+    if(!empty($kmgoogle->namefile)){
+        $name = $kmgoogle->name.' '.$kmgoogle->namefile;
+    }else{
+        $name = $kmgoogle->namefile;
+    }
 
     if(!empty($kmgoogle->googlefolderurl)){
         $folderid = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->googlefolderurl);
