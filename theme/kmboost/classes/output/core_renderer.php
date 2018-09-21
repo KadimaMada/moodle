@@ -31,7 +31,7 @@ use stdClass;
 
 class core_renderer extends \theme_boost\output\core_renderer {
 
-    public function get_logo_url(){
+    public function get_logo_url($maxwidth = NULL, $maxheight = 200){
         global $PAGE,$CFG;
 
         if (!empty($this->page->theme->settings->logo)) {
