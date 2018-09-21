@@ -394,14 +394,19 @@
     .format-buttons .labels-wrapper .slider.labels .nav-item .label-header div {
       min-width: 80px;
       max-width: 80%;
-      max-height: 80px;
-      overflow-y: hidden; }
+      height: 88px;
+      padding: 15px 10px 15px 0;
+      overflow-y: hidden;
+      -ms-flex-pack: center;
+          justify-content: center; }
       .format-buttons .labels-wrapper .slider.labels .nav-item .label-header div .label-title {
-        font-size: 1.15rem;
+        display: block;
+        font-size: 1rem;
+        line-height: 1.15rem;
         box-sizing: border-box;
         max-width: 100%;
-        max-height: inherit;
-        padding: 10px 0;
+        max-height: 58px;
+        padding: 0;
         overflow: hidden; }
     .format-buttons .labels-wrapper .slider.labels .nav-item .label-header .label-icon {
       margin: 0 8px; }
@@ -469,7 +474,6 @@
 .format-buttons .label-content-wrapper {
   position: relative;
   box-sizing: border-box;
-  border: 1px solid #ddd;
   margin: 24px 1px;
   padding: 1vh; }
   .format-buttons .label-content-wrapper .alert {
@@ -710,7 +714,7 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
   html[dir='ltr'] .format-buttons .slider.sections.slick-slider .slick-arrow.slick-next:before{
     transform: rotate(225deg); }
   html[dir='ltr'] .format-buttons .slider.labels .nav-item{
-    min-height: 80px; }
+    min-height: 88px; }
   html[dir='ltr'] .format-buttons .slider.labels .nav-item.active{
     padding: 0 0 0 12px; }
   html[dir='ltr'] .format-buttons .slider.labels .nav-item:hover{
@@ -738,7 +742,7 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
   html[dir='rtl'] .format-buttons .slider.sections.slick-slider .slick-arrow.slick-next:before{
     transform: rotate(135deg); }
   html[dir='rtl'] .format-buttons .slider.labels .nav-item{
-    min-height: 80px; }
+    min-height: 88px; }
   html[dir='rtl'] .format-buttons .slider.labels .nav-item.active{
     padding: 0 0 0 12px; }
   html[dir='rtl'] .format-buttons .slider.labels .nav-item:hover{
