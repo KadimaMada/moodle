@@ -201,3 +201,11 @@ function kmgoogle_extend_settings_navigation($settings, $surveynode) {
         $surveynode->add(get_string("summary", "kmgoogle"), $url);
     }
 }
+
+function kmgoogle_supports($feature) {
+    switch($feature) {
+        case FEATURE_BACKUP_MOODLE2: return true;
+        default:
+            return null;
+    }
+}

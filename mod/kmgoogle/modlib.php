@@ -33,15 +33,15 @@ function kmgoogle_get_groups_on_course($courseid){
     return $result;
 }
 
-//TODO
 function kmgoogle_get_collections_on_course($courseid){
+    global $DB;
+
     $result = array();
 
-//    $result = array(
-//        '1' => 'Collection1',
-//        '2' => 'Collection2',
-//        '3' => 'Collection3',
-//    );
+    $collections = groups_get_all_groupings($courseid);
+    foreach($collections as $collection){
+        $result[$collection->id] = $collection->name;
+    }
 
     return $result;
 }
@@ -94,11 +94,16 @@ function kmgoogle_get_users_by_group($groupid){
     return $result;
 }
 
-//TODO
 function kmgoogle_get_users_by_collection($collectionid){
-    $result = array(
+    global $DB;
 
-    );
+    $result = array();
+
+    $groups = $DB->get_records('groupings_groups', array('groupingid' => $collectionid));
+    foreach ($groups as $group) {
+        $users = kmgoogle_get_users_by_group($group->groupid);
+        $result = array_merge($result, $users);
+    }
 
     return $result;
 }

@@ -77,7 +77,7 @@ if($kmgoogle->ififrame){
         $iframeheight = ' height='.$kmgoogle->iframeheight.'px ';
     }
 
-    echo '<iframe '.$iframewidth.$iframeheight.' src="/mod/kmgoogle/source.php?id='.$id.'"></iframe>';
+    echo '<center><iframe '.$iframewidth.$iframeheight.' src="/mod/kmgoogle/source.php?id='.$id.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></center>';
 }
 
 //If link
