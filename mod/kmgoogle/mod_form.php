@@ -85,6 +85,7 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         //Target Iframe
         $options = array('0' => get_string("otherblank", "kmgoogle"),
                          '1' => get_string("sameblank", "kmgoogle"),
+                         '2' => get_string("popupblank", "kmgoogle"),
                         );
         $mform->addElement('select', 'targetiframe', get_string("targetiframe", "kmgoogle"), $options);
 

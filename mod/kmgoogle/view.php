@@ -82,13 +82,25 @@ if($kmgoogle->ififrame){
 
 //If link
 if(!$kmgoogle->ififrame){
-    $blank = '';
-    if(!$kmgoogle->targetiframe){
-        $blank = ' target="_blank" ';
+
+    echo '<div>' . get_string('linktoworkwithdocument', 'kmgoogle') . '</div>';
+
+    if(in_array($kmgoogle->targetiframe, array(0, 1))) {
+        $blank = '';
+        if (!$kmgoogle->targetiframe) {
+            $blank = ' target="_blank" ';
+        }
+
+        echo '<a href="/mod/kmgoogle/source.php?id=' . $id . '"' . $blank . '>' . get_string('url') . '</a>';
     }
 
-    echo '<div>'. get_string('linktoworkwithdocument', 'kmgoogle'). '</div>';
-    echo '<a href="/mod/kmgoogle/source.php?id='.$id.'"'.$blank.'>'.get_string('url').'</a>';
+    if($kmgoogle->targetiframe == 2) {
+        $onclick_popup = "window.open('".$CFG->wwwroot."/mod/kmgoogle/source.php?id=".$id."','popup','width=600,height=600'); return false;";
+
+        echo '
+            <a href="" target="popup" onclick="'.$onclick_popup.'">'.get_string('url').'</a>
+        ';
+    }
 }
 
 if(user_can_answer($cm->instance)){

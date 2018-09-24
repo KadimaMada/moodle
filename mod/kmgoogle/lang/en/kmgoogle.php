@@ -40,6 +40,7 @@ $string['iframeheight'] = 'iFrame height';
 $string['targetiframe'] = 'Target of iFrame';
 $string['otherblank'] = 'In other blank';
 $string['sameblank'] = 'In same blank';
+$string['popupblank'] = 'In popup';
 $string['sharing'] = 'Sharing Setting';
 $string['association'] = 'Association level';
 $string['collection'] = 'Collection groups';

@@ -40,6 +40,7 @@ $string['iframeheight'] = 'גובה החלון (בפיקסלים)';
 $string['targetiframe'] = 'אופן תצוגה';
 $string['otherblank'] = 'פתיחה בחלון חדש';
 $string['sameblank'] = 'פתיחה באותו דף';
+$string['popupblank'] = 'פתיחה בכרטיסיה חדשה';
 $string['sharing'] = 'הגדרות שיתוף';
 $string['association'] = 'רמת השיוך';
 $string['collection'] = 'אוסף קבוצות';
