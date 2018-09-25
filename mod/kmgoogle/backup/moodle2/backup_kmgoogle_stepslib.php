@@ -55,6 +55,8 @@ class backup_kmgoogle_activity_structure_step extends backup_activity_structure_
                                                   'iframewidth',
                                                   'iframeheight',
                                                   'targetiframe',
+                                                  'buttonhtml',
+                                                  'buttonhtmlformat',
                                                   'association',
                                                   'associationname',
                                                   'permissions',

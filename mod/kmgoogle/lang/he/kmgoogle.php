@@ -38,6 +38,7 @@ $string['if_iframe'] = 'הצגה כ iFrame';
 $string['iframewidth'] = 'רוחב החלון (בפיקסלים)';
 $string['iframeheight'] = 'גובה החלון (בפיקסלים)';
 $string['targetiframe'] = 'אופן תצוגה';
+$string['buttonhtml'] = 'עיצוב קישור';
 $string['otherblank'] = 'פתיחה בחלון חדש';
 $string['sameblank'] = 'פתיחה באותו דף';
 $string['popupblank'] = 'פתיחה בכרטיסיה חדשה';

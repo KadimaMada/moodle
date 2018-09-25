@@ -173,15 +173,7 @@ function kmgoogle_permissions_grades(){
     );
 }
 
-function kmgoogle_analize_user_permission($id){
-    global $DB, $USER, $COURSE, $GoogleDrive;
-
-    $cm = get_coursemodule_from_id('kmgoogle', $id);
-
-    if (! $kmgoogle = $DB->get_record("kmgoogle", array("id" => $cm->instance))) {
-        print_error('invalidkmgoogleid', 'kmgoogle');
-    }
-
+function kmgoogle_get_users_by_association($kmgoogle){
     //Check if user in selected course or group or collection
     switch ($kmgoogle->association) {
         case 'course':
@@ -202,6 +194,70 @@ function kmgoogle_analize_user_permission($id){
         $tmp[] = $item->userid;
     }
 
+    return $tmp;
+}
+
+function kmgoogle_get_teacher_admin_users(){
+    global $DB;
+
+    $tmp = array();
+
+    //Get admins
+    $admins = get_admins();
+    foreach($admins as $user){
+        $tmp[] = $user->id;
+    }
+
+    //Get teachers, editingteachers
+    $sql = '
+    SELECT distinct c.id, c.fullname, u.username, u.firstname, u.lastname
+    FROM {course} as c, {role_assignments} AS ra, {user} AS u, mdl_context AS ct
+    WHERE c.id = ct.instanceid AND ra.roleid IN (1,2,3,4) AND ra.userid = u.id AND ct.id = ra.contextid;
+    ';
+
+    $result = $DB->get_records_sql($sql);
+    foreach($result as $user){
+        $tmp[] = $user->id;
+    }
+
+    $tmp = array_unique($tmp);
+
+    return $tmp;
+}
+
+function kmgoogle_get_other_users($kmgoogle){
+    $courseusers = kmgoogle_get_users_by_course();
+
+    $result = array();
+    $users = array();
+    $users = array_merge($users, kmgoogle_get_users_by_association($kmgoogle));
+    $users = array_merge($users, kmgoogle_get_teacher_admin_users());
+    $users = array_unique($users);
+
+    foreach($courseusers as $user){
+        if(!in_array($user->userid, $users)){
+            $result[] = $user->userid;
+        }
+    }
+
+    return $result;
+}
+
+function kmgoogle_analize_user_permission($id){
+    global $DB, $USER, $COURSE, $GoogleDrive;
+
+    $cm = get_coursemodule_from_id('kmgoogle', $id);
+
+    if (! $kmgoogle = $DB->get_record("kmgoogle", array("id" => $cm->instance))) {
+        print_error('invalidkmgoogleid', 'kmgoogle');
+    }
+
+    $tmp = array();
+    $tmp = array_merge($tmp, kmgoogle_get_users_by_association($kmgoogle));
+    $tmp = array_merge($tmp, kmgoogle_get_teacher_admin_users());
+    $tmp = array_merge($tmp, kmgoogle_get_other_users($kmgoogle));
+    $tmp = array_unique($tmp);
+
     if(!in_array($USER->id, $tmp)){
         $objdelete = $DB->get_record("kmgoogle_permission", array("instanceid" => $cm->instance, "userid" => $USER->id));
 
@@ -212,28 +268,34 @@ function kmgoogle_analize_user_permission($id){
         return true;
     }
 
-    //Check roles
-    $context = context_course::instance($cm->course);
-    $roles = get_user_roles($context, $USER->id);
     $permission_admin = json_decode($kmgoogle->permissions);
-    $grades = kmgoogle_permissions_grades();
 
-    //Check permission grades
-    $permission_roles = array();
-    foreach($roles as $role){
-        $shortname = $role->shortname;
-        $num = $grades[$permission_admin->$shortname];
-        $permission_roles[$num] = $permission_admin->$shortname;
+    //Not other user
+    if(!in_array($USER->id, kmgoogle_get_other_users($kmgoogle))) {
+        //Check roles
+        $context = context_course::instance($cm->course);
+        $roles = get_user_roles($context, $USER->id);
+        $grades = kmgoogle_permissions_grades();
 
-    }
+        //Check permission grades
+        $permission_roles = array();
+        foreach ($roles as $role) {
+            $shortname = $role->shortname;
+            $num = $grades[$permission_admin->$shortname];
+            $permission_roles[$num] = $permission_admin->$shortname;
 
-    ksort($permission_roles);
-    $permission_roles = array_values($permission_roles);
+        }
 
-    if(!empty($permission_roles)){
-        $current_permission = $permission_roles[0];
+        ksort($permission_roles);
+        $permission_roles = array_values($permission_roles);
+
+        if (!empty($permission_roles)) {
+            $current_permission = $permission_roles[0];
+        } else {
+            $current_permission = 'view';
+        }
     }else{
-        $current_permission = 'view';
+        $current_permission = $permission_admin->other;
     }
 
     $fileID = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);

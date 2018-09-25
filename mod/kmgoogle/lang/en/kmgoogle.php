@@ -38,6 +38,7 @@ $string['if_iframe'] = 'Display as iFrame';
 $string['iframewidth'] = 'iFrame width';
 $string['iframeheight'] = 'iFrame height';
 $string['targetiframe'] = 'Target of iFrame';
+$string['buttonhtml'] = 'Button HTML';
 $string['otherblank'] = 'In other blank';
 $string['sameblank'] = 'In same blank';
 $string['popupblank'] = 'In popup';
