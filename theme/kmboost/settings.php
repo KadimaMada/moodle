@@ -31,6 +31,15 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
-    
+
+    // Frontpage HTML block
+    $name = 'theme_kmboost/frontpagehtmlblock';
+    $title = get_string('frontpagehtmlblock', 'theme_kmboost');
+    $description = get_string('frontpagehtmlblock_desc', 'theme_kmboost');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
+        
     
 }

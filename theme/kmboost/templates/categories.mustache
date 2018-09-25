@@ -11,79 +11,32 @@
     <div id="page" class="container-fluid">
         {{{ output.full_header }}}
 
-        <div id="page-content" class="row">
+        <!--<div id="page-content" class="row">
             <div id="region-main-box" class="col-12">
 
                 <div class="current-category">
-                    <h3 class="currenct-category-title">Current category title</h3>
+                    <h3 class="currenct-category-title">{{{currentcat.name}}}</h3>
                     <img
                         class="current-category-image"
-                        src="https://images.pexels.com/photos/37403/bora-bora-french-polynesia-sunset-ocean.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                        src="{{{currentcat.image}}}"
                         alt="category-image"
                     >
                 </div>
 
-
-                <div class="categories-wrapper">
-                    <ul class="categories">
-                        <li class="category">
-                            <img
-                                class="category-image"
-                                src="http://wallpapers.ae/wp-content/uploads/2015/09/Maldives-sea-wallpaper.jpg"
-                                alt="category-image"
-                            >
-                            <p class="category-label">Category label</p>
-                        </li>
-                        <li class="category">
-                            <img
+                {{#othercats}}
+                    <div class="categories-wrapper">
+                        <ul class="categories">
+                            <li class="category">
+                                <img
                                     class="category-image"
-                                    src="http://wallpapers.ae/wp-content/uploads/2015/09/Maldives-sea-wallpaper.jpg"
+                                    src="{{{image}}}"
                                     alt="category-image"
-                            >
-                            <p class="category-label">Category label</p>
-                        </li>
-                        <li class="category">
-                            <img
-                                    class="category-image"
-                                    src="http://wallpapers.ae/wp-content/uploads/2015/09/Maldives-sea-wallpaper.jpg"
-                                    alt="category-image"
-                            >
-                            <p class="category-label">Category label</p>
-                        </li>
-                        <li class="category">
-                            <img
-                                    class="category-image"
-                                    src="http://wallpapers.ae/wp-content/uploads/2015/09/Maldives-sea-wallpaper.jpg"
-                                    alt="category-image"
-                            >
-                            <p class="category-label">Category label</p>
-                        </li>
-                        <li class="category">
-                            <img
-                                    class="category-image"
-                                    src="http://wallpapers.ae/wp-content/uploads/2015/09/Maldives-sea-wallpaper.jpg"
-                                    alt="category-image"
-                            >
-                            <p class="category-label">Category label</p>
-                        </li>
-                        <li class="category">
-                            <img
-                                    class="category-image"
-                                    src="http://wallpapers.ae/wp-content/uploads/2015/09/Maldives-sea-wallpaper.jpg"
-                                    alt="category-image"
-                            >
-                            <p class="category-label">Category label</p>
-                        </li>
-                        <li class="category">
-                            <img
-                                    class="category-image"
-                                    src="http://wallpapers.ae/wp-content/uploads/2015/09/Maldives-sea-wallpaper.jpg"
-                                    alt="category-image"
-                            >
-                            <p class="category-label">Category label</p>
-                        </li>
-                    </ul>
-                </div>
+                                >
+                                <p class="category-label">{{{name}}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                {{/othercats}} -->
 
 
 
@@ -100,7 +53,7 @@
                                 <div class="region_main_settings_menu_proxy"></div>
                             {{/hasregionmainsettingsmenu}}
 
-                            {{{ output.main_content }}}
+                             {{{ output.main_content }}} 
                             {{{ output.course_content_footer }}}
                         </div>
                     </div>
@@ -110,8 +63,8 @@
                         {{{ sidepreblocks }}}
                     </section>
                 {{/hasblocks}}
-            </div>
-        </div>
+            <!--</div>
+        </div> -->
     </div>
     {{> theme_boost/nav-drawer }}
 </div>
