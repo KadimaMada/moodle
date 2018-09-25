@@ -77,6 +77,21 @@ define(['jquery','format_buttons/slick'], function($, slick) {
     }
   }
 
+  function halfVisibleSlideEvents(li){
+    var allActive = document.querySelectorAll('.section-content:not(.d-none) .labels.slick-initialized .slick-active[aria-hidden="false"]');
+    // last visible half
+    var halfPrev = $(allActive[0]).prev();
+    var halfNext = $(allActive[3]).next();
+    var liParent = $(li.parentNode.parentNode);
+    if (liParent.is(halfNext)){
+      var next = document.querySelector('.section-content:not(.d-none) .labels.slick-initialized .slick-next');
+      next.click();
+    } else if (liParent.is(halfPrev)){
+      var prev = document.querySelector('.section-content:not(d-none) .labels.slick-initialized .slick-prev');
+      prev.click();
+    }
+  }
+
   function labelsEvents(currentSection){
     var labels = $('#section' + currentSection + ' .nav-item');
     if (labels.length == 0){
@@ -100,20 +115,33 @@ define(['jquery','format_buttons/slick'], function($, slick) {
               $('#section' + currentSection + ' .labels-wrapper').removeClass('expand');
             }, 800);
           }
-          // last 3 items sliding
-          // if (focusOnSelect == true) {
-          //   var slide = this.parentNode.parentNode;
-          //   if(slide.parentNode.childNodes.length > 5 && slide.parentNode.childNodes.length-slide.dataset.slickIndex < 4){
-          //     var track = this.parentNode.parentNode.parentNode;
-          //     var trackOffsetBottom = track.offsetTop + track.offsetHeight;
-          //     var listOffsetBottom = track.parentNode.offsetTop + track.parentNode.offsetHeight;
-          //     var float = trackOffsetBottom - listOffsetBottom;
-          //     setTimeout(function(){
-          //       track.style.transform = 'translate3d(0px,'+ -float +'px,0px)';
-          //       track.style.transition = 'translate 500ms ease 0s';
-          //     },800);
-          //   }
-          // }
+          halfVisibleSlideEvents(this);
+            // var slide = this.parentNode.parentNode;
+
+            // last 3 items sliding
+            // if(slide.parentNode.childNodes.length > 5 && slide.parentNode.childNodes.length-slide.dataset.slickIndex < 4){
+            //   var track = this.parentNode.parentNode.parentNode;
+            //   var trackOffsetBottom = track.offsetTop + track.offsetHeight;
+            //   var listOffsetBottom = track.parentNode.offsetTop + track.parentNode.offsetHeight;
+            //   var float = trackOffsetBottom - listOffsetBottom;
+            //   setTimeout(function(){
+            //     track.style.transform = 'translate3d(0px,'+ -float +'px,0px)';
+            //     track.style.transition = 'translate 500ms ease 0s';
+            //   },800);
+            // }
+
+            // only the last 1 item in all labels list sliding
+            // if(slide.parentNode.childNodes.length > 5 && slide.parentNode.childNodes.length-slide.dataset.slickIndex < 2){
+            //   var track = this.parentNode.parentNode.parentNode;
+            //   var trackOffsetBottom = track.offsetTop + track.offsetHeight;
+            //   var listOffsetBottom = track.parentNode.offsetTop + track.parentNode.offsetHeight;
+            //   var float = trackOffsetBottom - listOffsetBottom;
+            //   setTimeout(function(){
+            //     track.style.transform = 'translate3d(0px,'+ -float +'px,0px)';
+            //     track.style.transition = 'translate 500ms ease 0s';
+            //   },800);
+            // }
+
         });
       }
       var checkLabel = document.querySelector('#section' + currentSection + ' .nav-item.active');
