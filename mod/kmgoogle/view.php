@@ -77,24 +77,54 @@ if($kmgoogle->ififrame){
         $iframeheight = ' height='.$kmgoogle->iframeheight.'px ';
     }
 
-    echo '<iframe '.$iframewidth.$iframeheight.' src="/mod/kmgoogle/source.php?id='.$id.'"></iframe>';
+    echo '<center><iframe '.$iframewidth.$iframeheight.' src="/mod/kmgoogle/source.php?id='.$id.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></center>';
+
+    if(!empty($kmgoogle->buttonhtml)){
+
+        echo '<br>';
+
+        if(in_array($kmgoogle->targetiframe, array(0, 1))) {
+            $blank = '';
+            if (!$kmgoogle->targetiframe) {
+                $blank = ' target="_blank" ';
+            }
+
+            echo '<a href="/mod/kmgoogle/source.php?id=' . $id . '"' . $blank . '>' . $kmgoogle->buttonhtml . '</a>';
+        }
+
+        if($kmgoogle->targetiframe == 2) {
+            $onclick_popup = "window.open('".$CFG->wwwroot."/mod/kmgoogle/source.php?id=".$id."','popup','width=600,height=600'); return false;";
+            echo '<a href="" target="popup" onclick="'.$onclick_popup.'">'.$kmgoogle->buttonhtml.'</a>';
+        }
+
+    }
+
 }
 
 //If link
 if(!$kmgoogle->ififrame){
-    $blank = '';
-    if(!$kmgoogle->targetiframe){
-        $blank = ' target="_blank" ';
+
+    echo '<div>' . get_string('linktoworkwithdocument', 'kmgoogle') . '</div>';
+
+    if(in_array($kmgoogle->targetiframe, array(0, 1))) {
+        $blank = '';
+        if (!$kmgoogle->targetiframe) {
+            $blank = ' target="_blank" ';
+        }
+
+        echo '<a href="/mod/kmgoogle/source.php?id=' . $id . '"' . $blank . '>' . get_string('url') . '</a>';
     }
 
-    echo '<div>'. get_string('linktoworkwithdocument', 'kmgoogle'). '</div>';
-    echo '<a href="/mod/kmgoogle/source.php?id='.$id.'"'.$blank.'>'.get_string('url').'</a>';
+    if($kmgoogle->targetiframe == 2) {
+        $onclick_popup = "window.open('".$CFG->wwwroot."/mod/kmgoogle/source.php?id=".$id."','popup','width=600,height=600'); return false;";
+        echo '<a href="" target="popup" onclick="'.$onclick_popup.'">'.get_string('url').'</a>';
+    }
 }
 
 if(user_can_answer($cm->instance)){
     echo '<br />';
     echo '<br />';
-    echo '<input type="submit" class="btn btn-primary" value="'.get_string("answer").'" />';
+    echo '<input type="submit" class="btn btn-primary" value="'.get_string("answer", 'kmgoogle').'" />';
     echo '</div>';
     echo "</form>";
     echo $OUTPUT->footer();

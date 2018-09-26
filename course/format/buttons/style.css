@@ -613,7 +613,7 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
         height: auto;
         transition: height .3s linear;
         max-height: 484px;
-        overflow-y: scroll; }
+        overflow-y: scroll;; }
         .format-buttons .sections-content-wrapper .labels-wrapper.expand::-webkit-scrollbar {
           width: 4px;
           height: 5px;
@@ -653,7 +653,7 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
           max-width: 100%;
           text-overflow: ellipsis;
           white-space: nowrap;
-          overflow: hidden; }
+          overflow: scroll; }
       .format-buttons .label-content-controls .label-header .label-icon {
         display: none !important; }
     .format-buttons .label-content-controls .label-prev {

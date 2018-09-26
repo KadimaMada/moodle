@@ -54,16 +54,16 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         $this->standard_intro_elements(get_string('customintro', 'kmgoogle'));
 
         //Input Source Google url
-        $mform->addElement('text', 'sourcegoogleurl', get_string('sourcegoogleurl', "kmgoogle"), array('size'=>'90') + $input_disable);
+        $mform->addElement('text', 'sourcegoogleurl', get_string('sourcegoogleurl', "kmgoogle"), array('size'=>'120') + $input_disable);
         $mform->setType('sourcegoogleurl', PARAM_URL);
         $mform->addRule('sourcegoogleurl', null, 'required', null, 'client');
 
         //Google Folder
-        $mform->addElement('text', 'googlefolderurl', get_string('googlefolder', "kmgoogle"), array('size'=>'90') + $input_disable);
+        $mform->addElement('text', 'googlefolderurl', get_string('googlefolder', "kmgoogle"), array('size'=>'120') + $input_disable);
         $mform->setType('googlefolderurl', PARAM_URL);
 
         //Copied Source Google url
-        $mform->addElement('text', 'copiedgoogleurl', get_string('copiedgoogleurl', "kmgoogle"), array('size'=>'90', "readonly"=>""));
+        $mform->addElement('text', 'copiedgoogleurl', get_string('copiedgoogleurl', "kmgoogle"), array('size'=>'120', "readonly"=>""));
         $mform->setType('copiedgoogleurl', PARAM_URL);
 
         //Display settings
@@ -85,9 +85,13 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         //Target Iframe
         $options = array('0' => get_string("otherblank", "kmgoogle"),
                          '1' => get_string("sameblank", "kmgoogle"),
+                         '2' => get_string("popupblank", "kmgoogle"),
                         );
         $mform->addElement('select', 'targetiframe', get_string("targetiframe", "kmgoogle"), $options);
 
+        $label = get_string("buttonhtml", "kmgoogle");
+        $mform->addElement('editor', 'buttonhtml', $label, array('rows' => 10));
+        $mform->setType('buttonhtml', PARAM_RAW); // no XSS prevention here, users must be trusted
 
         //Sharing settings
         $mform->addElement('header', 'sharing', get_string('sharing', 'kmgoogle'));
@@ -119,11 +123,11 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         );
         $mform->addElement('select', 'natureofserving', get_string("natureofserving", "kmgoogle"), $options, $select_disable);
 
-        //Requires students to click
-        $options = array('0' => get_string("no"),
-                         '1' => get_string("yes"),
-        );
-        $mform->addElement('select', 'studenttoclick', get_string("studenttoclick", "kmgoogle"), $options, $select_disable);
+//        //Requires students to click
+//        $options = array('0' => get_string("no"),
+//                         '1' => get_string("yes"),
+//        );
+//        $mform->addElement('select', 'studenttoclick', get_string("studenttoclick", "kmgoogle"), $options, $select_disable);
 
 //        //Student consent is required for the submission statement
 //        $options = array('0' => get_string("no"),
@@ -138,7 +142,7 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         $mform->addElement('select', 'submitmechanism', get_string("submitmechanism", "kmgoogle"), $options, $select_disable);
 
         //Disable field
-        if(!$kmgoogle->submitmechanism){
+        if(!empty($kmgoogle->submitmechanism) && !$kmgoogle->submitmechanism){
             $input_disable =  array("disabled"=>"");
         }
 
@@ -173,6 +177,13 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
                 $default_values[$key] = $name;
             }
         }
+
+        //buttonhtml
+        if(!empty($default_values['buttonhtml']) && !empty($default_values['buttonhtmlformat'])){
+            $tmp['text'] = $default_values['buttonhtml'];
+            $tmp['format'] = $default_values['buttonhtmlformat'];
+            $default_values['buttonhtml'] = $tmp;
+        }
     }
 
     /**
@@ -188,6 +199,10 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
 
         $associationname = optional_param('associationname', 0, PARAM_INT);
         $data->associationname = $associationname;
+
+        $buttonhtml = $data->buttonhtml;
+        $data->buttonhtml = $buttonhtml['text'];
+        $data->buttonhtmlformat = $buttonhtml['format'];
     }
 
     /**

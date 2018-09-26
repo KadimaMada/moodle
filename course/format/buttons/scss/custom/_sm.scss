@@ -76,7 +76,8 @@ html[dir='rtl']{
         height:auto;
         transition: height .8s ease-in-out;
         max-height:484px;
-        overflow-y: scroll;
+        // overflow-y: scroll;
+        overflow-y: hidden;
           &::-webkit-scrollbar {
               width: 4px;
               height: 5px;

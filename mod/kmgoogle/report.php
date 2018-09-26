@@ -169,19 +169,19 @@ if (!$table->is_downloading()) {
     echo $OUTPUT->heading($kmgoogle->name);
 
     //If student needed click
-    if($kmgoogle->studenttoclick) {
-        echo get_string("Date_of_last_submission", "kmgoogle");
-
-        echo '<form method="post" action="report.php?id=' . $id . '" id="kmgoogleform">';
-        echo '<div>';
-        echo '<input type="hidden" name="id" value="' . $id . '" />';
-        echo '<input type="hidden" name="sesskey" value="' . sesskey() . '" />';
-
-        echo kmgoogle_build_datetime_block($kmgoogle);
-
-        echo '</div>';
-        echo "</form>";
-    }
+//    if($kmgoogle->studenttoclick) {
+//        echo get_string("Date_of_last_submission", "kmgoogle");
+//
+//        echo '<form method="post" action="report.php?id=' . $id . '" id="kmgoogleform">';
+//        echo '<div>';
+//        echo '<input type="hidden" name="id" value="' . $id . '" />';
+//        echo '<input type="hidden" name="sesskey" value="' . sesskey() . '" />';
+//
+//        echo kmgoogle_build_datetime_block($kmgoogle);
+//
+//        echo '</div>';
+//        echo "</form>";
+//    }
 
 }
 

@@ -139,5 +139,23 @@ function xmldb_kmgoogle_upgrade($oldversion) {
         }
     }
 
+    if ($oldversion < 2018051409) {
+        $table = new xmldb_table('kmgoogle');
+
+        $field = new xmldb_field('buttonhtml', XMLDB_TYPE_TEXT, null, null, false, null, null, 'targetiframe');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+
+    if ($oldversion < 2018051410) {
+        $table = new xmldb_table('kmgoogle');
+
+        $field = new xmldb_field('buttonhtmlformat', XMLDB_TYPE_INTEGER, '4', null, false, null, null, 'buttonhtml');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+
     return true;
 }
