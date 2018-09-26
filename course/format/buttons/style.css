@@ -367,6 +367,9 @@
           .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item.active .section-description {
             opacity: 0;
             transition: all .3s ease-in-out; }
+        .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item.current:before {
+          border: 0;
+          display: none; }
 
 .format-buttons .labels-wrapper .slider.labels .slick-list.draggabe:last-child {
   border-bottom: 45px solid transparent; }
@@ -613,7 +616,7 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
         height: auto;
         transition: height .3s linear;
         max-height: 484px;
-        overflow-y: scroll;; }
+        overflow-y: scroll; }
         .format-buttons .sections-content-wrapper .labels-wrapper.expand::-webkit-scrollbar {
           width: 4px;
           height: 5px;
@@ -653,7 +656,7 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
           max-width: 100%;
           text-overflow: ellipsis;
           white-space: nowrap;
-          overflow: scroll; }
+          overflow: hidden; }
       .format-buttons .label-content-controls .label-header .label-icon {
         display: none !important; }
     .format-buttons .label-content-controls .label-prev {
@@ -920,6 +923,8 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
   .format-buttons .sections-content-wrapper .labels-wrapper {
     height: auto;
     overflow: visible; }
+    .format-buttons .sections-content-wrapper .labels-wrapper.expand {
+      overflow-y: visible; }
   .format-buttons .sections-content-wrapper .section-content {
     position: relative; }
   .format-buttons .slider.labels {
