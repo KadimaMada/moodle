@@ -611,7 +611,7 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
     height: auto;
     transition: height .8s ease-in-out;
     max-height: 484px;
-    overflow-y: scroll; }
+    overflow-y: hidden; }
   .format-buttons .sections-content-wrapper .labels-wrapper.expand::-webkit-scrollbar{
     width: 4px;
     height: 5px;
