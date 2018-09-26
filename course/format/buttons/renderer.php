@@ -844,17 +844,54 @@ class format_buttons_renderer extends format_topics_renderer
                         //$reg = '/#name(.*?)<br>.*?#icon(.*?)<br>(.*?)<\/div>/im';
                         // $reg = '/#name(.*)%name.*?\s*#icon(.*)%icon?\s*(.*)<\/div>/im';
                         // $reg = '/[\s\S]*?\[\[(.*?)\]\][\s\S]*?\{\{(.*?)\}\}[\s\S]*?([\s\S]*)<\/div>/im'; // SG - the lpreviouse regexp 20180830 - '[[name]] {{icon}} rest of the text'
-                        $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
-                        preg_match($reg, $modulehtml, $content);
-                        // preg_split($reg, $modulehtml, $content);
 
+                        // the main regexp:
+                        //$reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
+                        //preg_match($reg, $modulehtml, $content);
+
+                        // SG -- define current language
+                        $clang = current_language();
+                        // SG -- search for proper translation in the text (en, he and ar are supported)
+                        switch ($clang) {
+                            case "he":
+                                // check if we have text in hebrew
+                                $reg = "/(?<=he%)([\s\S]*?)(?:(?:en%)|(?:ar%)|$)/i";
+                                preg_match($reg, $modulehtml, $langtext);
+                            break;
+                            case "en":
+                                // check if we have text in english
+                                $reg = "/(?<=en%)([\s\S]*?)(?:(?:he%)|(?:ar%)|$)/i";
+                                preg_match($reg, $modulehtml,$langtext);
+                            break;
+                            case "ar":
+                                // check if we have text in arabic
+                                $reg = "/(?<=ar%)([\s\S]*?)(?:(?:he%)|(?:en%)|$)/i";
+                                preg_match($reg, $modulehtml, $langtext);
+                            break;
+                        }
+                        // SG -- if language was defined in text with en%, he% or ar% - parse particular conrent
+                        if (isset($langtext[1])) {
+                            $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)(<\/div>|$)/i'; // SG - the latest regexp 20180926 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
+                            preg_match($reg, $langtext[1], $content);
+                        } else { // if there was no language defined  - try to find he again (for en or ar) or just parse the content
+                            // check if we have text in hebrew again (for ar or en system lang)
+                            $reg = "/(?<=he%)([\s\S]*?)(?:(?:en%)|(?:ar%)|$)/i";
+                            preg_match($reg, $modulehtml, $langtext2);
+                            if (isset($langtext2[1])) {
+                                $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)(<\/div>|$)/i'; // SG - the latest regexp 20180926 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
+                                preg_match($reg, $langtext2[1], $content);
+                            } else {
+                                $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
+                                preg_match($reg, $modulehtml, $content);
+                            }
+                        }
                         $lables[$modnumber] = $content;
                     }
                 }
             }
         }
         return $lables;
-
+        
     } // get_section_labels ends
 
     /**
