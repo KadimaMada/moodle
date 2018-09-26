@@ -50,7 +50,8 @@ $templatecontext = [
     'navdraweropen' => $navdraweropen,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
-    'loggedin' => isloggedin()?0:1
+    'loggedin' => isloggedin()?0:1,
+    'frontpagehtmlblock' => get_config('theme_kmboost', 'frontpagehtmlblock')
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;

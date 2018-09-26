@@ -26,6 +26,63 @@ defined('MOODLE_INTERNAL') || die();
 
 user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 require_once($CFG->libdir . '/behat/lib.php');
+require_once($CFG->libdir . '/coursecatlib.php');
+require_once($CFG->dirroot. '/course/lib.php');
+
+/*
+* SG - 20180918
+* Code block for template context.
+* Moved it to course_renderer::course_category() function
+* TOREMOVE lately
+
+global $categoryid, $courserenderer;
+$coursecat = coursecat::get($categoryid);
+$chelper = new coursecat_helper();
+
+
+// Fill with data current category
+$currentcat = array(
+    'name' => $coursecat->get_formatted_name(),
+    'description' => $chelper->get_category_formatted_description($coursecat),
+    'image' => get_cat_image($coursecat, $courserenderer)
+);
+
+// Fill with data other categories
+$allcats = $coursecat->get_children();
+$othercats = array();
+foreach($allcats as $catid => $catinfo) {
+    $othercats[] = array (
+        'name' => $catinfo->get_formatted_name(),
+        'description'=> $chelper->get_category_formatted_description($catinfo),
+        'image' => get_cat_image($coursecat, $courserenderer)    
+    );
+}
+*/
+
+/**
+ * Function retreives course category summary image
+ * @param coursecat $coursecat
+ * @param $courserenderer
+ * 
+ * @return url image url
+ */
+/* 
+SG - TOREMOVE lately
+function get_cat_image($coursecat, $courserenderer) {
+    $context = context_coursecat::instance($coursecat->id);
+    $fs = get_file_storage();
+    if ($files = $fs->get_area_files($context->id, 'coursecat', 'description')) {
+        foreach ($files as $file) {
+            if ($file->get_filename() != '.'){
+                $coursecatimage  = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), null, $file->get_filepath(), $file->get_filename());
+            }
+        }
+    }
+    $defaultimageurl = $courserenderer->image_url('default-bg', 'theme_kmboost');
+    $coursecatimage = isset($coursecatimage ) ? $coursecatimage  : $defaultimageurl;
+
+    return $coursecatimage;
+} */
 
 
 if (isloggedin()) {
@@ -49,7 +106,10 @@ $templatecontext = [
     'bodyattributes' => $bodyattributes,
     'navdraweropen' => $navdraweropen,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
-    'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu)
+    'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
+    //'currentcat' => $currentcat, // SG TOREMOVE lately
+    //'othercats' => $othercats    
+    // SG TOREMOVE lately
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
