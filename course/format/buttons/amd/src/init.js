@@ -1,12 +1,20 @@
 define(['jquery','format_buttons/slick'], function($, slick) {
 
   function initDefaults(){
-    var currentSection = checkStorage('lastSection'),
+    var currentSection,
         currentLabel = checkStorage('lastLabel');
-        // console.log("currentSection "+currentSection);
-        // console.log("currentLabel "+currentLabel);
+
+    // check highlighted
+    if (document.querySelector('.slider.sections .nav-item.current') !== null){
+      currentSection = parseInt(document.querySelector('.slider.sections .nav-item.current').dataset.section);
+      // console.log('matched highlited '+currentSection);
+    } else {
+      currentSection = checkStorage('lastSection');
+      // console.log('no highlighting, use localStorage '+ currentSection);
+    }
 
     if (currentSection == 1){
+      // console.log('matched first: '+currentSection);
       var check = document.querySelector('.slider.sections .nav-item');
       if(check.dataset.section !== currentSection){
         currentSection = check.dataset.section;
@@ -23,9 +31,11 @@ define(['jquery','format_buttons/slick'], function($, slick) {
 
     initSlider($('.slider.sections'));
     sectionsEvents();
-    $('.slider.sections .nav-item[data-section="'+currentSection+'"]').toggleClass('active');
+      $('.slider.sections .nav-item[data-section="'+currentSection+'"]').toggleClass('active');
     $('#section' + currentSection).toggleClass('d-none');
-    $('.slider.sections').slick('slickGoTo', $('.slider.sections .slick-slide:has(.nav-item[data-section="'+currentSection+'"])')[0].dataset.slickIndex);
+    currentIndex = parseInt($('.slider.sections .slick-slide:has(.nav-item[data-section="'+currentSection+'"])')[0].dataset.slickIndex);
+    $('.slider.sections').slick('slickGoTo', currentIndex);
+
     initSlider($('#section'+currentSection+' .slider.labels'),0);
     labelsEvents(currentSection);
     initPrevNextBtns(currentSection);

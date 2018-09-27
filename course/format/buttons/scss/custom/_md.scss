@@ -137,6 +137,9 @@ html[dir='rtl']{
     .labels-wrapper{
       height:auto;
       overflow:visible;
+      &.expand{
+        overflow-y: visible;
+      }
     }
     .section-content{
       position: relative;

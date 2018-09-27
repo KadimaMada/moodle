@@ -235,7 +235,6 @@ class format_buttons_renderer extends format_topics_renderer
             } else {
                 $currentclass = '';
             }
-
             if (course_get_format($course)->is_section_current($section)) {
                 $class = ' active';
             }
@@ -257,7 +256,7 @@ class format_buttons_renderer extends format_topics_renderer
             // get section name and icon name in array. [1] - section name; [2] - icon name / fa class
             $sectionnamearr = course_get_format($course)->get_section_name_and_icon($section);
 
-            $html .= html_writer::start_tag('li',['class' => "nav-item mb-auto $currentclass", 'data-section' => $section]);
+            $html .= html_writer::start_tag('li',['class' => 'nav-item mb-auto '.$currentclass, 'data-section' => $section]);
             // $html .= html_writer::start_tag('a',['href' => "#section$section",'class' => "nav-link $class", 'aria-controls' => "section-$section"]);
             $html .= html_writer::start_tag('div',['class' => 'd-flex flex-row section-header justify-content-around align-items-center']);
             //$html .= html_writer::tag('span', '', ['class' => 'section-icon d-inline-flex p-3 justify-content-center align-items-center '.$sectionnamearr[2], 'style' => "background: url({$this->courserenderer->image_url('label-default', 'format_buttons')}) no-repeat; background-size: cover;"]);  // SG - previouse variant
@@ -430,24 +429,24 @@ class format_buttons_renderer extends format_topics_renderer
         /*
         * Course format options render for frontend
         */
-        $csscoloroptions = ""; 
+        $csscoloroptions = "";
         $csscoloroptions .= ":root{";
         $csscoloroptions .= "--buttons-course-description: ".$course->course_descr_bg_color.";";
-        $csscoloroptions .= "--buttons-section-bg-color: ".$course->section_menu_bg_color.";";  
-        $csscoloroptions .= "--buttons-section-font-color: ".$course->section_menu_font_color.";";  
-        $csscoloroptions .= "--buttons-section-icon-color: ".$course->section_menu_icon_color.";";  
-        $csscoloroptions .= "--buttons-section-info-color: ".$course->section_menu_info_arrows_color.";";  
-        $csscoloroptions .= "--buttons-section-active-bg: ".$course->selected_section_bg_color.";";  
-        $csscoloroptions .= "--buttons-section-active-font-color: ".$course->selected_section_font_color.";";  
-        $csscoloroptions .= "--buttons-section-active-icon-color: ".$course->selected_section_icon_color.";";  
-        $csscoloroptions .= "--buttons-label-bg: ".$course->label_menu_bg_color.";"; 
-        $csscoloroptions .= "--buttons-label-font-color: ".$course->label_menu_font_color.";"; 
-        $csscoloroptions .= "--buttons-label-icon-color: ".$course->label_menu_icon_color.";"; 
-        $csscoloroptions .= "--buttons-label-controls-color: ".$course->label_menu_arrows_color.";";  
-        $csscoloroptions .= "--buttons-label-active-bg: ".$course->selected_label_bg_color.";"; 
-        $csscoloroptions .= "--buttons-label-active-font-color: ".$course->selected_label_font_color.";"; 
-        $csscoloroptions .= "--buttons-label-active-icon-color: ".$course->selected_label_icon_color.";"; 
-        $csscoloroptions .= "}"; 
+        $csscoloroptions .= "--buttons-section-bg-color: ".$course->section_menu_bg_color.";";
+        $csscoloroptions .= "--buttons-section-font-color: ".$course->section_menu_font_color.";";
+        $csscoloroptions .= "--buttons-section-icon-color: ".$course->section_menu_icon_color.";";
+        $csscoloroptions .= "--buttons-section-info-color: ".$course->section_menu_info_arrows_color.";";
+        $csscoloroptions .= "--buttons-section-active-bg: ".$course->selected_section_bg_color.";";
+        $csscoloroptions .= "--buttons-section-active-font-color: ".$course->selected_section_font_color.";";
+        $csscoloroptions .= "--buttons-section-active-icon-color: ".$course->selected_section_icon_color.";";
+        $csscoloroptions .= "--buttons-label-bg: ".$course->label_menu_bg_color.";";
+        $csscoloroptions .= "--buttons-label-font-color: ".$course->label_menu_font_color.";";
+        $csscoloroptions .= "--buttons-label-icon-color: ".$course->label_menu_icon_color.";";
+        $csscoloroptions .= "--buttons-label-controls-color: ".$course->label_menu_arrows_color.";";
+        $csscoloroptions .= "--buttons-label-active-bg: ".$course->selected_label_bg_color.";";
+        $csscoloroptions .= "--buttons-label-active-font-color: ".$course->selected_label_font_color.";";
+        $csscoloroptions .= "--buttons-label-active-icon-color: ".$course->selected_label_icon_color.";";
+        $csscoloroptions .= "}";
 
         echo html_writer::tag('style', $csscoloroptions);
 
@@ -845,14 +844,13 @@ class format_buttons_renderer extends format_topics_renderer
                         //$reg = '/#name(.*?)<br>.*?#icon(.*?)<br>(.*?)<\/div>/im';
                         // $reg = '/#name(.*)%name.*?\s*#icon(.*)%icon?\s*(.*)<\/div>/im';
                         // $reg = '/[\s\S]*?\[\[(.*?)\]\][\s\S]*?\{\{(.*?)\}\}[\s\S]*?([\s\S]*)<\/div>/im'; // SG - the lpreviouse regexp 20180830 - '[[name]] {{icon}} rest of the text'
-                        
+
                         // the main regexp:
                         //$reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                         //preg_match($reg, $modulehtml, $content);
-                        
+
                         // SG -- define current language
                         $clang = current_language();
-
                         // SG -- search for proper translation in the text (en, he and ar are supported)
                         switch ($clang) {
                             case "he":
@@ -871,7 +869,6 @@ class format_buttons_renderer extends format_topics_renderer
                                 preg_match($reg, $modulehtml, $langtext);
                             break;
                         }
-
                         // SG -- if language was defined in text with en%, he% or ar% - parse particular conrent
                         if (isset($langtext[1])) {
                             $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)(<\/div>|$)/i'; // SG - the latest regexp 20180926 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
@@ -886,16 +883,15 @@ class format_buttons_renderer extends format_topics_renderer
                             } else {
                                 $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                                 preg_match($reg, $modulehtml, $content);
-                            }  
+                            }
                         }
-
                         $lables[$modnumber] = $content;
                     }
                 }
             }
         }
         return $lables;
-
+        
     } // get_section_labels ends
 
     /**
