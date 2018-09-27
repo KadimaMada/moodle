@@ -488,11 +488,47 @@ class format_buttons extends format_topics
      * @return array Array: [0] - raw name, [1] - section name, [2] - icon name / fa class
      */
     public function parse_section_name($sectionnameraw) {
+        // get translations
+        $sectionname = $this->get_translated_text($sectionnameraw);
+        $sectionname = (isset($sectionname[1])) ? $sectionname[1] : $sectionnameraw;
 
-        $reg = '/(.*?)\{\{(.*?)\}\}/im'; // SG - regexp 20180830 - 'sectionname {{icon}}'
-        preg_match($reg, $sectionnameraw, $sectionnamearr);
+        $reg = '/([^\{]*)?(?:\{\{(.*?)\}\})?([\s\S]*)|$/i'; // SG - regexp 20180927 - 'sectionname {{icon}}'
+        preg_match($reg, $sectionname, $sectionnamearr);
 
         return $sectionnamearr; // 0 - raw name, 1 - section name, 2 - icon name
+    }
+
+    /**
+     * Parse text for language blocks
+     * 
+     * @param string $content Original raw text with content in all languages
+     * @param bool $findhebrew Force to find hebrew translation, if no any translation found for current lang (default: true)
+     * @param string $clang Specified language code (default = null; we use current user's language)
+     * @return array Array: [0] - raw text, [1] - block with text in specified or current language
+     */
+    public function get_translated_text($content, $findhebrew = true, $clang = null) {
+        // set current lang
+        $clang = (isset($clang)) ? $clang : current_language(); 
+
+        // get list of all installed langs
+        $langs = get_string_manager()->get_list_of_translations();
+        // remove current lang from langs array
+        unset($langs[$clang]);
+
+        // prepare and execute regexp for detecting and extracting the defined language
+        $excludelang = "";
+        foreach ($langs as $langcode => $langname) {
+            $excludelang .= "(?:$langcode%)|";
+        }
+        $reg = "/(?<=$clang%)([\s\S]*?)(?:$excludelang$)/i";
+        preg_match($reg, $content, $langtext);
+
+        // try to find hebrew, if no any text for current lang is present
+        if (!isset($langtext[1]) && $findhebrew) {
+            $langtext = $this->get_translated_text($content, false, 'he');
+        }
+
+        return $langtext;
     }
 
     /**

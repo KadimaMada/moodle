@@ -255,6 +255,9 @@ class format_buttons_renderer extends format_topics_renderer
             }
             // get section name and icon name in array. [1] - section name; [2] - icon name / fa class
             $sectionnamearr = course_get_format($course)->get_section_name_and_icon($section);
+            // get translated section's summary
+            $sectionsummary = course_get_format($course)->get_translated_text($thissection->summary);
+            $sectionsummary = (isset($sectionsummary[1])) ? $sectionsummary[1] : $thissection->summary;
 
             $html .= html_writer::start_tag('li',['class' => 'nav-item mb-auto '.$currentclass, 'data-section' => $section]);
             // $html .= html_writer::start_tag('a',['href' => "#section$section",'class' => "nav-link $class", 'aria-controls' => "section-$section"]);
@@ -263,7 +266,7 @@ class format_buttons_renderer extends format_topics_renderer
             $html .= html_writer::tag('span', '', ['class' => 'section-icon d-inline-flex p-3 justify-content-center align-items-center '.$sectionnamearr[2], 'style' => "font-family: FontAwesome; font-style: normal; font-weight: normal; text-decoration: inherit; line-height:2rem"]);
             $html .= html_writer::start_tag('div',['class' => 'd-flex flex-column section-header-inner']);
             $html .= html_writer::tag('span', $sectionnamearr[1], ['class' => ' section-title']);
-            $html .= html_writer::tag('span', $thissection->summary, ['class' => 'section-description']);
+            $html .= html_writer::tag('span', $sectionsummary, ['class' => 'section-description']);
             $html .= html_writer::end_tag('div');
             if ($thissection->summary) {
               $html .= html_writer::tag('span', 'i', ['class' => 'section-tooltip d-inline-flex p-1 justify-content-center align-items-center', 'title'=>'section tooltip', 'data-info'=>'Tooltip content', 'data-section' => $section]);
@@ -848,7 +851,8 @@ class format_buttons_renderer extends format_topics_renderer
                         // the main regexp:
                         //$reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                         //preg_match($reg, $modulehtml, $content);
-
+                        
+                        /*  SG -- 20190927 -- TOREMOVE if translation of content works fine 
                         // SG -- define current language
                         $clang = current_language();
                         // SG -- search for proper translation in the text (en, he and ar are supported)
@@ -868,8 +872,18 @@ class format_buttons_renderer extends format_topics_renderer
                                 $reg = "/(?<=ar%)([\s\S]*?)(?:(?:he%)|(?:en%)|$)/i";
                                 preg_match($reg, $modulehtml, $langtext);
                             break;
-                        }
-                        // SG -- if language was defined in text with en%, he% or ar% - parse particular conrent
+                        } */
+
+                        $langtext = course_get_format($course)->get_translated_text($modulehtml);
+                        $langtext = (isset($langtext[1])) ? $langtext[1] : $modulehtml;
+                        
+                        // the main regexp:
+                        $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)(<\/div>|$)/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
+                        preg_match($reg, $langtext, $content);
+
+
+                        /*  SG -- 20190927 -- TOREMOVE if translation of content works fine 
+                       // SG -- if language was defined in text with en%, he% or ar% - parse particular conrent
                         if (isset($langtext[1])) {
                             $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)(<\/div>|$)/i'; // SG - the latest regexp 20180926 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                             preg_match($reg, $langtext[1], $content);
@@ -884,7 +898,9 @@ class format_buttons_renderer extends format_topics_renderer
                                 $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                                 preg_match($reg, $modulehtml, $content);
                             }
-                        }
+                        } */
+
+
                         $lables[$modnumber] = $content;
                     }
                 }
