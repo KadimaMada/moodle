@@ -182,64 +182,63 @@ class format_buttons extends format_topics
             // SG - Add course options for format_buttons
             $courseformatoptionsedit['course_descr_bg_color'] = array(
                 'label' => get_string('course_descr_bg_color', 'format_buttons'),
-                'element_type' => 'text',
-                //'element_color' => true // SG - option for $this->create_edit_form_elements. TOREMOVE lately
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['section_menu_bg_color'] = array(
                 'label' => get_string('section_menu_bg_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['section_menu_font_color'] = array(
                 'label' => get_string('section_menu_font_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['section_menu_icon_color'] = array(
                 'label' => get_string('section_menu_icon_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['section_menu_info_arrows_color'] = array(
                 'label' => get_string('section_menu_info_arrows_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['selected_section_bg_color'] = array(
                 'label' => get_string('selected_section_bg_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['selected_section_font_color'] = array(
                 'label' => get_string('selected_section_font_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['selected_section_icon_color'] = array(
                 'label' => get_string('selected_section_icon_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['label_menu_bg_color'] = array(
                 'label' => get_string('label_menu_bg_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['label_menu_font_color'] = array(
                 'label' => get_string('label_menu_font_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['label_menu_icon_color'] = array(
                 'label' => get_string('label_menu_icon_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['label_menu_arrows_color'] = array(
                 'label' => get_string('label_menu_arrows_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['selected_label_bg_color'] = array(
                 'label' => get_string('selected_label_bg_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['selected_label_font_color'] = array(
                 'label' => get_string('selected_label_font_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['selected_label_icon_color'] = array(
                 'label' => get_string('selected_label_icon_color', 'format_buttons'),
-                'element_type' => 'text',
+                'element_type' => 'gfcolourpopup',
             );
 
 
@@ -541,36 +540,11 @@ class format_buttons extends format_topics
      * @return array array of references to the added form elements.
      */
     public function create_edit_form_elements(&$mform, $forsection = false) {
-        global $COURSE, $PAGE;
+        global $COURSE, $PAGE, $CFG;
 
-        //SG - code examples (alternative function realization). Let it be here for a while. TOREMOVE lately
-        /*
-        //$elements = parent::create_edit_form_elements($mform, $forsection);
-        //print_object($this->course_format_options(true));
-
-        //print_object($elements);
-        // foreach ($elements as $arr => $element) {
-        //     if (get_class($element) === 'MoodleQuickForm_text'){
-
-        //         print_object($element);
-        //     }
-        // }
-
-        // SG - show already uploaded picturelink image in filemanager
-        $context = context_course::instance($COURSE->id);
-        $picturelinkimagedraftid = file_get_submitted_draft_itemid('picturelinkimage');
-        file_prepare_draft_area($picturelinkimagedraftid, $context->id, 'format_picturelink', 'picturelinkimage', $COURSE->id,
-                        array('subdirs' => false));
-        $mform->setDefault('picturelinkimage', $picturelinkimagedraftid);
-
-        // SG - allow only 1 file upload - ugly hack
-        foreach ($elements as $arr => $element) {
-            if (get_class($element) === 'MoodleQuickForm_filemanager'){
-                $element->setMaxfiles(1);
-                $element->setSubdirs(false);
-            }
-        }
-        */
+        // import colorpicker form element
+        MoodleQuickForm::registerElementType('gfcolourpopup', "$CFG->dirroot/course/format/buttons/js/gf_colourpopup.php",
+        'MoodleQuickForm_gfcolourpopup');
 
         $elements = array();
         if ($forsection) {
@@ -602,12 +576,6 @@ class format_buttons extends format_topics
                 // Since we call this method after set_data() make sure that we don't override what was already set.
                 $mform->setDefault($optionname, $option['default']);
             }
-            // SG - tryed to add native color picker here. Have a problem with html semantic in js. TOREMOVE letely
-            //if (isset($option['element_color'])) {
-                //$PAGE->requires->js_init_call('M.util.init_colour_picker', array('id_'.$optionname, array('selector'=>'.fitem', 'style'=>'backgroundColor')));
-                //$elements[] = call_user_func_array(array($mform, 'addElement'), array('html', '<div class="admin_colourpicker"></div>'));
-                //$mform->addElement('html', '<div class="admin_colourpicker"></div>');
-            //}
         }
 
         if (!$forsection && empty($this->courseid)) {
