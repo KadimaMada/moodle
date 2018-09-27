@@ -54,7 +54,7 @@ if ($ADMIN->fulltree) {
     $a->url = $CFG->wwwroot.'/mod/kmgoogle/postback.php';
     $description = get_string('credentialsdesc', 'mod_kmgoogle', $a);
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'kmgoogle');
-    //$setting->set_updatedcallback('theme_reset_all_caches');
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
 
 }
