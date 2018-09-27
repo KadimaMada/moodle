@@ -31,10 +31,18 @@ define(['jquery','format_buttons/slick'], function($, slick) {
 
     initSlider($('.slider.sections'));
     sectionsEvents();
-      $('.slider.sections .nav-item[data-section="'+currentSection+'"]').toggleClass('active');
+    $('.slider.sections .nav-item[data-section="'+currentSection+'"]').toggleClass('active');
     $('#section' + currentSection).toggleClass('d-none');
+
     currentIndex = parseInt($('.slider.sections .slick-slide:has(.nav-item[data-section="'+currentSection+'"])')[0].dataset.slickIndex);
-    $('.slider.sections').slick('slickGoTo', currentIndex);
+    var lastSlideable = $('.slider.sections .nav-item').length - 4;
+    // console.log('lastSlideable '+lastSlideable);
+    // console.log('current '+currentIndex);
+    if (currentIndex > lastSlideable){
+      $('.slider.sections').slick('slickGoTo', lastSlideable);
+    } else {
+      $('.slider.sections').slick('slickGoTo', currentIndex);
+    }
 
     initSlider($('#section'+currentSection+' .slider.labels'),0);
     labelsEvents(currentSection);
@@ -127,19 +135,6 @@ define(['jquery','format_buttons/slick'], function($, slick) {
           }
           halfVisibleSlideEvents(this);
             // var slide = this.parentNode.parentNode;
-
-            // last 3 items sliding
-            // if(slide.parentNode.childNodes.length > 5 && slide.parentNode.childNodes.length-slide.dataset.slickIndex < 4){
-            //   var track = this.parentNode.parentNode.parentNode;
-            //   var trackOffsetBottom = track.offsetTop + track.offsetHeight;
-            //   var listOffsetBottom = track.parentNode.offsetTop + track.parentNode.offsetHeight;
-            //   var float = trackOffsetBottom - listOffsetBottom;
-            //   setTimeout(function(){
-            //     track.style.transform = 'translate3d(0px,'+ -float +'px,0px)';
-            //     track.style.transition = 'translate 500ms ease 0s';
-            //   },800);
-            // }
-
             // only the last 1 item in all labels list sliding
             // if(slide.parentNode.childNodes.length > 5 && slide.parentNode.childNodes.length-slide.dataset.slickIndex < 2){
             //   var track = this.parentNode.parentNode.parentNode;
