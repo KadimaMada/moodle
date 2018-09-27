@@ -759,7 +759,7 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
         height: auto;
         transition: height .8s ease-in-out;
         max-height: 484px;
-        overflow-y: scroll; }
+        overflow-y: hidden; }
         .format-buttons .sections-content-wrapper .labels-wrapper.expand::-webkit-scrollbar {
           width: 4px;
           height: 5px;
@@ -1021,8 +1021,8 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
     .format-buttons .label-next:hover .label-icon {
       display: block !important;
       position: absolute;
-      bottom: 1.825rem;
-      right: 0.25rem;
+      bottom: 2.65rem;
+      right: 7.55rem;
       opacity: 1;
       color: #000;
       color: var(--buttons-label-icon-color);
@@ -1030,23 +1030,31 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
       height: 2rem;
       font-size: 28px;
       z-index: 5; }
-    .format-buttons .label-next:hover .label-title {
-      display: block !important;
+    .format-buttons .label-next:hover .label-header div {
+      display: table !important;
+      vertical-align: middle;
       position: absolute;
       bottom: 1.5rem;
-      right: -10.5em;
-      padding: .75rem 2.5rem;
-      width: 12.5rem;
-      max-width: 12.5rem !important;
-      height: 3rem;
-      line-height: 1.825rem;
+      right: 0.5em;
+      width: 9.5rem;
+      max-width: 9.5rem !important;
+      padding: .35rem .75rem;
+      padding-left: 2.5rem;
+      height: 4.55rem;
+      max-height: 4.55rem;
+      line-height: 1.35rem;
+      text-align: left;
       opacity: 1;
       color: #000;
       color: var(--buttons-label-font-color);
       background-color: #fff;
-      box-shadow: 2px 2px 3px #000;
+      box-shadow: 2px 2px 10px #000;
       z-index: 4;
       overflow: hidden; }
+      .format-buttons .label-next:hover .label-header div .label-title {
+        display: table-cell;
+        vertical-align: middle;
+        max-height: 4.05rem; }
   .format-buttons .label-prev:hover {
     max-height: 1rem; }
     .format-buttons .label-prev:hover > div:before {
@@ -1054,8 +1062,8 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
     .format-buttons .label-prev:hover .label-icon {
       display: block !important;
       position: absolute;
-      bottom: 1.825rem;
-      right: -0.5rem;
+      bottom: 2.65rem;
+      right: 1rem;
       opacity: 1;
       color: #000;
       color: var(--buttons-label-icon-color);
@@ -1063,23 +1071,31 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
       height: 2rem;
       font-size: 28px;
       z-index: 5; }
-    .format-buttons .label-prev:hover .label-title {
-      display: block !important;
+    .format-buttons .label-prev:hover .label-header div {
+      display: table !important;
+      vertical-align: middle;
       position: absolute;
       bottom: 1.5rem;
-      right: -10.5rem;
-      width: 12.5rem;
-      max-width: 12.5rem !important;
-      padding: .75rem 2.5rem;
-      height: 3rem;
-      line-height: 1.825rem;
+      right: -6.15rem;
+      width: 9.5rem;
+      max-width: 9.5rem !important;
+      padding: .35rem .75rem;
+      padding-left: 2.5rem;
+      height: 4.55rem;
+      max-height: 4.55rem;
+      line-height: 1.35rem;
+      text-align: left;
       opacity: 1;
       color: #000;
       color: var(--buttons-label-font-color);
       background-color: #fff;
-      box-shadow: 2px 2px 3px #000;
+      box-shadow: 2px 2px 10px #000;
       z-index: 4;
-      overflow: hidden; } }
+      overflow: hidden; }
+      .format-buttons .label-prev:hover .label-header div .label-title {
+        display: table-cell;
+        vertical-align: middle;
+        max-height: 4.05rem; } }
 
 @media screen and (min-width: 992px) {
   .format-buttons .sections-wrapper {

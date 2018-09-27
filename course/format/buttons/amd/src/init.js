@@ -135,9 +135,6 @@ define(['jquery','format_buttons/slick'], function($, slick) {
           }
           halfVisibleSlideEvents(this);
             // var slide = this.parentNode.parentNode;
-
-c
-
             // only the last 1 item in all labels list sliding
             // if(slide.parentNode.childNodes.length > 5 && slide.parentNode.childNodes.length-slide.dataset.slickIndex < 2){
             //   var track = this.parentNode.parentNode.parentNode;
