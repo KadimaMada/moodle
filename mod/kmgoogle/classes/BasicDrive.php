@@ -1,33 +1,56 @@
 <?php
 
 require_once ($CFG->dirroot.'/mod/kmgoogle/classes/google/vendor/autoload.php');
+require_once ($CFG->dirroot.'/mod/kmgoogle/classes/GoogleDrive.php');
 
-$credentials_url = kmgoogle_get_credentials_file();
-if($credentials_url){
-    putenv( 'GOOGLE_APPLICATION_CREDENTIALS='.$credentials_url );
-}
+//$credentials_url = kmgoogle_get_credentials_file();
+//if($credentials_url){
+//    putenv( 'GOOGLE_APPLICATION_CREDENTIALS='.$credentials_url );
+//}
 
+session_start();
 
-class google_drive {
+class BasicDrive {
 
     private $client;
     private $service;
 
+//    private $clientId = '370911709899-191ugl7isounb2qufiod0f5si0i5htde.apps.googleusercontent.com';
+//    private $clientSecret = 'YpJPPT3vDiZs4g6zBCA3c88y';
+//    private $redirectUrl = 'http://shiur4u.devlion.co/mod/kmgoogle/postback.php';
+
+    private $clientId;
+    private $clientSecret;
+    private $redirectUrl;
+
     public function __construct() {
-        $this->client = new Google_Client();
-        $this->client->useApplicationDefaultCredentials();
-        $this->client->setScopes(array(
-            'https://www.googleapis.com/auth/drive',
-            'https://www.googleapis.com/auth/drive.file',
-            //'https://www.googleapis.com/auth/userinfo.email',
-            //'https://www.googleapis.com/auth/userinfo.profile'
-        ));
-        $this->client->setHttpClient( new GuzzleHttp\Client( [ 'verify' => false ] ) );   // disable ssl if necessary
 
-        // Get the API client and construct the service object.
-        $this->service = new Google_Service_Drive($this->client);
+        global $DB, $CFG;
 
-        //$this->checkAccessGranted(); //TODO
+        $obj = $DB->get_record('config_plugins', array('plugin' => 'mod_kmgoogle', 'name' => 'clientid'));
+        $this->clientId = $obj->value;
+
+        $obj = $DB->get_record('config_plugins', array('plugin' => 'mod_kmgoogle', 'name' => 'clientsecret'));
+        $this->clientSecret = $obj->value;
+
+        $this->redirectUrl = $CFG->wwwroot.'/mod/kmgoogle/postback.php';
+
+        $credentials_url = kmgoogle_get_credentials_file();
+        if($credentials_url){
+            //$google->flushSession();
+            //$google->flushToken();
+
+            $google = new GoogleDrive($this->clientId, $this->clientSecret, $this->redirectUrl, $credentials_url);
+            $google->authenticate();
+
+            if ($google->isAuthed()) {
+                $this->service = $google->initDrive();
+            }else{
+                die("Please authorizate google drive");
+            }
+        }else{
+            die("Please authorizate google drive");
+        }
     }
 
     //Parser Google url
@@ -62,21 +85,6 @@ class google_drive {
         } catch (Exception $e) {
             print "An error occurred: " . $e->getMessage();
         }
-    }
-
-    //Check if access granted TODO
-    public function checkAccessGranted() {
-            try {
-                $parameters = array();
-                $this->service->files->listFiles($parameters);
-
-            } catch (Exception $e) {
-//                print "An error occurred: " . $e->getMessage();
-                //print_error('invalidkmgoogleid', 'kmgoogle');
-
-            }
-
-        return 'sdsd';
     }
 
     //Copy file to new place

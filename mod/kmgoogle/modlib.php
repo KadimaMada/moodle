@@ -1,9 +1,8 @@
 <?php
-require_once ($CFG->dirroot.'/mod/kmgoogle/classes/google_drive.php');
-require_once ($CFG->dirroot.'/group/lib.php');
+require_once ($CFG->dirroot.'/mod/kmgoogle/classes/BasicDrive.php');
 
 //Set global google drive class
-$GLOBALS['GoogleDrive'] = new google_drive();
+$GLOBALS['GoogleDrive'] = new BasicDrive();
 
 function kmgoogle_get_credentials_file() {
     global $CFG;

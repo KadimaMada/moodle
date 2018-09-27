@@ -66,8 +66,14 @@ $string['first_last_name'] = "שם פרטי ושם משפחה";
 $string['activityname'] = "שם הפעילות";
 $string['url_google_drive'] = "Google קובץ";
 $string['submitted_on'] = "הוגשה בתאריך";
-$string['credentials'] = "Credentials";
-$string['credentialsdesc'] = "אנא טען קובץ credentials.json";
+
+$string['clientid'] = "Client id";
+$string['clientiddesc'] = "בבקשה היכנס client id מ google";
+$string['clientsecret'] = "Client secret";
+$string['clientsecretdesc'] = "בבקשה היכנס client secret מ google";
+$string['credentials'] = "Token";
+$string['credentialsdesc'] = "Get file from <a target='_blank' href='/mod/kmgoogle/registration.php'>link</a> and upload token.json file.";
+
 $string['January'] = "ינואר";
 $string['February'] = "פברואר";
 $string['March'] = "מרץ";
