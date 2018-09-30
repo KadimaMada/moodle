@@ -391,7 +391,8 @@ function kmgoogle_copy_google_url($kmgoogle){
 
     //If Folder
     if($GoogleDrive->typeOfFile($sourceFileId) == 'folder'){
-        $newFile = $GoogleDrive->createFolder($name, $sourceFileId);
+        $folderid = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->googlefolderurl);
+        $newFile = $GoogleDrive->createFolder($name, $sourceFileId, $folderid);
         $GoogleDrive->copyFilesFromFolderToFolder($sourceFileId, $newFile->getId());
     }else {
         if (!empty($kmgoogle->googlefolderurl)) {

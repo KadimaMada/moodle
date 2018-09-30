@@ -112,7 +112,7 @@ class BasicDrive {
     }
 
     //Create folder
-    public function createFolder($nameFile, $fileId = null) {
+    public function createFolder($nameFile, $fileId = null, $folderId = null) {
         $mimeType = 'application/vnd.google-apps.folder';
 
 //        $list = $this->getAllFilesGDrive();
@@ -131,6 +131,10 @@ class BasicDrive {
                 $name = $this->nameOfFile($fileId);
                 $copiedFile->setName($name);
             }
+        }
+
+        if($folderId != null){
+            $copiedFile->setParents(array($folderId));
         }
 
         $copiedFile->setMimeType($mimeType);
