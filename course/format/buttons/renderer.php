@@ -105,10 +105,10 @@ class format_buttons_renderer extends format_topics_renderer
             if ($section == 0) {
                 continue;
             }
-            if ($section > $course->numsections) {
-                continue;
-            }
-            if ($course->hiddensections && !(int)$thissection->visible) {
+            // if ($section > $course->numsections) {
+            //     continue;
+            // }
+            if (!(int)$thissection->visible) {
                 continue;
             }
             if (isset($course->{'divisor' . $currentdivisor}) &&
@@ -202,10 +202,11 @@ class format_buttons_renderer extends format_topics_renderer
             if ($section == 0) {
                 continue;
             }
-            if ($section > $course->numsections) {
-                continue;
-            }
-            if ($course->hiddensections && !(int)$thissection->visible) {
+            // SG - T-213 - hide unused settings
+            // if ($section > $course->numsections) {
+            //     continue;
+            // }
+            if (!(int)$thissection->visible) {
                 continue;
             }
 
@@ -404,9 +405,10 @@ class format_buttons_renderer extends format_topics_renderer
             $classes = '';
         }
         $sectionname = html_writer::tag('span', $this->section_title($section, $course));
-        if ($course->showdefaultsectionname) {
-            $o .= $this->output->heading($sectionname, 3, 'sectionname' . $classes);
-        }
+        // SG - T-213 - hide unused settings
+        // if ($course->showdefaultsectionname) {
+        //     $o .= $this->output->heading($sectionname, 3, 'sectionname' . $classes);
+        // }
         $o .= html_writer::start_tag('div', ['class' => 'summary']);
         $o .= $this->format_summary_text($section);
         $context = context_course::instance($course->id);
@@ -528,12 +530,12 @@ class format_buttons_renderer extends format_topics_renderer
                 $section0 = $thissection;
                 continue;
             }
-            if ($section > $course->numsections) {
-                continue;
-            }
+            // if ($section > $course->numsections) {
+            //     continue;
+            // }
             /* if is not editing verify the rules to display the sections */
             if (!$PAGE->user_is_editing()) {
-                if ($course->hiddensections && !(int)$thissection->visible) {
+                if (!(int)$thissection->visible) {
                     continue;
                 }
                 if (!$thissection->available && !empty($thissection->availableinfo)) {

@@ -50,18 +50,6 @@ class format_buttons extends format_topics
         static $courseformatoptions = false;
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
-            $courseformatoptions['numsections'] = array(
-                'default' => $courseconfig->numsections,
-                'type' => PARAM_INT,
-            );
-            $courseformatoptions['hiddensections'] = array(
-                'default' => $courseconfig->hiddensections,
-                'type' => PARAM_INT,
-            );
-            $courseformatoptions['showdefaultsectionname'] = array(
-                'default' => get_config('format_buttons', 'showdefaultsectionname'),
-                'type' => PARAM_INT,
-            );
             $courseformatoptions['sectionposition'] = array(
                 'default' => get_config('format_buttons', 'sectionposition'),
                 'type' => PARAM_INT,
@@ -131,6 +119,18 @@ class format_buttons extends format_topics
 
             // SG -- commenting original course format settings as they are not used
             /*
+            $courseformatoptions['numsections'] = array(
+                'default' => $courseconfig->numsections,
+                'type' => PARAM_INT,
+            );
+            $courseformatoptions['hiddensections'] = array(
+                'default' => $courseconfig->hiddensections,
+                'type' => PARAM_INT,
+            );
+            $courseformatoptions['showdefaultsectionname'] = array(
+                'default' => get_config('format_buttons', 'showdefaultsectionname'),
+                'type' => PARAM_INT,
+            );
             $courseformatoptions['inlinesections'] = array(
                 'default' => get_config('format_buttons', 'inlinesections'),
                 'type' => PARAM_INT,
@@ -243,7 +243,22 @@ class format_buttons extends format_topics
                 'element_type' => 'gfcolourpopup',
             );
 
-
+            $courseformatoptionsedit['sectionposition'] = array(
+                'label' => get_string('sectionposition', 'format_buttons'),
+                'help' => 'sectionposition',
+                'help_component' => 'format_buttons',
+                'element_type' => 'select',
+                'element_attributes' => array(
+                    array(
+                        0 => get_string('above', 'format_buttons'),
+                        1 => get_string('below', 'format_buttons'),
+                    ),
+                ),
+            );
+            
+            // SG -- commenting original course format settings as they are not used
+            /*
+            
             $courseconfig = get_config('moodlecourse');
             $max = $courseconfig->maxsections;
             if (!isset($max) || !is_numeric($max)) {
@@ -258,6 +273,7 @@ class format_buttons extends format_topics
                 'element_type' => 'select',
                 'element_attributes' => array($sectionmenu),
             );
+
             $courseformatoptionsedit['hiddensections'] = array(
                 'label' => new lang_string('hiddensections'),
                 'help' => 'hiddensections',
@@ -282,22 +298,6 @@ class format_buttons extends format_topics
                     ),
                 ),
             );
-            $courseformatoptionsedit['sectionposition'] = array(
-                'label' => get_string('sectionposition', 'format_buttons'),
-                'help' => 'sectionposition',
-                'help_component' => 'format_buttons',
-                'element_type' => 'select',
-                'element_attributes' => array(
-                    array(
-                        0 => get_string('above', 'format_buttons'),
-                        1 => get_string('below', 'format_buttons'),
-                    ),
-                ),
-            );
-            
-            // SG -- commenting original course format settings as they are not used
-            /*
-
             $courseformatoptionsedit['inlinesections'] = array(
                 'label' => get_string('inlinesections', 'format_buttons'),
                 'help' => 'inlinesections',
