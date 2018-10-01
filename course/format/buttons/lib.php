@@ -50,6 +50,22 @@ class format_buttons extends format_topics
         static $courseformatoptions = false;
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
+            $courseformatoptions['numsections'] = array(
+                'default' => $courseconfig->numsections,
+                'type' => PARAM_INT,
+            );
+            $courseformatoptions['hiddensections'] = array(
+                'default' => $courseconfig->hiddensections,
+                'type' => PARAM_INT,
+            );
+            $courseformatoptions['showdefaultsectionname'] = array(
+                'default' => get_config('format_buttons', 'showdefaultsectionname'),
+                'type' => PARAM_INT,
+            );
+            $courseformatoptions['sectionposition'] = array(
+                'default' => get_config('format_buttons', 'sectionposition'),
+                'type' => PARAM_INT,
+            );
             // SG - Add course options for format_buttons
             $courseformatoptions['course_descr_bg_color'] = array(
                 'default' => '#7af2ff',
@@ -115,22 +131,6 @@ class format_buttons extends format_topics
 
             // SG -- commenting original course format settings as they are not used
             /*
-            $courseformatoptions['numsections'] = array(
-                'default' => $courseconfig->numsections,
-                'type' => PARAM_INT,
-            );
-            $courseformatoptions['hiddensections'] = array(
-                'default' => $courseconfig->hiddensections,
-                'type' => PARAM_INT,
-            );
-            $courseformatoptions['showdefaultsectionname'] = array(
-                'default' => get_config('format_buttons', 'showdefaultsectionname'),
-                'type' => PARAM_INT,
-            );
-            $courseformatoptions['sectionposition'] = array(
-                'default' => get_config('format_buttons', 'sectionposition'),
-                'type' => PARAM_INT,
-            );
             $courseformatoptions['inlinesections'] = array(
                 'default' => get_config('format_buttons', 'inlinesections'),
                 'type' => PARAM_INT,
@@ -244,8 +244,6 @@ class format_buttons extends format_topics
             );
 
 
-            // SG -- commenting original course format settings as they are not used
-            /*
             $courseconfig = get_config('moodlecourse');
             $max = $courseconfig->maxsections;
             if (!isset($max) || !is_numeric($max)) {
@@ -296,6 +294,10 @@ class format_buttons extends format_topics
                     ),
                 ),
             );
+            
+            // SG -- commenting original course format settings as they are not used
+            /*
+
             $courseformatoptionsedit['inlinesections'] = array(
                 'label' => get_string('inlinesections', 'format_buttons'),
                 'help' => 'inlinesections',
@@ -533,6 +535,26 @@ class format_buttons extends format_topics
         }
 
         return $langtext;
+    }
+
+
+    /**
+     * Function parses summary to get section name, section icon and summary text
+     * 
+     * @param str Raw summary
+     * @return array Array: [0] - raw data, [1] - section name, [2] - icon name / fa class, [3] - summary
+     */
+    public function parse_section_summary($summary) {
+        $langsummary = $this->get_translated_text($summary);
+        $langsummary = (isset($langsummary[1])) ? $langsummary[1] : $summary;
+        
+        // the main regexp:
+        $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)$/i'; // SG - the latest regexp 20181001 - '[[name]] {{icon}} rest of the text - summary'. You provide only name or only icon or summary
+        preg_match($reg, $langsummary, $content);
+        
+        $content[3] = (!empty($content[3])) ? $content[3] : $langsummary;
+
+        return $content;
     }
 
     /**
