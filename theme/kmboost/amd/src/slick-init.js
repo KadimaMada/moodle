@@ -5,7 +5,7 @@ define(['jquery', 'theme_kmboost/slick'], function($, slick) {
             console.dir('slick init');
             var dir = $('html').attr('dir');
             $('.slider').slick({
-                infinite: true,
+                infinite: false,
                 slidesToShow: 4,
                 slidesToScroll: 1,
                 prevArrow: '#mycoursesprev',
