@@ -2,7 +2,6 @@ define(['jquery', 'theme_kmboost/slick'], function($, slick) {
 
     return {
         init: function() {
-            console.dir('slick init');
             var dir = $('html').attr('dir');
             $('.slider').slick({
                 infinite: false,
