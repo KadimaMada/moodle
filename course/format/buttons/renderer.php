@@ -264,11 +264,10 @@ class format_buttons_renderer extends format_topics_renderer
             */
 
             // parse section summary for: name, icon and summary
-            $sectionheaderinfo = course_get_format($course)->parse_section_summary($thissection->summary);
-            $sectionname = (!empty($sectionheaderinfo[1])) ? $sectionheaderinfo[1] : course_get_format($course)->get_section_name($section);
-            $sectionicon = (!empty($sectionheaderinfo[2])) ? $sectionheaderinfo[2] : 'fa-cog';
+            $sectionheaderinfo = course_get_format($course)->parse_section_summary($thissection);
+            $sectionname = $sectionheaderinfo[1];
+            $sectionicon = $sectionheaderinfo[2];
             $sectionsummary = $sectionheaderinfo[3];
-
 
             $html .= html_writer::start_tag('li',['class' => 'nav-item mb-auto '.$currentclass, 'data-section' => $section]);
             // $html .= html_writer::start_tag('a',['href' => "#section$section",'class' => "nav-link $class", 'aria-controls' => "section-$section"]);

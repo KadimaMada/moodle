@@ -541,17 +541,19 @@ class format_buttons extends format_topics
     /**
      * Function parses summary to get section name, section icon and summary text
      * 
-     * @param str Raw summary
+     * @param $section
      * @return array Array: [0] - raw data, [1] - section name, [2] - icon name / fa class, [3] - summary
      */
-    public function parse_section_summary($summary) {
-        $langsummary = $this->get_translated_text($summary);
+    public function parse_section_summary($thissection) {
+        $langsummary = $this->get_translated_text($thissection->summary);
         $langsummary = (isset($langsummary[1])) ? $langsummary[1] : $summary;
         
         // the main regexp:
         $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)$/i'; // SG - the latest regexp 20181001 - '[[name]] {{icon}} rest of the text - summary'. You provide only name or only icon or summary
         preg_match($reg, $langsummary, $content);
         
+        $content[1] = (!empty($content[1])) ? $content[1] : $this->get_section_name($thissection);
+        $content[2] = (!empty($content[2])) ? $content[2] : 'fa-cog';
         $content[3] = (!empty($content[3])) ? $content[3] : $langsummary;
 
         return $content;
