@@ -113,7 +113,8 @@ class format_buttons extends format_topics
             );
 
 
-
+            // SG -- commenting original course format settings as they are not used
+            /*
             $courseformatoptions['numsections'] = array(
                 'default' => $courseconfig->numsections,
                 'type' => PARAM_INT,
@@ -176,6 +177,7 @@ class format_buttons extends format_topics
                 'default' => $colorvisible,
                 'type' => PARAM_TEXT,
             );
+            */
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
 
@@ -242,6 +244,8 @@ class format_buttons extends format_topics
             );
 
 
+            // SG -- commenting original course format settings as they are not used
+            /*
             $courseconfig = get_config('moodlecourse');
             $max = $courseconfig->maxsections;
             if (!isset($max) || !is_numeric($max)) {
@@ -365,6 +369,7 @@ class format_buttons extends format_topics
                 'help_component' => 'format_buttons',
                 'element_type' => 'text',
             );
+            */
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
