@@ -166,6 +166,10 @@ html[dir='rtl']{
         border-left-color: var(--buttons-label-controls-color);
         transform: rotate(45deg);
       }
+      &:hover>div:before{
+        border-bottom-color:var(--buttons-label-active-bg);
+        border-left-color:var(--buttons-label-active-bg);
+      }
     }
     .label-active{
       position: relative;
@@ -198,6 +202,10 @@ html[dir='rtl']{
         border-bottom-color: var(--buttons-label-controls-color);
         border-left-color: var(--buttons-label-controls-color);
         transform: rotate(225deg);
+      }
+      &:hover>div:before{
+        border-bottom-color:var(--buttons-label-active-bg);
+        border-left-color:var(--buttons-label-active-bg);
       }
     }
   }
