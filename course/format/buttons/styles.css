@@ -354,7 +354,6 @@
           margin-top: 0;
           padding: 12px 0 0 0;
           border: 1px solid #b7b7b7;
-          border-color: var(--buttons-section-active-font-color);
           border-bottom-color: transparent;
           transition: all .3s ease-in-out; }
           .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item.active .section-icon {
