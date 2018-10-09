@@ -71,8 +71,20 @@ class format_buttons extends format_topics
                 'default' => '#000',
                 'type' => PARAM_RAW,
             );
-            $courseformatoptions['section_menu_info_arrows_color'] = array(
-                'default' => '#7bc0de',
+            $courseformatoptions['section_menu_arrows_color'] = array(
+                'default' => '#7af2ff',
+                'type' => PARAM_RAW,
+            );
+            $courseformatoptions['section_menu_arrows_color_hover'] = array(
+                'default' => '#85c7ce',
+                'type' => PARAM_RAW,
+            );
+            $courseformatoptions['section_menu_info_icon_color'] = array(
+                'default' => '#7af2ff',
+                'type' => PARAM_RAW,
+            );
+            $courseformatoptions['section_menu_info_icon_color_hover'] = array(
+                'default' => '#85c7ce',
                 'type' => PARAM_RAW,
             );
             $courseformatoptions['selected_section_bg_color'] = array(
@@ -198,8 +210,20 @@ class format_buttons extends format_topics
                 'label' => get_string('section_menu_icon_color', 'format_buttons'),
                 'element_type' => 'gfcolourpopup',
             );
-            $courseformatoptionsedit['section_menu_info_arrows_color'] = array(
-                'label' => get_string('section_menu_info_arrows_color', 'format_buttons'),
+            $courseformatoptionsedit['section_menu_arrows_color'] = array(
+                'label' => get_string('section_menu_arrows_color', 'format_buttons'),
+                'element_type' => 'gfcolourpopup',
+            );
+            $courseformatoptionsedit['section_menu_arrows_color_hover'] = array(
+                'label' => get_string('section_menu_arrows_color_hover', 'format_buttons'),
+                'element_type' => 'gfcolourpopup',
+            );
+            $courseformatoptionsedit['section_menu_info_icon_color'] = array(
+                'label' => get_string('section_menu_info_icon_color', 'format_buttons'),
+                'element_type' => 'gfcolourpopup',
+            );
+            $courseformatoptionsedit['section_menu_info_icon_color_hover'] = array(
+                'label' => get_string('section_menu_info_icon_color_hover', 'format_buttons'),
                 'element_type' => 'gfcolourpopup',
             );
             $courseformatoptionsedit['selected_section_bg_color'] = array(

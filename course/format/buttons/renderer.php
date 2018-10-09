@@ -450,7 +450,10 @@ class format_buttons_renderer extends format_topics_renderer
         $csscoloroptions .= "--buttons-section-bg-color: ".$course->section_menu_bg_color.";";
         $csscoloroptions .= "--buttons-section-font-color: ".$course->section_menu_font_color.";";
         $csscoloroptions .= "--buttons-section-icon-color: ".$course->section_menu_icon_color.";";
-        $csscoloroptions .= "--buttons-section-info-color: ".$course->section_menu_info_arrows_color.";";
+        $csscoloroptions .= "--buttons-section-menu-arrows-color: ".$course->section_menu_arrows_color.";";
+        $csscoloroptions .= "--buttons-section-menu-arrows-color-hover: ".$course->section_menu_arrows_color_hover.";";
+        $csscoloroptions .= "--buttons-section-menu-info-icon-color: ".$course->section_menu_info_icon_color.";";
+        $csscoloroptions .= "--buttons-section-menu-info-icon-color-hover: ".$course->section_menu_info_icon_color_hover.";";
         $csscoloroptions .= "--buttons-section-active-bg: ".$course->selected_section_bg_color.";";
         $csscoloroptions .= "--buttons-section-active-font-color: ".$course->selected_section_font_color.";";
         $csscoloroptions .= "--buttons-section-active-icon-color: ".$course->selected_section_icon_color.";";
