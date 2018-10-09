@@ -102,12 +102,14 @@ html[dir='rtl']{
           background: $dark_dark_gray;
         }
         .slider.labels{
+          transition: height .3s linear;
           .nav-item{
             height: 88px;
             transition: height .3s linear;
           }
         }
         &.collapsing{
+          transition: height .3s linear;
           .slider.labels{
             .nav-item{
               height: 0;

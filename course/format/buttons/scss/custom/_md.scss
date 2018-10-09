@@ -24,11 +24,14 @@ html[dir='ltr']{
     .slider.labels{
       .nav-item{
         min-height: 88px;
+        transition: all .3s linear;
         &.active{
           padding:0 0 0 12px;
+          transition: all .3s linear;
         }
         &:hover{
           padding:0 0 0 12px;
+          transition: all .3s linear;
         }
       }
       &.slick-slider{
