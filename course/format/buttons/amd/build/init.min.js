@@ -72,12 +72,18 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
     if (target.dataset.section) {
       ajax.data.modtype = `section`;
       ajax.data.modname = target.querySelector('.section-title').innerHTML.trim();
-      ajax.data.cmid = target.dataset.section;
+      ajax.data.sectionid = target.dataset.section;
+      ajax.data.cmid = '';
       ajax.send();
 
     }else if (target.dataset.label) {
+      let targetSection = target;
+      while (!targetSection.classList.contains('section-content')){
+        targetSection = targetSection.parentNode;
+      }
       ajax.data.modtype = `label`;
       ajax.data.modname = target.querySelector('.label-title').innerHTML.trim();
+      ajax.data.sectionid = targetSection.id.replace(/\D+/, '');
       ajax.data.cmid = target.dataset.label;
       ajax.send();
     }
