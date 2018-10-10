@@ -321,6 +321,17 @@ define(['jquery','format_buttons/slick'], function($, slick) {
     return {
         init: function() {
           initDefaults();
+
+          // add fixed scroll position
+          var wrap = $("div.buttons");
+          // console.log($(document).scrollTop());
+          $(document).on("scroll", function(e) {
+            if ($(document).scrollTop() > 225) {
+              wrap.addClass("fixed");
+            } else {
+              wrap.removeClass("fixed");
+            }
+          });
         }
     };
 });

@@ -37,6 +37,26 @@ html[dir='rtl']{
   }
 }
 .format-buttons{
+  div.buttons{
+    // &.fixed{
+    //   position: fixed;
+    //   top:60px;
+    //   max-width: 80vw;
+    //   .section-content:not(.d-none){
+    //     max-height: 80vh;
+    //     .sections-wrapper{
+    //       max-height:12vh;
+    //     }
+    //     .label-content-wrapper{
+    //       overflow-y: auto;
+    //       max-height: calc(65vh - 68px);
+    //     }
+    //     .label-content-controls{
+    //
+    //     }
+    //   }
+    // }
+  }
   .sections-wrapper{
     display: flex;
     flex: 1;
