@@ -68,14 +68,17 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
     const mainBlock = document.querySelector('.buttons[data-userid]');
     if (!mainBlock) return;
     ajax.data.userid = mainBlock.dataset.userid;
+
     if (target.dataset.section) {
-      ajax.data.modype = `section`;
+      ajax.data.modtype = `section`;
       ajax.data.modname = target.querySelector('.section-title').innerHTML.trim();
+      ajax.data.cmid = target.dataset.section;
       ajax.send();
 
     }else if (target.dataset.label) {
-      ajax.data.modype = `label`;
+      ajax.data.modtype = `label`;
       ajax.data.modname = target.querySelector('.label-title').innerHTML.trim();
+      ajax.data.cmid = target.dataset.label;
       ajax.send();
     }
   };
