@@ -26,15 +26,21 @@ class classAjax {
 
         $courseid = optional_param('courseid','', PARAM_INT);
         $userid = required_param('userid',  PARAM_INT);
-        $modype = optional_param('modype', '', PARAM_TEXT);
+        $modtype = optional_param('modype', '', PARAM_TEXT);  
         $modname = optional_param('modname', '', PARAM_TEXT);
 
-        // $jsondecoded = json_decode($events);
-        if (isset($jsondecoded)) {
-            // return course_get_format($courseid)->update_options_from_ajax($options);
-        } else {
-            return "no data or error in parsing";
-        }
+        $context = context_course::instance($courseid);
+
+        // trigger event
+        $event = \format_buttons\event\log_label_clicked::create(array(
+            'context' => $context,
+            'userid' => $userid,
+            'other' => array (
+                'modtype' => $modtype,
+                'modname' => $modname,
+                'courseid' => $courseid
+            )
+        ))->trigger();
     }
 
 }

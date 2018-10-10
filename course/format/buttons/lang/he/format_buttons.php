@@ -72,6 +72,7 @@ $string['circle'] = 'Circle';
 $string['square'] = 'Square';
 $string['inlinesections'] = 'Inline sections';
 $string['inlinesections_help'] = 'Give each section a new line.';
+$string['event_log_label_clicked'] = 'Label or section viewed';
 
 // Strings for color options
 $string['course_descr_bg_color'] = 'תיאור הקורס – צבע רקע';
