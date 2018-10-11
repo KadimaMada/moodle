@@ -358,8 +358,21 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
   }
 
     return {
-        init: function(initparams) {
-          initDefaults(initparams);
+
+        init: function() {
+          initDefaults();
+
+          // add fixed scroll position
+          var wrap = $("div.buttons");
+          // console.log($(document).scrollTop());
+          $(document).on("scroll", function(e) {
+            if ($(document).scrollTop() > 225) {
+              wrap.addClass("fixed");
+            } else {
+              wrap.removeClass("fixed");
+            }
+          });
+
         }
     };
 });
