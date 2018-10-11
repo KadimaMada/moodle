@@ -44,9 +44,9 @@
         print_error('coursemisconf');
     }
 
-    if(no_permission_for_user($cm->instance)){
-        print_error('nopermission');
-    }
+//    if(no_permission_for_user($cm->instance)){
+//        print_error('nopermission');
+//    }
 
     if(!user_can_answer($cm->instance)){
         print_error('nopermission');

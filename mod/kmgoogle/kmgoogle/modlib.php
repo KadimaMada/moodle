@@ -1,5 +1,6 @@
 <?php
 require_once ($CFG->dirroot.'/mod/kmgoogle/classes/BasicDrive.php');
+require_once($CFG->dirroot.'/group/lib.php');
 
 //Set global google drive class
 $GLOBALS['GoogleDrive'] = new BasicDrive();
@@ -341,25 +342,50 @@ function no_permission_for_user($instanceid){
 }
 
 function user_can_answer($instanceid){
-    global $DB, $USER;
+    global $DB, $USER, $COURSE;
 
     $kmgoogle = $DB->get_record("kmgoogle", array("id" => $instanceid));
+
+    //If admin or teacher
+    $arrteachers = kmgoogle_get_teacher_admin_users();
+    if(in_array($USER->id, $arrteachers)){
+        return false;
+    }
+
+    //If other students
+    $arrotherstudents = kmgoogle_get_other_users($kmgoogle);
+    if(in_array($USER->id, $arrotherstudents)){
+        return false;
+    }
+
+    //If sendtoteacher disable
     if(!$kmgoogle->sendtoteacher){
         return false;
     }
+
+
 
     //If student needed click
 //    if(!$kmgoogle->studenttoclick || $kmgoogle->datelastsubmit <= time()) {
 //        return false;
 //    }
 
-    $permission = $DB->get_record("kmgoogle_permission", array("instanceid" => $instanceid, "userid" => $USER->id));
-    if(empty($permission) || $permission->permission == 'nopermission' || $permission->permission == 'view'){
-        return false;
+//    $permission = $DB->get_record("kmgoogle_permission", array("instanceid" => $instanceid, "userid" => $USER->id));
+//    if(empty($permission) || $permission->permission == 'nopermission' || $permission->permission == 'view'){
+//        return false;
+//    }
+
+    $isstudent = false;
+    $roles = get_user_roles(context_course::instance($COURSE->id), $USER->id, false);
+    foreach ($roles as $role) {
+        if ($role->shortname == 'student') {
+            $isstudent = true;
+            break;
+        }
     }
 
     //Count of answers
-    if($kmgoogle->submitmechanism && $kmgoogle->numberattempts){
+    if($isstudent && $kmgoogle->submitmechanism && $kmgoogle->numberattempts){
         $answers = $DB->get_record("kmgoogle_answers", array("instanceid" => $instanceid, "userid" => $USER->id));
         if(count($answers) > $kmgoogle->numberattempts){
             return false;
@@ -367,6 +393,18 @@ function user_can_answer($instanceid){
     }
 
     return true;
+}
+
+function if_user_admin_teacher(){
+    global $DB, $USER, $COURSE;
+
+    //If admin or teacher
+    $arrteachers = kmgoogle_get_teacher_admin_users();
+    if(in_array($USER->id, $arrteachers)){
+        return true;
+    }
+
+    return false;
 }
 
 //Check if url is google url
@@ -383,11 +421,8 @@ function kmgoogle_copy_google_url($kmgoogle){
 
     $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->sourcegoogleurl);
 
-    if(!empty($kmgoogle->namefile)){
-        $name = $kmgoogle->name.' '.$kmgoogle->namefile;
-    }else{
-        $name = $kmgoogle->namefile;
-    }
+    //Build name for document
+    $name = kmgoogle_build_name_for_document($kmgoogle);
 
     //If Folder
     if($GoogleDrive->typeOfFile($sourceFileId) == 'folder'){
@@ -404,6 +439,35 @@ function kmgoogle_copy_google_url($kmgoogle){
     }
 
     return str_replace($sourceFileId, $newFile->getId(), $kmgoogle->sourcegoogleurl);
+}
+
+//Build name for document
+function kmgoogle_build_name_for_document($kmgoogle){
+    global $DB, $USER, $COURSE, $GoogleDrive;
+
+    $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->sourcegoogleurl);
+    $originalname = $GoogleDrive->nameOfFile($sourceFileId);
+
+    $name = $originalname;
+    if(!empty($kmgoogle->namefile)){
+
+        if($kmgoogle->namefile == 'course' && $kmgoogle->namefile == $kmgoogle->association){
+            $obj = get_course($COURSE->id);
+            $name = $obj->shortname.' '.$originalname;
+        }
+
+        if($kmgoogle->namefile == 'group' && $kmgoogle->namefile == $kmgoogle->association){
+            $obj = kmgoogle_get_groups_on_course($COURSE->id);
+            $name = $obj[$kmgoogle->associationname].' '.$originalname;
+        }
+
+        if($kmgoogle->namefile == 'collection' && $kmgoogle->namefile == $kmgoogle->association){
+            $obj = kmgoogle_get_collections_on_course($COURSE->id);
+            $name = $obj[$kmgoogle->associationname].' '.$originalname;
+        }
+    }
+
+    return $name;
 }
 
 function kmgoogle_update_google_url($kmgoogle, $prevkmgoogle){

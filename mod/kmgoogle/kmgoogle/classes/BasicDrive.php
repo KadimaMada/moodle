@@ -8,7 +8,7 @@ require_once ($CFG->dirroot.'/mod/kmgoogle/classes/GoogleDrive.php');
 //    putenv( 'GOOGLE_APPLICATION_CREDENTIALS='.$credentials_url );
 //}
 
-session_start();
+//session_start();
 
 class BasicDrive {
 
@@ -56,10 +56,59 @@ class BasicDrive {
     //Parser Google url
     public function getFileIdFromGoogleUrl($url) {
 
-        $arr = explode('/', $url);
-        foreach ($arr as $item){
-            if(strlen($item) > 25 && strlen($item) < 60){
-                return $item;
+        //spreadsheet
+        $pos_spreadsheets = strpos($url, 'spreadsheets');
+        if($pos_spreadsheets !== false){
+            $pos_spreadsheets += strlen('spreadsheets');
+            $str = substr($url, $pos_spreadsheets);
+
+            $arr = explode('/', $str);
+            foreach ($arr as $item){
+                if(strlen($item) > 25 && strlen($item) < 60 && !strpos($item, '?') && !strpos($item, '&')){
+                    return $item;
+                }
+            }
+        }
+
+        //document
+        $pos_spreadsheets = strpos($url, 'document');
+        if($pos_spreadsheets !== false){
+            $pos_spreadsheets += strlen('document');
+            $str = substr($url, $pos_spreadsheets);
+
+            $arr = explode('/', $str);
+            foreach ($arr as $item){
+                if(strlen($item) > 25 && strlen($item) < 60 && !strpos($item, '?') && !strpos($item, '&')){
+                    return $item;
+                }
+            }
+        }
+
+        //folders
+        $pos_spreadsheets = strpos($url, 'folders');
+        if($pos_spreadsheets !== false){
+            $pos_spreadsheets += strlen('folders');
+            $str = substr($url, $pos_spreadsheets);
+
+            $arr = explode('/', $str);
+            foreach ($arr as $item){
+                if(strlen($item) > 25 && strlen($item) < 60 && !strpos($item, '?') && !strpos($item, '&')){
+                    return $item;
+                }
+            }
+        }
+
+        //presentation
+        $pos_spreadsheets = strpos($url, 'presentation');
+        if($pos_spreadsheets !== false){
+            $pos_spreadsheets += strlen('presentation');
+            $str = substr($url, $pos_spreadsheets);
+
+            $arr = explode('/', $str);
+            foreach ($arr as $item){
+                if(strlen($item) > 25 && strlen($item) < 100 && !strpos($item, '?') && !strpos($item, '&')){
+                    return $item;
+                }
             }
         }
 
@@ -274,5 +323,32 @@ class BasicDrive {
 
         return $result;
     }
+
+    //Get Revisions
+    public function retrieveRevisions($fileId) {
+        try {
+            $revisions = $this->service->revisions->listRevisions($fileId);
+            return $revisions->getRevisions();
+        } catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
+        }
+        return NULL;
+    }
+
+    //update Revision Published
+    public function updateRevision($fileId, $revisionId = 1) {
+
+        $patchedRevision = new Google_Service_Drive_Revision();
+        $patchedRevision->setPublished(true);
+        $patchedRevision->setPublishAuto(true);
+        $patchedRevision->setPublishedOutsideDomain(true);
+        try {
+            return $this->service->revisions->update($fileId, $revisionId, $patchedRevision);
+        } catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
+        }
+        return NULL;
+    }
+
 
 }

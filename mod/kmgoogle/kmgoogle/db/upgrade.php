@@ -157,5 +157,19 @@ function xmldb_kmgoogle_upgrade($oldversion) {
         }
     }
 
+    if ($oldversion < 2018051411) {
+        $table = new xmldb_table('kmgoogle');
+
+        $field1 = new xmldb_field('sourcegoogleurl', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, '', 'namefile');
+        $dbman->change_field_type($table, $field1);
+
+        $field2 = new xmldb_field('copiedgoogleurl', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, '', 'sourcegoogleurl');
+        $dbman->change_field_type($table, $field2);
+
+        $field3 = new xmldb_field('googlefolderurl', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, '', 'copiedgoogleurl');
+        $dbman->change_field_type($table, $field3);
+
+    }
+
     return true;
 }

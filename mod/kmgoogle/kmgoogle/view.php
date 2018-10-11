@@ -131,6 +131,16 @@ if(user_can_answer($cm->instance)){
     exit;
 }
 
+if(if_user_admin_teacher()){
+    echo '<br />';
+    echo '<br />';
+    echo '<a href="'.$CFG->wwwroot.'/mod/kmgoogle/report.php?id='.$id.'" class="btn btn-primary">'.get_string("to_view", 'kmgoogle').'</a>';
+    echo '</div>';
+    echo "</form>";
+    echo $OUTPUT->footer();
+    exit;
+}
+
 echo '</div>';
 echo "</form>";
 echo $OUTPUT->footer();
