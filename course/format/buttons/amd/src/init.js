@@ -359,8 +359,8 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
 
     return {
 
-        init: function() {
-          initDefaults();
+        init: function(initparams) {
+          initDefaults(initparams);
 
           // add fixed scroll position
           var wrap = $("div.buttons");
