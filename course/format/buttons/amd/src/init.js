@@ -1,6 +1,7 @@
 define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, slick, ajax) {
 
-  function initDefaults(){
+  function initDefaults(initparams){
+    if (initparams) console.dir(initparams);
     var currentSection,
         currentLabel = checkStorage('lastLabel');
 
@@ -357,8 +358,8 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
   }
 
     return {
-        init: function() {
-          initDefaults();
+        init: function(initparams) {
+          initDefaults(initparams);
         }
     };
 });

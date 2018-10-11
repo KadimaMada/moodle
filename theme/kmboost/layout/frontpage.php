@@ -72,4 +72,4 @@ foreach ($potentialidps as $idp) {
 
 echo $OUTPUT->render_from_template('theme_kmboost/frontpage', $templatecontext);
 $PAGE->requires->js_call_amd('theme_kmboost/slick-init', 'init');
-$PAGE->requires->js_call_amd('theme_kmboost/nagishut-init', 'init');
+// $PAGE->requires->js_call_amd('theme_kmboost/nagishut-init', 'init');
