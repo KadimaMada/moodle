@@ -1,5 +1,39 @@
 html[dir='ltr']{
   .format-buttons{
+    #region-main{
+      min-height: 100vh;//fix for fixed position
+      &>.card{
+        min-height: 100vh;//fix for fixed position
+      }
+    }
+    div.buttons{
+      &.fixed{
+        position: fixed;
+        top:60px;
+        width: calc(100vw - 70px);
+        max-width: 1430px;
+        max-height:100vh;
+        .sections-content-wrapper{
+          position: relative;
+          .section-content:not(.d-none){
+            position: relative;
+            overflow:visible;
+            >div{
+              position: relative;
+              overflow: visible;
+              .labels-wrapper{
+                position: relative;
+              }
+              .label-content{
+                position: relative;
+                max-height: 60vh;
+                overflow-y: auto;
+              }
+            }
+          }
+        }
+      }
+    }
     .slider.sections{
       &.slick-slider{
         float: left;
@@ -24,11 +58,14 @@ html[dir='ltr']{
     .slider.labels{
       .nav-item{
         min-height: 88px;
+        transition: all .3s linear;
         &.active{
           padding:0 0 0 12px;
+          transition: all .3s linear;
         }
         &:hover{
           padding:0 0 0 12px;
+          transition: all .3s linear;
         }
       }
       &.slick-slider{
