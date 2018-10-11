@@ -50,5 +50,11 @@ if (!empty($displaysection)) {
     $renderer->print_multiple_section_page($course, null, null, null, null);
 }
 
+$initparams = array();
+if ($fbusid = $DB->get_record('format_buttons_userstate', array ('userid' => $USER->id, 'courseid' => $course->id))) {
+    $initparams['section'] = $fbusid->section;
+    $initparams['cmid'] = $fbusid->cmid;
+}
+
 $PAGE->requires->js('/course/format/buttons/format.js'); 
-$PAGE->requires->js_call_amd('format_buttons/init', 'init');
+$PAGE->requires->js_call_amd('format_buttons/init', 'init', array($initparams));
