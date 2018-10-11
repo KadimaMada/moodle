@@ -266,17 +266,17 @@
           left: -1.5rem;
           top: 50%; }
           .format-buttons .sections-wrapper .slider.sections.slick-slider .slick-arrow.slick-prev:before {
-            border-bottom-color: var(--buttons-section-info-color);
-            border-left-color: var(--buttons-section-info-color); }
+            border-bottom-color: var(--buttons-section-menu-arrows-color);
+            border-left-color: var(--buttons-section-menu-arrows-color); }
         .format-buttons .sections-wrapper .slider.sections.slick-slider .slick-arrow.slick-next {
           right: -1.5rem;
           top: 50%; }
           .format-buttons .sections-wrapper .slider.sections.slick-slider .slick-arrow.slick-next:before {
-            border-bottom-color: var(--buttons-section-info-color);
-            border-left-color: var(--buttons-section-info-color); }
+            border-bottom-color: var(--buttons-section-menu-arrows-color);
+            border-left-color: var(--buttons-section-menu-arrows-color); }
         .format-buttons .sections-wrapper .slider.sections.slick-slider .slick-arrow:hover:before {
-          border-bottom-color: var(--buttons-label-active-bg);
-          border-left-color: var(--buttons-label-active-bg); }
+          border-bottom-color: var(--buttons-section-menu-arrows-color-hover);
+          border-left-color: var(--buttons-section-menu-arrows-color-hover); }
       .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item {
         box-sizing: border-box;
         border: 1px solid transparent;
@@ -320,7 +320,7 @@
           font-size: 2rem;
           font-weight: bold;
           color: #7bc0de;
-          color: var(--buttons-section-info-color);
+          color: var(--buttons-section-menu-info-icon-color);
           opacity: 0;
           padding: 0.25rem;
           margin: 0.25rem;
@@ -346,15 +346,14 @@
             opacity: 1;
             transition: all .3s ease-in-out; }
             .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item:hover .section-tooltip:hover {
-              color: var(--buttons-label-active-bg);
-              border-color: var(--buttons-label-active-bg); }
+              color: var(--buttons-section-menu-info-icon-color-hover);
+              border-color: var(--buttons-section-menu-info-icon-color-hover); }
         .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item.active {
           background-color: #fff;
           background-color: var(--buttons-section-active-bg);
           margin-top: 0;
           padding: 12px 0 0 0;
           border: 1px solid #b7b7b7;
-          border-color: var(--buttons-section-active-font-color);
           border-bottom-color: transparent;
           transition: all .3s ease-in-out; }
           .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item.active .section-icon {
@@ -368,8 +367,8 @@
             transition: all .3s ease-in-out; }
             .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item.active .section-tooltip:hover {
               border-color: #7bc0de;
-              border-color: var(--buttons-label-active-bg);
-              color: var(--buttons-label-active-bg); }
+              border-color: var(--buttons-section-menu-info-icon-color-hover);
+              color: var(--buttons-section-menu-info-icon-color-hover); }
           .format-buttons .sections-wrapper .slider.sections.slick-slider .nav-item.active .section-description {
             opacity: 0;
             transition: all .3s ease-in-out; }
@@ -475,8 +474,6 @@
     border-right: 1px solid transparent;
     border-bottom: 3px solid #5bc0de;
     border-left: 3px solid #5bc0de;
-    border-bottom-color: var(--buttons-section-info-color);
-    border-left-color: var(--buttons-section-info-color);
     border-radius: 3px; }
   .format-buttons .slick-slider .slick-arrow.slick-next:before {
     content: '';
@@ -487,14 +484,9 @@
     border-right: 1px solid transparent;
     border-bottom: 3px solid #5bc0de;
     border-left: 3px solid #5bc0de;
-    border-bottom-color: var(--buttons-section-info-color);
-    border-left-color: var(--buttons-section-info-color);
     border-radius: 3px; }
   .format-buttons .slick-slider .slick-arrow.slick-disabled:before {
     opacity: 0; }
-  .format-buttons .slick-slider .slick-arrow:hover:before {
-    border-bottom-color: var(--buttons-label-bg);
-    border-left-color: var(--buttons-label-bg); }
 
 .format-buttons .label-content-wrapper {
   position: relative;

@@ -38,10 +38,17 @@ if(no_permission_for_user($cm->instance)) {
 
 global $GoogleDrive;
 $copyFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
-if($GoogleDrive->typeOfFile($copyFileId) == 'folder'){
-    echo '<span><h1>'.$GoogleDrive->nameOfFile($copyFileId).'</h1></span>';
-    echo '<br>';
-    echo '<iframe src="https://drive.google.com/embeddedfolderview?id='.$copyFileId.'#list" width=100% height=100% align="left" frameborder="0"></iframe>';
-}else{
-    echo '<iframe src="'.$kmgoogle->copiedgoogleurl.'" width=100% height=100% align="left" frameborder="0"></iframe>';
+
+switch ($GoogleDrive->typeOfFile($copyFileId)) {
+    case 'folder':
+        echo '<span><h1>'.$GoogleDrive->nameOfFile($copyFileId).'</h1></span>';
+        echo '<br>';
+        echo '<iframe src="https://drive.google.com/embeddedfolderview?id='.$copyFileId.'#list" width=100% height=100% align="left" frameborder="0"></iframe>';
+        break;
+    case 'presentation':
+        $GoogleDrive->updateRevision($copyFileId, 1);
+        echo '<iframe src="https://docs.google.com/presentation/d/'.$copyFileId.'/embed" width=100% height=100% align="left" frameborder="0"></iframe>';
+        break;
+    default:
+        echo '<iframe src="'.$kmgoogle->copiedgoogleurl.'" width=100% height=100% align="left" frameborder="0"></iframe>';
 }

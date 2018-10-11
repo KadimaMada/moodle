@@ -66,8 +66,14 @@ $string['first_last_name'] = "Name";
 $string['activityname'] = "Activity name";
 $string['url_google_drive'] = "Url Google file";
 $string['submitted_on'] = "Submitted On";
-$string['credentials'] = "Credentials";
-$string['credentialsdesc'] = "Please upload credentials.json file";
+
+$string['clientid'] = "Client id";
+$string['clientiddesc'] = "Please enter client id from google";
+$string['clientsecret'] = "Client secret";
+$string['clientsecretdesc'] = "Please enter client secret from google";
+$string['credentials'] = "Token";
+$string['credentialsdesc'] = "Get file from <a target='_blank' href='/mod/kmgoogle/registration.php'>link</a> and upload token.json file. Redirect Url needed {$a->url}";
+
 $string['January'] = "January";
 $string['February'] = "February";
 $string['March'] = "March";
@@ -84,3 +90,4 @@ $string['Date_of_last_submission'] = "Date of last submission";
 $string['change_date'] = "Change";
 $string['default_name'] = "Default name";
 $string['answer'] = "Answer";
+$string['to_view'] = "To View";

@@ -1,6 +1,7 @@
-define(['jquery','format_buttons/slick'], function($, slick) {
+define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, slick, ajax) {
 
-  function initDefaults(){
+  function initDefaults(initparams){
+    if (initparams) console.dir(initparams);
     var currentSection,
         currentLabel = checkStorage('lastLabel');
 
@@ -50,7 +51,44 @@ define(['jquery','format_buttons/slick'], function($, slick) {
     initPrevNextBtnsEvents();
     tooltipEvents();
     xsSectionArrowsEvents();
+
+    document.addEventListener('click', function(e){
+      let target = e.target;
+      while (!target.classList.contains('buttons')) {
+        if (target.dataset.section || target.dataset.label) {
+          sendEventToServer(target);
+          return;
+        }
+        target = target.parentNode;
+      }
+
+    });
   }
+// add events to server
+  function sendEventToServer(target) {
+    const mainBlock = document.querySelector('.buttons[data-userid]');
+    if (!mainBlock) return;
+    ajax.data.userid = mainBlock.dataset.userid;
+
+    if (target.dataset.section) {
+      ajax.data.modtype = `section`;
+      ajax.data.modname = target.querySelector('.section-title').innerHTML.trim();
+      ajax.data.sectionid = target.dataset.section;
+      ajax.data.cmid = '';
+      ajax.send();
+
+    }else if (target.dataset.label) {
+      let targetSection = target;
+      while (!targetSection.classList.contains('section-content')){
+        targetSection = targetSection.parentNode;
+      }
+      ajax.data.modtype = `label`;
+      ajax.data.modname = target.querySelector('.label-title').innerHTML.trim();
+      ajax.data.sectionid = targetSection.id.replace(/\D+/, '');
+      ajax.data.cmid = target.dataset.label;
+      ajax.send();
+    }
+  };
 
   function sectionsEvents(){
     var sections = $('.slider.sections .nav-item');
@@ -118,7 +156,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
     } else {
       for (var i = 0; i < labels.length; i++) {
         var item = labels[i];
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function(e) {
           addToStorage('lastLabel', this.dataset.label);
           loopActive(labels, item);
           $('[data-label="' + this.dataset.label + '"]').toggleClass('active');
@@ -134,6 +172,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
             }, 800);
           }
           halfVisibleSlideEvents(this);
+
             // var slide = this.parentNode.parentNode;
             // only the last 1 item in all labels list sliding
             // if(slide.parentNode.childNodes.length > 5 && slide.parentNode.childNodes.length-slide.dataset.slickIndex < 2){
@@ -319,6 +358,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
   }
 
     return {
+
         init: function() {
           initDefaults();
 
@@ -332,6 +372,7 @@ define(['jquery','format_buttons/slick'], function($, slick) {
               wrap.removeClass("fixed");
             }
           });
+
         }
     };
 });

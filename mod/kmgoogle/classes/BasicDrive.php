@@ -1,42 +1,114 @@
 <?php
 
 require_once ($CFG->dirroot.'/mod/kmgoogle/classes/google/vendor/autoload.php');
+require_once ($CFG->dirroot.'/mod/kmgoogle/classes/GoogleDrive.php');
 
-$credentials_url = kmgoogle_get_credentials_file();
-if($credentials_url){
-    putenv( 'GOOGLE_APPLICATION_CREDENTIALS='.$credentials_url );
-}
+//$credentials_url = kmgoogle_get_credentials_file();
+//if($credentials_url){
+//    putenv( 'GOOGLE_APPLICATION_CREDENTIALS='.$credentials_url );
+//}
 
+//session_start();
 
-class google_drive {
+class BasicDrive {
 
     private $client;
     private $service;
 
+//    private $clientId = '370911709899-191ugl7isounb2qufiod0f5si0i5htde.apps.googleusercontent.com';
+//    private $clientSecret = 'YpJPPT3vDiZs4g6zBCA3c88y';
+//    private $redirectUrl = 'http://shiur4u.devlion.co/mod/kmgoogle/postback.php';
+
+    private $clientId;
+    private $clientSecret;
+    private $redirectUrl;
+
     public function __construct() {
-        $this->client = new Google_Client();
-        $this->client->useApplicationDefaultCredentials();
-        $this->client->setScopes(array(
-            'https://www.googleapis.com/auth/drive',
-            'https://www.googleapis.com/auth/drive.file',
-            //'https://www.googleapis.com/auth/userinfo.email',
-            //'https://www.googleapis.com/auth/userinfo.profile'
-        ));
-        $this->client->setHttpClient( new GuzzleHttp\Client( [ 'verify' => false ] ) );   // disable ssl if necessary
 
-        // Get the API client and construct the service object.
-        $this->service = new Google_Service_Drive($this->client);
+        global $DB, $CFG;
 
-        //$this->checkAccessGranted(); //TODO
+        $obj = $DB->get_record('config_plugins', array('plugin' => 'mod_kmgoogle', 'name' => 'clientid'));
+        $this->clientId = $obj->value;
+
+        $obj = $DB->get_record('config_plugins', array('plugin' => 'mod_kmgoogle', 'name' => 'clientsecret'));
+        $this->clientSecret = $obj->value;
+
+        $this->redirectUrl = $CFG->wwwroot.'/mod/kmgoogle/postback.php';
+
+        $credentials_url = kmgoogle_get_credentials_file();
+        if($credentials_url){
+            //$google->flushSession();
+            //$google->flushToken();
+
+            $google = new GoogleDrive($this->clientId, $this->clientSecret, $this->redirectUrl, $credentials_url);
+            $google->authenticate();
+
+            if ($google->isAuthed()) {
+                $this->service = $google->initDrive();
+            }else{
+                die("Please authorizate google drive");
+            }
+        }else{
+            die("Please authorizate google drive");
+        }
     }
 
     //Parser Google url
     public function getFileIdFromGoogleUrl($url) {
 
-        $arr = explode('/', $url);
-        foreach ($arr as $item){
-            if(strlen($item) > 25 && strlen($item) < 60){
-                return $item;
+        //spreadsheet
+        $pos_spreadsheets = strpos($url, 'spreadsheets');
+        if($pos_spreadsheets !== false){
+            $pos_spreadsheets += strlen('spreadsheets');
+            $str = substr($url, $pos_spreadsheets);
+
+            $arr = explode('/', $str);
+            foreach ($arr as $item){
+                if(strlen($item) > 25 && strlen($item) < 60 && !strpos($item, '?') && !strpos($item, '&')){
+                    return $item;
+                }
+            }
+        }
+
+        //document
+        $pos_spreadsheets = strpos($url, 'document');
+        if($pos_spreadsheets !== false){
+            $pos_spreadsheets += strlen('document');
+            $str = substr($url, $pos_spreadsheets);
+
+            $arr = explode('/', $str);
+            foreach ($arr as $item){
+                if(strlen($item) > 25 && strlen($item) < 60 && !strpos($item, '?') && !strpos($item, '&')){
+                    return $item;
+                }
+            }
+        }
+
+        //folders
+        $pos_spreadsheets = strpos($url, 'folders');
+        if($pos_spreadsheets !== false){
+            $pos_spreadsheets += strlen('folders');
+            $str = substr($url, $pos_spreadsheets);
+
+            $arr = explode('/', $str);
+            foreach ($arr as $item){
+                if(strlen($item) > 25 && strlen($item) < 60 && !strpos($item, '?') && !strpos($item, '&')){
+                    return $item;
+                }
+            }
+        }
+
+        //presentation
+        $pos_spreadsheets = strpos($url, 'presentation');
+        if($pos_spreadsheets !== false){
+            $pos_spreadsheets += strlen('presentation');
+            $str = substr($url, $pos_spreadsheets);
+
+            $arr = explode('/', $str);
+            foreach ($arr as $item){
+                if(strlen($item) > 25 && strlen($item) < 100 && !strpos($item, '?') && !strpos($item, '&')){
+                    return $item;
+                }
             }
         }
 
@@ -64,21 +136,6 @@ class google_drive {
         }
     }
 
-    //Check if access granted TODO
-    public function checkAccessGranted() {
-            try {
-                $parameters = array();
-                $this->service->files->listFiles($parameters);
-
-            } catch (Exception $e) {
-//                print "An error occurred: " . $e->getMessage();
-                //print_error('invalidkmgoogleid', 'kmgoogle');
-
-            }
-
-        return 'sdsd';
-    }
-
     //Copy file to new place
     public function copyFileToFolder($originFileId, $nameFile, $folderId = null) {
 
@@ -104,7 +161,7 @@ class google_drive {
     }
 
     //Create folder
-    public function createFolder($nameFile, $fileId = null) {
+    public function createFolder($nameFile, $fileId = null, $folderId = null) {
         $mimeType = 'application/vnd.google-apps.folder';
 
 //        $list = $this->getAllFilesGDrive();
@@ -123,6 +180,10 @@ class google_drive {
                 $name = $this->nameOfFile($fileId);
                 $copiedFile->setName($name);
             }
+        }
+
+        if($folderId != null){
+            $copiedFile->setParents(array($folderId));
         }
 
         $copiedFile->setMimeType($mimeType);
@@ -262,5 +323,32 @@ class google_drive {
 
         return $result;
     }
+
+    //Get Revisions
+    public function retrieveRevisions($fileId) {
+        try {
+            $revisions = $this->service->revisions->listRevisions($fileId);
+            return $revisions->getRevisions();
+        } catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
+        }
+        return NULL;
+    }
+
+    //update Revision Published
+    public function updateRevision($fileId, $revisionId = 1) {
+
+        $patchedRevision = new Google_Service_Drive_Revision();
+        $patchedRevision->setPublished(true);
+        $patchedRevision->setPublishAuto(true);
+        $patchedRevision->setPublishedOutsideDomain(true);
+        try {
+            return $this->service->revisions->update($fileId, $revisionId, $patchedRevision);
+        } catch (Exception $e) {
+            print "An error occurred: " . $e->getMessage();
+        }
+        return NULL;
+    }
+
 
 }

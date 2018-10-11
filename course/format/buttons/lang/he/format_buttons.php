@@ -72,13 +72,17 @@ $string['circle'] = 'Circle';
 $string['square'] = 'Square';
 $string['inlinesections'] = 'Inline sections';
 $string['inlinesections_help'] = 'Give each section a new line.';
+$string['event_log_label_clicked'] = 'Label or section viewed';
 
 // Strings for color options
 $string['course_descr_bg_color'] = 'תיאור הקורס – צבע רקע';
 $string['section_menu_bg_color'] = 'תפריט עליון – צבע רקע';
 $string['section_menu_font_color'] = 'תפריט עליון – צבע פונט';
 $string['section_menu_icon_color'] = 'תפריט עליון – צבע אייקון';
-$string['section_menu_info_arrows_color'] = 'תפריט עליון – צבע אינפו וחיצים';
+$string['section_menu_arrows_color'] = 'Section menu arrows color';
+$string['section_menu_arrows_color_hover'] = 'Section menu arrows hover color';
+$string['section_menu_info_icon_color'] = 'Section menu info icon color';
+$string['section_menu_info_icon_color_hover'] = 'Section menu info icon hover color';
 $string['selected_section_bg_color'] = 'יחידת הוראה נבחרת – צבע רקע';
 $string['selected_section_font_color'] = 'יחידת הוראה נבחרת – צבע פונט';
 $string['selected_section_icon_color'] = 'יחידת הוראה נבחרת – צבע אייקון';

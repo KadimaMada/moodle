@@ -87,7 +87,7 @@ class format_buttons_renderer extends format_topics_renderer
         if ($css) {
             $html .= html_writer::tag('style', $css);
         }
-        $withoutdivisor = true;
+/*         $withoutdivisor = true;
         for ($k = 1; $k <= 12; $k++) {
             if ($course->{'divisor' . $k}) {
                 $withoutdivisor = false;
@@ -95,7 +95,7 @@ class format_buttons_renderer extends format_topics_renderer
         }
         if ($withoutdivisor) {
             $course->divisor1 = 999;
-        }
+        } */
         $divisorshow = false;
         $count = 1;
         $currentdivisor = 1;
@@ -105,10 +105,10 @@ class format_buttons_renderer extends format_topics_renderer
             if ($section == 0) {
                 continue;
             }
-            if ($section > $course->numsections) {
-                continue;
-            }
-            if ($course->hiddensections && !(int)$thissection->visible) {
+            // if ($section > $course->numsections) {
+            //     continue;
+            // }
+            if (!(int)$thissection->visible) {
                 continue;
             }
             if (isset($course->{'divisor' . $currentdivisor}) &&
@@ -129,7 +129,7 @@ class format_buttons_renderer extends format_topics_renderer
                 $divisorshow[$currentdivisor] = true;
             }
             $id = 'buttonsection-' . $section;
-            if ($course->sequential) {
+/*             if ($course->sequential) {
                 $name = $section;
             } else {
                 if (isset($course->{'divisor' . $currentdivisor}) &&
@@ -144,7 +144,7 @@ class format_buttons_renderer extends format_topics_renderer
             }
             if ($course->sectiontype == 'roman' && is_numeric($name)) {
                 $name = $this->number_to_roman($name);
-            }
+            } */
             $class = 'buttonsection';
             $onclick = 'M.format_buttons.show(' . $section . ',' . $course->id . ')';
             if (!$thissection->available &&
@@ -163,10 +163,10 @@ class format_buttons_renderer extends format_topics_renderer
             if ($PAGE->user_is_editing()) {
                 $onclick = false;
             }
-            $html .= html_writer::tag('div', $name, ['id' => $id, 'class' => $class, 'onclick' => $onclick]);
+            //$html .= html_writer::tag('div', $name, ['id' => $id, 'class' => $class, 'onclick' => $onclick]);
             $count++;
         }
-        $html = html_writer::tag('div', $html, ['id' => 'buttonsectioncontainer', 'class' => $course->buttonstyle]);
+        //$html = html_writer::tag('div', $html, ['id' => 'buttonsectioncontainer', 'class' => $course->buttonstyle]);
         if ($PAGE->user_is_editing()) {
             $html .= html_writer::tag('div', get_string('editing', 'format_buttons'), ['class' => 'alert alert-warning alert-block fade in']);
         }
@@ -182,17 +182,18 @@ class format_buttons_renderer extends format_topics_renderer
      */
     protected function get_button_section_kadima($course, $sectionvisible)
     {
-        global $PAGE;
+        global $PAGE, $USER;
+
         $html = '';
         $css = '';
 
         $modinfo = get_fast_modinfo($course);
         $inline = '';
         $count = 1;
-
+// echo '<pre>'.print_r($course->id,1).'</pre>'; exit();
         if (!$PAGE->user_is_editing()) {
         // start kadima container render
-        $html .= html_writer::start_tag('div',['class' => 'container-fluid buttons']); // don't forget to close it later
+        $html .= html_writer::start_tag('div',['class' => 'container-fluid buttons', 'data-userid' => $USER->id, 'data-courseid' => $course->id]); // don't forget to close it later
 
         $html .= html_writer::start_tag('div',['class' => 'sections-wrapper justify-content-end']);
         $html .= html_writer::start_tag('ul',['id' => 'sections', 'role' => 'sections-list', 'class' => 'nav slider sections align-items-end align-content-end']);
@@ -202,13 +203,15 @@ class format_buttons_renderer extends format_topics_renderer
             if ($section == 0) {
                 continue;
             }
-            if ($section > $course->numsections) {
-                continue;
-            }
-            if ($course->hiddensections && !(int)$thissection->visible) {
+            // SG - T-213 - hide unused settings
+            // if ($section > $course->numsections) {
+            //     continue;
+            // }
+            if (!(int)$thissection->visible) {
                 continue;
             }
 
+/*    SG -      hide as nor used
             if ($course->sequential) {
                 $name = $section;
             } else {
@@ -219,7 +222,7 @@ class format_buttons_renderer extends format_topics_renderer
             }
             if ($course->sectiontype == 'roman' && is_numeric($name)) {
                 $name = $this->number_to_roman($name);
-            }
+            } */
 
             $class = 'buttonsection';
             if (!$thissection->available &&
@@ -253,17 +256,29 @@ class format_buttons_renderer extends format_topics_renderer
             if(empty($this->get_section_labels($course, $section))){
               continue;
             }
+
+            /* // SG --  previouse realization  TOREMOVE lately
             // get section name and icon name in array. [1] - section name; [2] - icon name / fa class
             $sectionnamearr = course_get_format($course)->get_section_name_and_icon($section);
+            // get translated section's summary
+            $sectionsummary = course_get_format($course)->get_translated_text($thissection->summary);
+            $sectionsummary = (isset($sectionsummary[1])) ? $sectionsummary[1] : $thissection->summary;
+            */
+
+            // parse section summary for: name, icon and summary
+            $sectionheaderinfo = course_get_format($course)->parse_section_summary($thissection);
+            $sectionname = $sectionheaderinfo[1];
+            $sectionicon = $sectionheaderinfo[2];
+            $sectionsummary = $sectionheaderinfo[3];
 
             $html .= html_writer::start_tag('li',['class' => 'nav-item mb-auto '.$currentclass, 'data-section' => $section]);
             // $html .= html_writer::start_tag('a',['href' => "#section$section",'class' => "nav-link $class", 'aria-controls' => "section-$section"]);
             $html .= html_writer::start_tag('div',['class' => 'd-flex flex-row section-header justify-content-around align-items-center']);
             //$html .= html_writer::tag('span', '', ['class' => 'section-icon d-inline-flex p-3 justify-content-center align-items-center '.$sectionnamearr[2], 'style' => "background: url({$this->courserenderer->image_url('label-default', 'format_buttons')}) no-repeat; background-size: cover;"]);  // SG - previouse variant
-            $html .= html_writer::tag('span', '', ['class' => 'section-icon d-inline-flex p-3 justify-content-center align-items-center '.$sectionnamearr[2], 'style' => "font-family: FontAwesome; font-style: normal; font-weight: normal; text-decoration: inherit; line-height:2rem"]);
+            $html .= html_writer::tag('span', '', ['class' => 'section-icon d-inline-flex p-3 justify-content-center align-items-center ' . $sectionicon, 'style' => "font-family: FontAwesome; font-style: normal; font-weight: normal; text-decoration: inherit; line-height:2rem"]);
             $html .= html_writer::start_tag('div',['class' => 'd-flex flex-column section-header-inner']);
-            $html .= html_writer::tag('span', $sectionnamearr[1], ['class' => ' section-title']);
-            $html .= html_writer::tag('span', $thissection->summary, ['class' => 'section-description']);
+            $html .= html_writer::tag('span', $sectionname, ['class' => ' section-title']);
+            $html .= html_writer::tag('span', $sectionsummary, ['class' => 'section-description']);
             $html .= html_writer::end_tag('div');
             if ($thissection->summary) {
               $html .= html_writer::tag('span', 'i', ['class' => 'section-tooltip d-inline-flex p-1 justify-content-center align-items-center', 'title'=>'section tooltip', 'data-info'=>'Tooltip content', 'data-section' => $section]);
@@ -391,9 +406,10 @@ class format_buttons_renderer extends format_topics_renderer
             $classes = '';
         }
         $sectionname = html_writer::tag('span', $this->section_title($section, $course));
-        if ($course->showdefaultsectionname) {
-            $o .= $this->output->heading($sectionname, 3, 'sectionname' . $classes);
-        }
+        // SG - T-213 - hide unused settings
+        // if ($course->showdefaultsectionname) {
+        //     $o .= $this->output->heading($sectionname, 3, 'sectionname' . $classes);
+        // }
         $o .= html_writer::start_tag('div', ['class' => 'summary']);
         $o .= $this->format_summary_text($section);
         $context = context_course::instance($course->id);
@@ -435,7 +451,10 @@ class format_buttons_renderer extends format_topics_renderer
         $csscoloroptions .= "--buttons-section-bg-color: ".$course->section_menu_bg_color.";";
         $csscoloroptions .= "--buttons-section-font-color: ".$course->section_menu_font_color.";";
         $csscoloroptions .= "--buttons-section-icon-color: ".$course->section_menu_icon_color.";";
-        $csscoloroptions .= "--buttons-section-info-color: ".$course->section_menu_info_arrows_color.";";
+        $csscoloroptions .= "--buttons-section-menu-arrows-color: ".$course->section_menu_arrows_color.";";
+        $csscoloroptions .= "--buttons-section-menu-arrows-color-hover: ".$course->section_menu_arrows_color_hover.";";
+        $csscoloroptions .= "--buttons-section-menu-info-icon-color: ".$course->section_menu_info_icon_color.";";
+        $csscoloroptions .= "--buttons-section-menu-info-icon-color-hover: ".$course->section_menu_info_icon_color_hover.";";
         $csscoloroptions .= "--buttons-section-active-bg: ".$course->selected_section_bg_color.";";
         $csscoloroptions .= "--buttons-section-active-font-color: ".$course->selected_section_font_color.";";
         $csscoloroptions .= "--buttons-section-active-icon-color: ".$course->selected_section_icon_color.";";
@@ -515,12 +534,12 @@ class format_buttons_renderer extends format_topics_renderer
                 $section0 = $thissection;
                 continue;
             }
-            if ($section > $course->numsections) {
-                continue;
-            }
+            // if ($section > $course->numsections) {
+            //     continue;
+            // }
             /* if is not editing verify the rules to display the sections */
             if (!$PAGE->user_is_editing()) {
-                if ($course->hiddensections && !(int)$thissection->visible) {
+                if (!(int)$thissection->visible) {
                     continue;
                 }
                 if (!$thissection->available && !empty($thissection->availableinfo)) {
@@ -849,6 +868,7 @@ class format_buttons_renderer extends format_topics_renderer
                         //$reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                         //preg_match($reg, $modulehtml, $content);
 
+                        /*  SG -- 20190927 -- TOREMOVE if translation of content works fine
                         // SG -- define current language
                         $clang = current_language();
                         // SG -- search for proper translation in the text (en, he and ar are supported)
@@ -868,8 +888,18 @@ class format_buttons_renderer extends format_topics_renderer
                                 $reg = "/(?<=ar%)([\s\S]*?)(?:(?:he%)|(?:en%)|$)/i";
                                 preg_match($reg, $modulehtml, $langtext);
                             break;
-                        }
-                        // SG -- if language was defined in text with en%, he% or ar% - parse particular conrent
+                        } */
+
+                        $langtext = course_get_format($course)->get_translated_text($modulehtml);
+                        $langtext = (isset($langtext[1])) ? $langtext[1] : $modulehtml;
+
+                        // the main regexp:
+                        $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)(<\/div>|$)/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
+                        preg_match($reg, $langtext, $content);
+
+
+                        /*  SG -- 20190927 -- TOREMOVE if translation of content works fine
+                       // SG -- if language was defined in text with en%, he% or ar% - parse particular conrent
                         if (isset($langtext[1])) {
                             $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)(<\/div>|$)/i'; // SG - the latest regexp 20180926 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                             preg_match($reg, $langtext[1], $content);
@@ -884,14 +914,16 @@ class format_buttons_renderer extends format_topics_renderer
                                 $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                                 preg_match($reg, $modulehtml, $content);
                             }
-                        }
+                        } */
+
+
                         $lables[$modnumber] = $content;
                     }
                 }
             }
         }
         return $lables;
-        
+
     } // get_section_labels ends
 
     /**

@@ -40,7 +40,9 @@ if (($marker >= 0) && has_capability('moodle/course:setcurrentsection', $context
     course_set_marker($course->id, $marker);
 }
 $course = course_get_format($course)->get_course();
-course_create_sections_if_missing($course, range(0, $course->numsections));
+course_create_sections_if_missing($course, 0);
+// course_create_sections_if_missing($course, range(0, $course->numsections)); // SG - T-213 - hide unused settings - numsections
+
 $renderer = $PAGE->get_renderer('format_buttons');
 if (!empty($displaysection)) {
     $renderer->print_single_section_page($course, null, null, null, null, $displaysection);
@@ -48,5 +50,11 @@ if (!empty($displaysection)) {
     $renderer->print_multiple_section_page($course, null, null, null, null);
 }
 
+$initparams = array();
+if ($fbusid = $DB->get_record('format_buttons_userstate', array ('userid' => $USER->id, 'courseid' => $course->id))) {
+    $initparams['section'] = $fbusid->section;
+    $initparams['cmid'] = $fbusid->cmid;
+}
+
 $PAGE->requires->js('/course/format/buttons/format.js'); 
-$PAGE->requires->js_call_amd('format_buttons/init', 'init');
+$PAGE->requires->js_call_amd('format_buttons/init', 'init', array($initparams));

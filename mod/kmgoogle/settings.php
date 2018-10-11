@@ -32,12 +32,29 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
 
+    //ClientId
+    $name = 'mod_kmgoogle/clientid';
+    $title = get_string('clientid','mod_kmgoogle');
+    $description = get_string('clientiddesc', 'mod_kmgoogle');
+    $setting =new admin_setting_configtext($name, $title, $description,'', PARAM_TEXT, 120);
+    $settings->add($setting);
+
+    //clientSecret
+    $name = 'mod_kmgoogle/clientsecret';
+    $title = get_string('clientsecret','mod_kmgoogle');
+    $description = get_string('clientsecretdesc', 'mod_kmgoogle');
+    $setting =new admin_setting_configtext($name, $title, $description,'', PARAM_TEXT, 120);
+    $settings->add($setting);
+
     //Credentials file setting.
     $name = 'mod_kmgoogle/credentials';
     $title = get_string('credentials','mod_kmgoogle');
-    $description = get_string('credentialsdesc', 'mod_kmgoogle');
+
+    $a = new stdClass();
+    $a->url = $CFG->wwwroot.'/mod/kmgoogle/postback.php';
+    $description = get_string('credentialsdesc', 'mod_kmgoogle', $a);
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'kmgoogle');
-    //$setting->set_updatedcallback('theme_reset_all_caches');
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
 
 }

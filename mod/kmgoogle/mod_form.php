@@ -41,10 +41,12 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
 
         //Select name of file
         $options = array();
-        foreach (kmgoogle_build_select_name_file($COURSE->id) as $name) {
-            $options[$name] = $name;
-        }
-        //$options = array(''=>get_string('choose').'...') + $options;
+//        foreach (kmgoogle_build_select_name_file($COURSE->id) as $name) {
+//            $options[$name] = $name;
+//        }
+
+        $options = kmgoogle_association_level($COURSE->id);
+
         $options = array(''=>get_string('default_name', 'kmgoogle')) + $options;
         $mform->addElement('select', 'namefile', get_string("kmgoogleplace", "kmgoogle"), $options, $select_disable);
         //$mform->addRule('namefile', $strrequired, 'required', null, 'client');

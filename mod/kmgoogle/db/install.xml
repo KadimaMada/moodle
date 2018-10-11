@@ -13,9 +13,11 @@
                 <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="intro text field format"/>
 
                 <FIELD NAME="namefile" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
-                <FIELD NAME="sourcegoogleurl" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
-                <FIELD NAME="copiedgoogleurl" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
-                <FIELD NAME="googlefolderurl" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
+
+                <FIELD NAME="sourcegoogleurl" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="copiedgoogleurl" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+                <FIELD NAME="googlefolderurl" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+
                 <FIELD NAME="ififrame" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
                 <FIELD NAME="iframewidth" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
                 <FIELD NAME="iframeheight" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
