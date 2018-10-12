@@ -1,7 +1,8 @@
 define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, slick, ajax) {
 
   function initDefaults(initparams){
-    if (initparams) console.dir(initparams);
+    initparams = typeof initparams !== 'undefined' ? initparams : 0;
+
     var currentSection,
         currentLabel = checkStorage('lastLabel');
 
@@ -9,6 +10,9 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
     if (document.querySelector('.slider.sections .nav-item.current') !== null){
       currentSection = parseInt(document.querySelector('.slider.sections .nav-item.current').dataset.section);
       // console.log('matched highlited '+currentSection);
+    } else if(initparams.section > 0){
+      currentSection = initparams.section;
+      console.log(currentSection);
     } else {
       currentSection = checkStorage('lastSection');
       // console.log('no highlighting, use localStorage '+ currentSection);
