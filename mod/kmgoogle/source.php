@@ -2,6 +2,8 @@
 require_once("../../config.php");
 require_once("lib.php");
 
+global $GoogleDrive;
+
 $id = required_param('id', PARAM_INT);    // Course Module ID.
 
 if (! $cm = get_coursemodule_from_id('kmgoogle', $id)) {
@@ -23,6 +25,10 @@ if (! $kmgoogle = $DB->get_record("kmgoogle", array("id" => $cm->instance))) {
 //Analize user permission
 kmgoogle_analize_user_permission($id);
 
+//Get permission of user
+$permission = $DB->get_record("kmgoogle_permission", array("instanceid" => $kmgoogle->id, "userid" => $USER->id));
+$permission = $permission->permission;
+
 //No permission for user
 if(no_permission_for_user($cm->instance)) {
     $PAGE->set_url('/mod/kmgoogle/source.php', array('id' => $id));
@@ -36,7 +42,6 @@ if(no_permission_for_user($cm->instance)) {
     exit;
 }
 
-global $GoogleDrive;
 $copyFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
 
 switch ($GoogleDrive->typeOfFile($copyFileId)) {
@@ -46,8 +51,12 @@ switch ($GoogleDrive->typeOfFile($copyFileId)) {
         echo '<iframe src="https://drive.google.com/embeddedfolderview?id='.$copyFileId.'#list" width=100% height=100% align="left" frameborder="0"></iframe>';
         break;
     case 'presentation':
-        $GoogleDrive->updateRevision($copyFileId, 1);
-        echo '<iframe src="https://docs.google.com/presentation/d/'.$copyFileId.'/embed" width=100% height=100% align="left" frameborder="0"></iframe>';
+        if($permission == 'view'){
+            $GoogleDrive->updateRevision($copyFileId, 1);
+            echo '<iframe src="https://docs.google.com/presentation/d/'.$copyFileId.'/embed" width=100% height=100% align="left" frameborder="0"></iframe>';
+        }else{
+            echo '<iframe src="'.$kmgoogle->copiedgoogleurl.'" width=100% height=100% align="left" frameborder="0"></iframe>';
+        }
         break;
     default:
         echo '<iframe src="'.$kmgoogle->copiedgoogleurl.'" width=100% height=100% align="left" frameborder="0"></iframe>';

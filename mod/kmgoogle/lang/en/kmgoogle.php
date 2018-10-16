@@ -63,6 +63,7 @@ $string['kmgooglesaved'] = "Save document";
 $string['thanksforanswers'] = "Thank for answer";
 $string['user_image'] = "User image";
 $string['first_last_name'] = "Name";
+$string['relation'] = "Relation";
 $string['activityname'] = "Activity name";
 $string['url_google_drive'] = "Url Google file";
 $string['submitted_on'] = "Submitted On";

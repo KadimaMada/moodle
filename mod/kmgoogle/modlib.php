@@ -198,7 +198,7 @@ function kmgoogle_get_users_by_association($kmgoogle){
 }
 
 function kmgoogle_get_teacher_admin_users(){
-    global $DB;
+    global $DB, $COURSE;
 
     $tmp = array();
 
@@ -208,15 +208,11 @@ function kmgoogle_get_teacher_admin_users(){
         $tmp[] = $user->id;
     }
 
-    //Get teachers, editingteachers
-    $sql = '
-    SELECT distinct c.id, c.fullname, u.username, u.firstname, u.lastname
-    FROM {course} as c, {role_assignments} AS ra, {user} AS u, mdl_context AS ct
-    WHERE c.id = ct.instanceid AND ra.roleid IN (1,2,3,4) AND ra.userid = u.id AND ct.id = ra.contextid;
-    ';
+    $context = $context = context_course::instance($COURSE->id);
+    $users = get_role_users(3 , $context);
+    $users = array_merge($users, get_role_users(4 , $context));
 
-    $result = $DB->get_records_sql($sql);
-    foreach($result as $user){
+    foreach($users as $user){
         $tmp[] = $user->id;
     }
 
@@ -446,7 +442,8 @@ function kmgoogle_build_name_for_document($kmgoogle){
     global $DB, $USER, $COURSE, $GoogleDrive;
 
     $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->sourcegoogleurl);
-    $originalname = $GoogleDrive->nameOfFile($sourceFileId);
+    //$originalname = $GoogleDrive->nameOfFile($sourceFileId);
+    $originalname = $kmgoogle->name;
 
     $name = $originalname;
     if(!empty($kmgoogle->namefile)){
@@ -490,7 +487,7 @@ function kmgoogle_update_google_url($kmgoogle, $prevkmgoogle){
  * @param  stdClass $context  a context object (required for trigger the submitted event)
  * @since Moodle 3.0
  */
-function kmgoogle_save_answer($kmgoogle, $answersrawdata, $course, $context) {
+function kmgoogle_save_answer($kmgoogle, $answersrawdata, $course, $context, $comment = null) {
     global $DB, $USER;
 
     $obj = new \stdClass();
@@ -500,7 +497,21 @@ function kmgoogle_save_answer($kmgoogle, $answersrawdata, $course, $context) {
     $obj->timecreated = time();
     $obj->timemodified = time();
 
-    $DB->insert_record('kmgoogle_answers', $obj);
+    $answerid = $DB->insert_record('kmgoogle_answers', $obj);
+
+    if($comment != null){
+        $commentobj = new \stdClass();
+        $commentobj->contextid = $answerid;
+        $commentobj->component = 'mod_kmgoogle';
+        $commentobj->commentarea = 'report_comments';
+        $commentobj->itemid = 0;
+        $commentobj->content = $comment;
+        $commentobj->format = 0;
+        $commentobj->userid = $USER->id;
+        $commentobj->timecreated = time();
+
+        $DB->insert_record('comments', $commentobj);
+    }
 }
 
 function kmgoogle_if_users_used_mod() {

@@ -27,6 +27,7 @@
     require_once('../../config.php');
     require_once('lib.php');
     require "$CFG->libdir/tablelib.php";
+    require_once ($CFG->dirroot.'/mod/kmgoogle/classes/comment.php');
 
 /**
  * Test table class to be put in test_table.php of root of Moodle installation.
@@ -48,8 +49,10 @@ class report_table extends table_sql {
             $columns[] = 'picture';
         }
         $columns[] = 'username';
+        $columns[] = 'relation';
         $columns[] = 'activityname';
         $columns[] = 'url';
+        $columns[] = 'comment';
         $columns[] = 'timecreated';
         $this->define_columns($columns);
 
@@ -59,14 +62,18 @@ class report_table extends table_sql {
             $headers[] = get_string('user_image', 'kmgoogle');
         }
         $headers[] = get_string('first_last_name', 'kmgoogle');
+        $headers[] = get_string('relation', 'kmgoogle');
         $headers[] = get_string('activityname', 'kmgoogle');
         $headers[] = get_string('url_google_drive', 'kmgoogle');
+        $headers[] = get_string('comments');
         $headers[] = get_string('submitted_on', 'kmgoogle');
         $this->define_headers($headers);
 
         $this->no_sorting('picture');
         $this->no_sorting('username');
+        $this->no_sorting('relation');
         $this->no_sorting('activityname');
+        $this->no_sorting('comment');
     }
 
     /**
@@ -100,6 +107,28 @@ class report_table extends table_sql {
         }
     }
 
+    function col_relation($values) {
+        global $DB, $COURSE;
+        $kmgoogle = $DB->get_record("kmgoogle", array('id' => $values->instanceid));
+
+        if($kmgoogle->association == 'course'){
+            $obj = get_course($kmgoogle->course);
+            $result = $obj->shortname.' ('.get_string('course').')';
+        }
+
+        if($kmgoogle->association == 'group'){
+            $obj = kmgoogle_get_groups_on_course($kmgoogle->course);
+            $result = $obj[$kmgoogle->associationname].' ('.get_string('group').')';
+        }
+
+        if($kmgoogle->association == 'collection' ){
+            $obj = kmgoogle_get_collections_on_course($kmgoogle->course);
+            $result = $obj[$kmgoogle->associationname].' ('.get_string('collection', 'kmgoogle').')';
+        }
+
+        return $result;
+    }
+
     function col_activityname($values) {
         global $DB;
         // If the data is being downloaded than we don't want to show HTML.
@@ -115,6 +144,32 @@ class report_table extends table_sql {
         } else {
             return '<a target="__blank" href="'.$values->url.'">'.$values->url.'</a>';
         }
+    }
+
+    function col_comment($values) {
+        global $DB, $PAGE;
+
+        $kmgoogle = $DB->get_record("kmgoogle", array('id' => $values->instanceid));
+
+        $cmcontext = \context_module::instance($kmgoogle->id);
+
+        $args = new stdClass;
+        $args->context   =  $cmcontext;
+        $args->area      = 'report_comments';
+        //$args->client_id = $values->id;
+        $args->special_id = $values->id;
+        $args->itemid    = 0;
+        $args->component = 'mod_kmgoogle';
+        $args->linktext  = get_string('showcomments');
+        $args->notoggle  = false;
+        $args->autostart = false;
+        $args->displaycancel = false;
+
+        $comment = new comment_kmgoogle($args);
+        $comment->set_view_permission(true);
+        $comment->set_fullwidth();
+
+        return $comment->output(true);
     }
 
     function col_timecreated($values) {

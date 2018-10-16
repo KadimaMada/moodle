@@ -63,6 +63,7 @@ $string['kmgooglesaved'] = "שמור מסמך";
 $string['thanksforanswers'] = "תודה על התשובה";
 $string['user_image'] = "תמונת משתמש";
 $string['first_last_name'] = "שם פרטי ושם משפחה";
+$string['relation'] = "התיחסות";
 $string['activityname'] = "שם הפעילות";
 $string['url_google_drive'] = "Google קובץ";
 $string['submitted_on'] = "הוגשה בתאריך";

@@ -35,6 +35,7 @@
     }
 
     $id = required_param('id', PARAM_INT);    // Course Module ID
+    $comment = required_param('comment', PARAM_TEXT);    // comment
 
     if (! $cm = get_coursemodule_from_id('kmgoogle', $id)) {
         print_error('invalidcoursemodule');
@@ -69,7 +70,7 @@
     echo $OUTPUT->header();
     echo $OUTPUT->heading($kmgoogle->name);
 
-    kmgoogle_save_answer($kmgoogle, $formdata, $course, $context);
+    kmgoogle_save_answer($kmgoogle, $formdata, $course, $context, $comment);
 
     //Print the page and finish up.
     notice(get_string("thanksforanswers","kmgoogle"), "$CFG->wwwroot/course/view.php?id=$course->id");
