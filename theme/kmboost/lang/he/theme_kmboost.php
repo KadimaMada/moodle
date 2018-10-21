@@ -60,3 +60,4 @@ $string['email'] = 'דואר אלקטרוני';
 $string['oauth2google'] = 'הזדהות אחידה';
 $string['frontpagehtmlblock'] = 'Front page HTML block';
 $string['frontpagehtmlblock_desc'] = 'Put here code for html block';
+$string['submission_status'] = 'מצב הגשה';

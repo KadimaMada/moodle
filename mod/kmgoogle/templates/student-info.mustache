@@ -1,16 +1,77 @@
-<br />
-<br />
+<style>
+  .kmgoogle_head {
+    display: flex;
+    justify-content: space-between;
+  }
+  .kmgoogle_toggle {
+    position: relative;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    background-color: blue;
+  }
+  .kmgoogle_toggle::after ,
+  .kmgoogle_toggle::before  {
+    content: '';
+    display: block;
+    width: 805;
+    height: 2px;
+    margin: auto;
+    background-color: #fff;
+    transition: .3s;
+   }
+  .kmgoogle_toggle::after  {
+    transform: rotate(90deg);
+  }
+  .kmgoogle_toggle.active::after {
+    display: none;
+  }
+  .kmgoogle_items {
+    display: flex;
+    flex-direction: column;
+  }
+  .kmgoogle_item {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+  }
+  .kmgoogle_item > span {
+    width: 40%;
+  }
 
+</style>
 
-<span>{{title_association}}</span>
-<span>{{name_association}}</span>
+<div class = "kmgoogle_head">
+  <h2>{{#str}} submission_status, mod_kmgoogle {{/str}}</h2><button class = "kmgoogle_toggle"></button>
+</div>
+<div class = "kmgoogle_items">
 
-<span>{{#str}} experience_number, mod_kmgoogle {{/str}}</span>
-<span>{{experience_number}}</span>
+  <div class = "kmgoogle_item">
+    <span>{{title_association}}</span>
+    <span>{{name_association}}</span>
+  <div>
+  <div class = "kmgoogle_item">
+    <span>{{#str}} experience_number, mod_kmgoogle {{/str}}</span>
+    <span>{{experience_number}}</span>
+  </div>
+
+</div>
+
 
 
 <center>{{#str}} comments {{/str}}</center>
 <center><textarea rows="10" name="comment"></textarea></center>
 
-<br />
-<br />
+
+{{#js}}
+    require(['jquery'], function($){
+      `use strict`
+
+      function slideItems () {
+        $('.kmgoogle_items').slideToggle();
+        $('.kmgoogle_toggle').toggleClass('active');
+      }
+
+      $('.kmgoogle_toggle').on('click', slideItems);
+
+    });
+{{/js}}

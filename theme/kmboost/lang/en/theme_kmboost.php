@@ -60,4 +60,4 @@ $string['email'] = 'Email';
 $string['oauth2google'] = 'Gmail';
 $string['frontpagehtmlblock'] = 'Front page HTML block';
 $string['frontpagehtmlblock_desc'] = 'Put here code for html block';
-
+$string['submission_status'] = 'Submission status';
