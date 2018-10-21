@@ -1,7 +1,10 @@
 <style>
   .kmgoogle_head {
     display: flex;
+    width: 60;
+    margin: 0 auto;
     justify-content: space-between;
+    align-items: center;
   }
   .kmgoogle_toggle {
     position: relative;
@@ -9,16 +12,24 @@
     width: 30px;
     height: 30px;
     background-color: blue;
+    border-radius: 50%;
   }
   .kmgoogle_toggle::after ,
   .kmgoogle_toggle::before  {
     content: '';
+    cursor: pointer;
+    position: absolute;
     display: block;
-    width: 805;
+    width: 70%;
     height: 2px;
     margin: auto;
     background-color: #fff;
     transition: .3s;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 2px;
    }
   .kmgoogle_toggle::after  {
     transform: rotate(90deg);
@@ -29,6 +40,8 @@
   .kmgoogle_items {
     display: flex;
     flex-direction: column;
+    width: 60%;
+    margin: 10px auto;
   }
   .kmgoogle_item {
     border-bottom: 1px solid #ddd;
@@ -48,7 +61,7 @@
   <div class = "kmgoogle_item">
     <span>{{title_association}}</span>
     <span>{{name_association}}</span>
-  <div>
+  </div>
   <div class = "kmgoogle_item">
     <span>{{#str}} experience_number, mod_kmgoogle {{/str}}</span>
     <span>{{experience_number}}</span>
