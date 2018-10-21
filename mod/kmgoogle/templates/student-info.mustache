@@ -40,7 +40,6 @@
   }
   .kmgoogle_items {
     display: none;
-    display: flex;
     flex-direction: column;
     width: 60%;
     margin: 10px auto;
@@ -87,7 +86,10 @@
 
       $('.kmgoogle_toggle').on('click', function(e){
         e.preventDefault();
-        $('.kmgoogle_items').slideToggle();
+        $('.kmgoogle_items').slideToggle(function(e){
+          if ($(this).is(':visible'))
+          this.style = 'display:flex;'
+        });
         $('.kmgoogle_toggle').toggleClass('active');
       });
 
