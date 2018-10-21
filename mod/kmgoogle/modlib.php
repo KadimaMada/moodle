@@ -55,8 +55,8 @@ function kmgoogle_get_users_by_course(){
         INNER JOIN {role_assignments} ra ON ra.userid = u.id
         INNER JOIN {context} ct ON ct.id = ra.contextid
         INNER JOIN {course} c ON c.id = ct.instanceid
-        INNER JOIN {role} r ON r.id = ra.roleid        
-        WHERE c.id=?    
+        INNER JOIN {role} r ON r.id = ra.roleid
+        WHERE c.id=?
     ";
     $result = $DB->get_records_sql($sql, array($COURSE->id));
     $result = array_values($result);
@@ -588,7 +588,7 @@ function kmgoogle_build_datetime_block($kmgoogle) {
 
     $html .= '
 
-    <div class="fdate_time_selector d-flex flex-wrap align-items-center">            
+    <div class="fdate_time_selector d-flex flex-wrap align-items-center">
         <div class="form-group fitem">
             <span data-fieldtype="select">
             <select class="custom-select" name="minute">
@@ -614,9 +614,9 @@ function kmgoogle_build_datetime_block($kmgoogle) {
                 $html .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
             }
 
-            $html .= '  
+            $html .= '
             </select>
-            </span> 
+            </span>
         </div>
         &nbsp;
         <div class="form-group  fitem">
@@ -631,12 +631,12 @@ function kmgoogle_build_datetime_block($kmgoogle) {
                 $html .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
             }
 
-            $html .= ' 
+            $html .= '
             </select>
             </span>
         </div>
         &nbsp;
-        <div class="form-group  fitem">    
+        <div class="form-group  fitem">
             <span data-fieldtype="select">
             <select class="custom-select" name="month">
             ';
@@ -646,13 +646,13 @@ function kmgoogle_build_datetime_block($kmgoogle) {
                 $html .= '<option value="'.$i.'" '.$selected.'>'.$months[$i].'</option>';
             }
 
-            $html .= ' 
+            $html .= '
             </select>
             </span>
         </div>
         &nbsp;
         <div class="form-group  fitem">
- 
+
             <span data-fieldtype="select">
             <select class="custom-select" name="day">
             ';
@@ -661,17 +661,67 @@ function kmgoogle_build_datetime_block($kmgoogle) {
                 $selected = ($i == $day)?'selected=""':'';
                 $html .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
             }
-            $html .= ' 
+            $html .= '
             </select>
             </span>
         </div>
-            
+
         <label class="form-check  fitem  ">
             <input type="submit" class="btn btn-primary" value="'.get_string("change_date", "kmgoogle").'" />
         </label>
-    </div>    
+    </div>
 ';
 
+
+    return $html;
+}
+
+function kmgoogle_data_for_student($kmgoogle){
+    global $DB, $USER, $COURSE;
+
+    $result = array();
+
+    //Get saved association
+    if($kmgoogle->association == 'course'){
+        $obj = get_course($COURSE->id);
+        $title_association = get_string('course');
+        $name_association = $obj->shortname;
+    }
+
+    if($kmgoogle->association == 'group'){
+        $obj = kmgoogle_get_groups_on_course($COURSE->id);
+        $title_association = get_string('group');
+        $name_association = $obj[$kmgoogle->associationname];
+    }
+
+    if($kmgoogle->association == 'collection'){
+        $obj = kmgoogle_get_collections_on_course($COURSE->id);
+        $title_association = get_string('collection', 'mod_kmgoogle');
+        $name_association = $obj[$kmgoogle->associationname];
+    }
+
+    $result['title_association'] = $title_association;
+    $result['name_association'] = $name_association;
+
+    //Count of answers
+    $answers = $DB->get_record("kmgoogle_answers", array("instanceid" => $kmgoogle->id, "userid" => $USER->id));
+    $result['experience_number'] = count($answers) + 1;
+
+    return $result;
+}
+
+function kmgoogle_render_activity_content($kmgoogle, $coursemoduleid){
+    global $DB, $USER, $COURSE, $GoogleDrive;
+
+    //$html = '<iframe width="100%" height="100%" src="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>';
+
+    $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
+    $url = 'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='.$sourceFileId;
+
+    $html = '
+        <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
+        <iframe style="border: 1px solid #ddd" width="100%" height="100%" src="'.$url.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+        </a>';
 
     return $html;
 }

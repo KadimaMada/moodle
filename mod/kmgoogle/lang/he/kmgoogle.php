@@ -57,7 +57,7 @@ $string['submitmechanism'] = "מנגנון הגשה חוזרת";
 $string['automatic'] = "אוטומטי";
 $string['manually'] = "ידנית";
 $string['numberattempts'] = "מספר ניסיונות מרבי";
-$string['linktoworkwithdocument'] = "קישור לעבודה עם מסמך";
+$string['linktoworkwithdocument'] = "לפתיחה במסך מלא";
 $string['summary'] = "סיכום";
 $string['kmgooglesaved'] = "שמור מסמך";
 $string['thanksforanswers'] = "תודה על התשובה";
@@ -67,6 +67,7 @@ $string['relation'] = "התיחסות";
 $string['activityname'] = "שם הפעילות";
 $string['url_google_drive'] = "Google קובץ";
 $string['submitted_on'] = "הוגשה בתאריך";
+$string['experience_number'] = "ניסיון מספר";
 
 $string['clientid'] = "Client id";
 $string['clientiddesc'] = "בבקשה היכנס client id מ google";

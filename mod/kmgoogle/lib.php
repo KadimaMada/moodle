@@ -233,3 +233,20 @@ function mod_kmgoogle_comment_display($comments, $args) {
     }
     return $comments;
 }
+
+function kmgoogle_get_coursemodule_info($coursemodule) {
+    global $DB;
+
+    if ($kmgoogle = $DB->get_record('kmgoogle', array('id'=>$coursemodule->instance))) {
+        $info = new cached_cm_info();
+
+        $info->name  = $kmgoogle->name;
+
+        $info->content = kmgoogle_render_activity_content($kmgoogle, $coursemodule->id);
+        //$info->content = $kmgoogle->intro;
+
+        return $info;
+    } else {
+        return null;
+    }
+}

@@ -67,6 +67,7 @@ $string['relation'] = "Relation";
 $string['activityname'] = "Activity name";
 $string['url_google_drive'] = "Url Google file";
 $string['submitted_on'] = "Submitted On";
+$string['experience_number'] = "Experience number";
 
 $string['clientid'] = "Client id";
 $string['clientiddesc'] = "Please enter client id from google";

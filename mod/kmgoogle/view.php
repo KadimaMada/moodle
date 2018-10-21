@@ -123,14 +123,9 @@ if(!$kmgoogle->ififrame){
 
 if(user_can_answer($cm->instance)){
 
-    echo '<br />';
-    echo '<br />';
+    $templatecontext = kmgoogle_data_for_student($kmgoogle);
+    echo $OUTPUT->render_from_template('mod_kmgoogle/student-info', $templatecontext);
 
-    echo '<center>'.get_string('comments').'</center>';
-    echo '<center><textarea rows="10" name="comment"></textarea></center>';
-
-    echo '<br />';
-    echo '<br />';
     echo '<center><input type="submit" class="btn btn-primary" value="'.get_string("answer", 'kmgoogle').'" /></center>';
     echo '</div>';
     echo "</form>";
