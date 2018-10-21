@@ -93,3 +93,4 @@ $string['change_date'] = "Change";
 $string['default_name'] = "Default name";
 $string['answer'] = "Answer";
 $string['to_view'] = "To View";
+$string['submission_status'] = 'Submission status';

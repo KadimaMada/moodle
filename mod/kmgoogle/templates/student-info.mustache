@@ -1,23 +1,24 @@
 <style>
   .kmgoogle_head {
     display: flex;
-    width: 60;
+    width: 60%;
     margin: 0 auto;
     justify-content: space-between;
     align-items: center;
   }
   .kmgoogle_toggle {
+    cursor: pointer;
     position: relative;
     display: flex;
     width: 30px;
     height: 30px;
     background-color: blue;
     border-radius: 50%;
+    border: none;
   }
   .kmgoogle_toggle::after ,
   .kmgoogle_toggle::before  {
     content: '';
-    cursor: pointer;
     position: absolute;
     display: block;
     width: 70%;
@@ -44,11 +45,15 @@
     margin: 10px auto;
   }
   .kmgoogle_item {
+    line-height: 50px;
     border-bottom: 1px solid #ddd;
     display: flex;
   }
   .kmgoogle_item > span {
     width: 40%;
+  }
+  .kmgoogle_comment {
+    width: 36%;
   }
 
 </style>
@@ -72,19 +77,18 @@
 
 
 <center>{{#str}} comments {{/str}}</center>
-<center><textarea rows="10" name="comment"></textarea></center>
+<center><textarea class = "kmgoogle_comment" rows="6" name="comment"></textarea></center>
 
 
 {{#js}}
     require(['jquery'], function($){
       `use strict`
 
-      function slideItems () {
+      $('.kmgoogle_toggle').on('click', function(e){
+        e.preventDefault();
         $('.kmgoogle_items').slideToggle();
         $('.kmgoogle_toggle').toggleClass('active');
-      }
-
-      $('.kmgoogle_toggle').on('click', slideItems);
+      });
 
     });
 {{/js}}

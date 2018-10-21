@@ -93,3 +93,4 @@ $string['change_date'] = "שינוי";
 $string['default_name'] = "שם ברירת המחדל";
 $string['answer'] = "הגשה";
 $string['to_view'] = "לצפיה";
+$string['submission_status'] = 'מצב הגשה';
