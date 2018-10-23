@@ -1,10 +1,15 @@
 html[dir='ltr']{
   .format-buttons{
-    #region-main{
-      min-height: 100vh;//fix for fixed position
-      &>.card{
-        min-height: 100vh;//fix for fixed position
-      }
+    // #region-main{
+    //   min-height: 100vh;//fix for fixed position
+    //   &>.card{
+    //     min-height: 100vh;//fix for fixed position
+    //   }
+    // }
+    .label-content{
+      position: relative;
+      max-height: 60vh;
+      // overflow-y: auto;
     }
     div.buttons{
       &.fixed{

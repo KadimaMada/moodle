@@ -1,6 +1,7 @@
 define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, slick, ajax) {
 
   function initDefaults(initparams){
+
     initparams = typeof initparams !== 'undefined' ? initparams : 0;
 
     var currentSection,
@@ -9,10 +10,10 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
     // check highlighted
     if (document.querySelector('.slider.sections .nav-item.current') !== null){
       currentSection = parseInt(document.querySelector('.slider.sections .nav-item.current').dataset.section);
-      // console.log('matched highlited '+currentSection);
+      // console.log('matched highlited: '+currentSection);
     } else if(initparams.section > 0){
       currentSection = initparams.section;
-      console.log(currentSection);
+      // console.log('last section saved in db: '+currentSection);
     } else {
       currentSection = checkStorage('lastSection');
       // console.log('no highlighting, use localStorage '+ currentSection);
@@ -56,6 +57,8 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
     tooltipEvents();
     xsSectionArrowsEvents();
 
+    catchMouse();
+
     document.addEventListener('click', function(e){
       let target = e.target;
       while (!target.classList.contains('buttons')) {
@@ -68,6 +71,19 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
 
     });
   }
+
+  function catchMouse(e){
+    var event = window.event || e;
+    var target = document.querySelector('div.buttons');
+    target.onmouseover = function(){
+      target.scrollIntoView({behavior:'smooth', block:'start', inline:'nearest'});
+      $('body').addClass('noscroll');
+    };
+    target.onmouseleave = function(){
+      $('body').removeClass('noscroll');
+    };
+  };
+
 // add events to server
   function sendEventToServer(target) {
     const mainBlock = document.querySelector('.buttons[data-userid]');
@@ -365,18 +381,6 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
 
         init: function() {
           initDefaults();
-
-          // add fixed scroll position
-          var wrap = $("div.buttons");
-          // console.log($(document).scrollTop());
-          $(document).on("scroll", function(e) {
-            if ($(document).scrollTop() > 225) {
-              wrap.addClass("fixed");
-            } else {
-              wrap.removeClass("fixed");
-            }
-          });
-
         }
     };
 });
