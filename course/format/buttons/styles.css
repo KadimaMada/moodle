@@ -1002,7 +1002,9 @@ html[dir='rtl'] .format-buttons .section-content .label-content-wrapper .alert.a
   .format-buttons .label-prev:hover .label-header div .label-title{
     display: table-cell;
     vertical-align: middle;
-    max-height: 4.05rem; } }
+    max-height: 4.05rem; }
+  .format-buttons .sections-content-wrapper .labels-wrapper.expand .slider.labels .nav-item{
+    transition: all .3s linear; } }
   @media screen and (min-width: 992px){
   .format-buttons .sections-wrapper{
     display: -ms-flexbox;
