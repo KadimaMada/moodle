@@ -9,12 +9,23 @@
     100% { display: none; opacity: 0;}
 }
 .format-buttons{
+  // scroll-snap-type: y mandatory;
+  &.noscroll{
+    overflow:hidden!important;
+    div.buttons{
+      padding-top:65px;
+    }
+  }
+  // &> #page-header, #page-footer, #page-content{
+  //   scroll-snap-align: start;
+  // }
   &#page-course-view-buttons .card{
     border:0!important;
   }
   #region-main .card{
     overflow-y: auto;
     min-height: 56rem;
+    // scroll-snap-align: start;
   }
   ul{
     padding:0;

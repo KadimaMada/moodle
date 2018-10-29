@@ -12,7 +12,7 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
       // console.log('matched highlited '+currentSection);
     } else if(initparams.section > 0){
       currentSection = initparams.section;
-      console.log(currentSection);
+      // console.log(currentSection);
     } else {
       currentSection = checkStorage('lastSection');
       // console.log('no highlighting, use localStorage '+ currentSection);
@@ -56,6 +56,8 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
     tooltipEvents();
     xsSectionArrowsEvents();
 
+    // catchMouse();
+
     document.addEventListener('click', function(e){
       let target = e.target;
       while (!target.classList.contains('buttons')) {
@@ -68,6 +70,19 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
 
     });
   }
+
+  function catchMouse(e){
+    var event = window.event || e;
+    var target = document.querySelector('div.buttons');
+    target.onmouseover = function(){
+      target.scrollIntoView({behavior:'smooth', block:'start', inline:'nearest'});
+      $('body').addClass('noscroll');
+    };
+    target.onmouseleave = function(){
+      $('body').removeClass('noscroll');
+    };
+  };
+
 // add events to server
   function sendEventToServer(target) {
     const mainBlock = document.querySelector('.buttons[data-userid]');
@@ -363,20 +378,8 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
 
     return {
 
-        init: function(initparams) {
-          initDefaults(initparams);
-
-          // add fixed scroll position
-          var wrap = $("div.buttons");
-          // console.log($(document).scrollTop());
-          $(document).on("scroll", function(e) {
-            if ($(document).scrollTop() > 225) {
-              wrap.addClass("fixed");
-            } else {
-              wrap.removeClass("fixed");
-            }
-          });
-
+        init: function() {
+          initDefaults();
         }
     };
 });
