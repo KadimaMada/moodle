@@ -11,7 +11,6 @@ require_once ($CFG->dirroot.'/mod/kmgoogle/classes/GoogleDrive.php');
 //session_start();
 
 class BasicDrive {
-
     private $client;
     private $service;
 
@@ -27,18 +26,18 @@ class BasicDrive {
 
         global $DB, $CFG;
 
-        $obj = $DB->get_record('config_plugins', array('plugin' => 'mod_kmgoogle', 'name' => 'clientid'));
-        $this->clientId = $obj->value;
-
-        $obj = $DB->get_record('config_plugins', array('plugin' => 'mod_kmgoogle', 'name' => 'clientsecret'));
-        $this->clientSecret = $obj->value;
-
         $this->redirectUrl = $CFG->wwwroot.'/mod/kmgoogle/postback.php';
 
+        $objclientid = $DB->get_record('config_plugins', array('plugin' => 'mod_kmgoogle', 'name' => 'clientid'));
+        $objclientsecret = $DB->get_record('config_plugins', array('plugin' => 'mod_kmgoogle', 'name' => 'clientsecret'));
         $credentials_url = kmgoogle_get_credentials_file();
-        if($credentials_url){
+
+        if($objclientid && $objclientsecret && $credentials_url){
             //$google->flushSession();
             //$google->flushToken();
+
+            $this->clientId = $objclientid->value;
+            $this->clientSecret = $objclientsecret->value;
 
             $google = new GoogleDrive($this->clientId, $this->clientSecret, $this->redirectUrl, $credentials_url);
             $google->authenticate();
@@ -48,8 +47,6 @@ class BasicDrive {
             }else{
                 die("Please authorizate google drive");
             }
-        }else{
-            die("Please authorizate google drive");
         }
     }
 
@@ -122,7 +119,7 @@ class BasicDrive {
             $arr = explode('.', $file->getMimeType());
             return $arr[count($arr)-1];
         } catch (Exception $e) {
-            print "An error occurred: " . $e->getMessage();
+            //print "An error occurred: " . $e->getMessage();
         }
     }
 
@@ -132,7 +129,7 @@ class BasicDrive {
             $file = $this->service->files->get($fileId);
             return $file->getName();
         } catch (Exception $e) {
-            print "An error occurred: " . $e->getMessage();
+            //print "An error occurred: " . $e->getMessage();
         }
     }
 
@@ -155,7 +152,7 @@ class BasicDrive {
         try {
             return $this->service->files->copy($originFileId, $copiedFile);
         } catch (Exception $e) {
-            print "An error occurred: " . $e->getMessage();
+            //print "An error occurred: " . $e->getMessage();
         }
         return NULL;
     }
@@ -305,7 +302,7 @@ class BasicDrive {
 
                 $pageToken = $files->getNextPageToken();
             } catch (Exception $e) {
-                print "An error occurred: " . $e->getMessage();
+                //print "An error occurred: " . $e->getMessage();
                 $pageToken = NULL;
             }
         } while ($pageToken);
@@ -330,7 +327,7 @@ class BasicDrive {
             $revisions = $this->service->revisions->listRevisions($fileId);
             return $revisions->getRevisions();
         } catch (Exception $e) {
-            print "An error occurred: " . $e->getMessage();
+            //print "An error occurred: " . $e->getMessage();
         }
         return NULL;
     }
@@ -345,7 +342,7 @@ class BasicDrive {
         try {
             return $this->service->revisions->update($fileId, $revisionId, $patchedRevision);
         } catch (Exception $e) {
-            print "An error occurred: " . $e->getMessage();
+            //print "An error occurred: " . $e->getMessage();
         }
         return NULL;
     }

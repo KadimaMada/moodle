@@ -63,9 +63,11 @@ $string['kmgooglesaved'] = "Save document";
 $string['thanksforanswers'] = "Thank for answer";
 $string['user_image'] = "User image";
 $string['first_last_name'] = "Name";
+$string['relation'] = "Relation";
 $string['activityname'] = "Activity name";
 $string['url_google_drive'] = "Url Google file";
 $string['submitted_on'] = "Submitted On";
+$string['experience_number'] = "Experience number";
 
 $string['clientid'] = "Client id";
 $string['clientiddesc'] = "Please enter client id from google";
@@ -91,3 +93,4 @@ $string['change_date'] = "Change";
 $string['default_name'] = "Default name";
 $string['answer'] = "Answer";
 $string['to_view'] = "To View";
+$string['submission_status'] = 'Submission status';

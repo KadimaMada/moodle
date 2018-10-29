@@ -92,7 +92,17 @@ class mod_kmgoogle_mod_form extends moodleform_mod {
         $mform->addElement('select', 'targetiframe', get_string("targetiframe", "kmgoogle"), $options);
 
         $label = get_string("buttonhtml", "kmgoogle");
-        $mform->addElement('editor', 'buttonhtml', $label, array('rows' => 10));
+
+        if ($this->_instance) {
+            $cmcontext = context_module::instance($this->_instance);
+        } else {
+            $cmcontext = context_course::instance($COURSE->id);
+        }
+
+        $mform->addElement('editor', 'buttonhtml', $label, array('rows' => 10), array('maxfiles' => EDITOR_UNLIMITED_FILES,
+            'noclean' => true, 'context' => $cmcontext, 'subdirs' => true));
+
+
         $mform->setType('buttonhtml', PARAM_RAW); // no XSS prevention here, users must be trusted
 
         //Sharing settings

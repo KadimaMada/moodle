@@ -1,0 +1,93 @@
+<style>
+  .kmgoogle_head {
+    display: flex;
+    width: 40%;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .kmgoogle_toggle {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    background-color: #1177d1;
+    border-radius: 50%;
+    border: none;
+  }
+  .kmgoogle_toggle::after ,
+  .kmgoogle_toggle::before  {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 70%;
+    height: 2px;
+    margin: auto;
+    background-color: #fff;
+    transition: .3s;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 2px;
+   }
+  .kmgoogle_toggle::after  {
+    transform: rotate(90deg);
+  }
+  .kmgoogle_toggle.active::after {
+    display: none;
+  }
+  .kmgoogle_items {
+    display: none;
+    flex-direction: column;
+    width: 40%;
+    margin: 10px auto;
+  }
+  .kmgoogle_item {
+    line-height: 50px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+  }
+  .kmgoogle_item > span {
+    width: 40%;
+  }
+  .kmgoogle_comment {
+    width: 36%;
+  }
+
+</style>
+
+<div class = "kmgoogle_head">
+  <h2>{{#str}} submission_status, mod_kmgoogle {{/str}}</h2><button class = "kmgoogle_toggle active"></button>
+</div>
+<div class = "kmgoogle_items">
+
+  <div class = "kmgoogle_item">
+    <span>{{title_association}}</span>
+    <span>{{name_association}}</span>
+  </div>
+  <div class = "kmgoogle_item">
+    <span>{{#str}} experience_number, mod_kmgoogle {{/str}}</span>
+    <span>{{experience_number}}</span>
+  </div>
+
+  <center>{{#str}} comments {{/str}}</center>
+  <center><textarea class = "kmgoogle_comment" rows="6" name="comment"></textarea></center>
+</div>
+
+{{#js}}
+    require(['jquery'], function($){
+      `use strict`
+
+      $('.kmgoogle_toggle').on('click', function(e){
+        e.preventDefault();
+        $('.kmgoogle_items').slideToggle(function(e){
+          if ($(this).is(':visible'))
+          this.style = 'display:flex;'
+        });
+        $('.kmgoogle_toggle').toggleClass('active');
+      });
+
+    });
+{{/js}}

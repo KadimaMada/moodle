@@ -55,8 +55,8 @@ function kmgoogle_get_users_by_course(){
         INNER JOIN {role_assignments} ra ON ra.userid = u.id
         INNER JOIN {context} ct ON ct.id = ra.contextid
         INNER JOIN {course} c ON c.id = ct.instanceid
-        INNER JOIN {role} r ON r.id = ra.roleid        
-        WHERE c.id=?    
+        INNER JOIN {role} r ON r.id = ra.roleid
+        WHERE c.id=?
     ";
     $result = $DB->get_records_sql($sql, array($COURSE->id));
     $result = array_values($result);
@@ -198,7 +198,7 @@ function kmgoogle_get_users_by_association($kmgoogle){
 }
 
 function kmgoogle_get_teacher_admin_users(){
-    global $DB;
+    global $DB, $COURSE;
 
     $tmp = array();
 
@@ -208,15 +208,11 @@ function kmgoogle_get_teacher_admin_users(){
         $tmp[] = $user->id;
     }
 
-    //Get teachers, editingteachers
-    $sql = '
-    SELECT distinct c.id, c.fullname, u.username, u.firstname, u.lastname
-    FROM {course} as c, {role_assignments} AS ra, {user} AS u, mdl_context AS ct
-    WHERE c.id = ct.instanceid AND ra.roleid IN (1,2,3,4) AND ra.userid = u.id AND ct.id = ra.contextid;
-    ';
+    $context = $context = context_course::instance($COURSE->id);
+    $users = get_role_users(3 , $context);
+    $users = array_merge($users, get_role_users(4 , $context));
 
-    $result = $DB->get_records_sql($sql);
-    foreach($result as $user){
+    foreach($users as $user){
         $tmp[] = $user->id;
     }
 
@@ -446,7 +442,8 @@ function kmgoogle_build_name_for_document($kmgoogle){
     global $DB, $USER, $COURSE, $GoogleDrive;
 
     $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->sourcegoogleurl);
-    $originalname = $GoogleDrive->nameOfFile($sourceFileId);
+    //$originalname = $GoogleDrive->nameOfFile($sourceFileId);
+    $originalname = $kmgoogle->name;
 
     $name = $originalname;
     if(!empty($kmgoogle->namefile)){
@@ -490,7 +487,7 @@ function kmgoogle_update_google_url($kmgoogle, $prevkmgoogle){
  * @param  stdClass $context  a context object (required for trigger the submitted event)
  * @since Moodle 3.0
  */
-function kmgoogle_save_answer($kmgoogle, $answersrawdata, $course, $context) {
+function kmgoogle_save_answer($kmgoogle, $answersrawdata, $course, $context, $comment = null) {
     global $DB, $USER;
 
     $obj = new \stdClass();
@@ -500,7 +497,21 @@ function kmgoogle_save_answer($kmgoogle, $answersrawdata, $course, $context) {
     $obj->timecreated = time();
     $obj->timemodified = time();
 
-    $DB->insert_record('kmgoogle_answers', $obj);
+    $answerid = $DB->insert_record('kmgoogle_answers', $obj);
+
+    if($comment != null){
+        $commentobj = new \stdClass();
+        $commentobj->contextid = $answerid;
+        $commentobj->component = 'mod_kmgoogle';
+        $commentobj->commentarea = 'report_comments';
+        $commentobj->itemid = 0;
+        $commentobj->content = $comment;
+        $commentobj->format = 0;
+        $commentobj->userid = $USER->id;
+        $commentobj->timecreated = time();
+
+        $DB->insert_record('comments', $commentobj);
+    }
 }
 
 function kmgoogle_if_users_used_mod() {
@@ -577,7 +588,7 @@ function kmgoogle_build_datetime_block($kmgoogle) {
 
     $html .= '
 
-    <div class="fdate_time_selector d-flex flex-wrap align-items-center">            
+    <div class="fdate_time_selector d-flex flex-wrap align-items-center">
         <div class="form-group fitem">
             <span data-fieldtype="select">
             <select class="custom-select" name="minute">
@@ -603,9 +614,9 @@ function kmgoogle_build_datetime_block($kmgoogle) {
                 $html .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
             }
 
-            $html .= '  
+            $html .= '
             </select>
-            </span> 
+            </span>
         </div>
         &nbsp;
         <div class="form-group  fitem">
@@ -620,12 +631,12 @@ function kmgoogle_build_datetime_block($kmgoogle) {
                 $html .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
             }
 
-            $html .= ' 
+            $html .= '
             </select>
             </span>
         </div>
         &nbsp;
-        <div class="form-group  fitem">    
+        <div class="form-group  fitem">
             <span data-fieldtype="select">
             <select class="custom-select" name="month">
             ';
@@ -635,13 +646,13 @@ function kmgoogle_build_datetime_block($kmgoogle) {
                 $html .= '<option value="'.$i.'" '.$selected.'>'.$months[$i].'</option>';
             }
 
-            $html .= ' 
+            $html .= '
             </select>
             </span>
         </div>
         &nbsp;
         <div class="form-group  fitem">
- 
+
             <span data-fieldtype="select">
             <select class="custom-select" name="day">
             ';
@@ -650,17 +661,74 @@ function kmgoogle_build_datetime_block($kmgoogle) {
                 $selected = ($i == $day)?'selected=""':'';
                 $html .= '<option value="'.$i.'" '.$selected.'>'.$i.'</option>';
             }
-            $html .= ' 
+            $html .= '
             </select>
             </span>
         </div>
-            
+
         <label class="form-check  fitem  ">
             <input type="submit" class="btn btn-primary" value="'.get_string("change_date", "kmgoogle").'" />
         </label>
-    </div>    
+    </div>
 ';
 
+
+    return $html;
+}
+
+function kmgoogle_data_for_student($kmgoogle){
+    global $DB, $USER, $COURSE;
+
+    $result = array();
+
+    //Get saved association
+    if($kmgoogle->association == 'course'){
+        $obj = get_course($COURSE->id);
+        $title_association = get_string('course');
+        $name_association = $obj->shortname;
+    }
+
+    if($kmgoogle->association == 'group'){
+        $obj = kmgoogle_get_groups_on_course($COURSE->id);
+        $title_association = get_string('group');
+        $name_association = $obj[$kmgoogle->associationname];
+    }
+
+    if($kmgoogle->association == 'collection'){
+        $obj = kmgoogle_get_collections_on_course($COURSE->id);
+        $title_association = get_string('collection', 'mod_kmgoogle');
+        $name_association = $obj[$kmgoogle->associationname];
+    }
+
+    $result['title_association'] = $title_association;
+    $result['name_association'] = $name_association;
+
+    //Count of answers
+    $answers = $DB->get_record("kmgoogle_answers", array("instanceid" => $kmgoogle->id, "userid" => $USER->id));
+    $result['experience_number'] = count($answers) + 1;
+
+    return $result;
+}
+
+function kmgoogle_render_activity_content($kmgoogle, $coursemoduleid){
+    global $DB, $USER, $COURSE, $GoogleDrive;
+
+    //TODO make choise open/close link
+    // $html = '
+    //     <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
+    //       <div style = "height: 100%;">
+    //       <iframe width="100%" height="100%" src="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    //       </div>
+    //     </a>';
+
+
+   $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
+   $url = 'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='.$sourceFileId;
+
+   $html = '
+       <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
+         <div style = "height: 100%;"><iframe style="border: 1px solid #ddd" width="100%" height="100%" src="'.$url.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div>
+       </a>';
 
     return $html;
 }

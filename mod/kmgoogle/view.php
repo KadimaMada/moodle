@@ -68,6 +68,13 @@ if(no_permission_for_user($cm->instance)) {
 }
 
 // Get link of google drive.
+
+if(!empty(strip_tags($kmgoogle->buttonhtml))) {
+    $buttonhtml = $kmgoogle->buttonhtml;
+}else{
+    $buttonhtml = '<center>'.get_string('linktoworkwithdocument', 'kmgoogle').'</center>';
+}
+
 //If iframe
 if($kmgoogle->ififrame){
     $iframewidth = '';
@@ -78,33 +85,7 @@ if($kmgoogle->ififrame){
     }
 
     echo '<center><iframe '.$iframewidth.$iframeheight.' src="/mod/kmgoogle/source.php?id='.$id.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></center>';
-
-    if(!empty($kmgoogle->buttonhtml)){
-
-        echo '<br>';
-
-        if(in_array($kmgoogle->targetiframe, array(0, 1))) {
-            $blank = '';
-            if (!$kmgoogle->targetiframe) {
-                $blank = ' target="_blank" ';
-            }
-
-            echo '<a href="/mod/kmgoogle/source.php?id=' . $id . '"' . $blank . '>' . $kmgoogle->buttonhtml . '</a>';
-        }
-
-        if($kmgoogle->targetiframe == 2) {
-            $onclick_popup = "window.open('".$CFG->wwwroot."/mod/kmgoogle/source.php?id=".$id."','popup','width=600,height=600'); return false;";
-            echo '<a href="" target="popup" onclick="'.$onclick_popup.'">'.$kmgoogle->buttonhtml.'</a>';
-        }
-
-    }
-
-}
-
-//If link
-if(!$kmgoogle->ififrame){
-
-    echo '<div>' . get_string('linktoworkwithdocument', 'kmgoogle') . '</div>';
+    echo '<br>';
 
     if(in_array($kmgoogle->targetiframe, array(0, 1))) {
         $blank = '';
@@ -112,19 +93,40 @@ if(!$kmgoogle->ififrame){
             $blank = ' target="_blank" ';
         }
 
-        echo '<a href="/mod/kmgoogle/source.php?id=' . $id . '"' . $blank . '>' . get_string('url') . '</a>';
+        echo '<a href="/mod/kmgoogle/source.php?id=' . $id . '"' . $blank . '>' . $buttonhtml . '</a>';
     }
 
     if($kmgoogle->targetiframe == 2) {
         $onclick_popup = "window.open('".$CFG->wwwroot."/mod/kmgoogle/source.php?id=".$id."','popup','width=600,height=600'); return false;";
-        echo '<a href="" target="popup" onclick="'.$onclick_popup.'">'.get_string('url').'</a>';
+        echo '<a href="#" target="popup" onclick="'.$onclick_popup.'">'.$buttonhtml.'</a>';
+    }
+
+}
+
+//If link
+if(!$kmgoogle->ififrame){
+
+    if(in_array($kmgoogle->targetiframe, array(0, 1))) {
+        $blank = '';
+        if (!$kmgoogle->targetiframe) {
+            $blank = ' target="_blank" ';
+        }
+
+        echo '<a href="/mod/kmgoogle/source.php?id=' . $id . '"' . $blank . '>' . $buttonhtml . '</a>';
+    }
+
+    if($kmgoogle->targetiframe == 2) {
+        $onclick_popup = "window.open('".$CFG->wwwroot."/mod/kmgoogle/source.php?id=".$id."','popup','width=600,height=600'); return false;";
+        echo '<a href="#" target="popup" onclick="'.$onclick_popup.'">'.$buttonhtml.'</a>';
     }
 }
 
 if(user_can_answer($cm->instance)){
-    echo '<br />';
-    echo '<br />';
-    echo '<input type="submit" class="btn btn-primary" value="'.get_string("answer", 'kmgoogle').'" />';
+
+    $templatecontext = kmgoogle_data_for_student($kmgoogle);
+    echo $OUTPUT->render_from_template('mod_kmgoogle/student-info', $templatecontext);
+
+    echo '<center><input type="submit" class="btn btn-primary" value="'.get_string("answer", 'kmgoogle').'" /></center>';
     echo '</div>';
     echo "</form>";
     echo $OUTPUT->footer();
@@ -134,7 +136,7 @@ if(user_can_answer($cm->instance)){
 if(if_user_admin_teacher()){
     echo '<br />';
     echo '<br />';
-    echo '<a href="'.$CFG->wwwroot.'/mod/kmgoogle/report.php?id='.$id.'" class="btn btn-primary">'.get_string("to_view", 'kmgoogle').'</a>';
+    echo '<center><a href="'.$CFG->wwwroot.'/mod/kmgoogle/report.php?id='.$id.'" class="btn btn-primary">'.get_string("to_view", 'kmgoogle').'</a></center>';
     echo '</div>';
     echo "</form>";
     echo $OUTPUT->footer();
