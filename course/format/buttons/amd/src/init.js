@@ -57,7 +57,7 @@ define(['jquery','format_buttons/slick', 'format_buttons/ajax'], function($, sli
     tooltipEvents();
     xsSectionArrowsEvents();
 
-    catchMouse();
+    // catchMouse();
 
     document.addEventListener('click', function(e){
       let target = e.target;
