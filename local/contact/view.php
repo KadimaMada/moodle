@@ -30,5 +30,5 @@ echo "<form action=\"../../local/contact/index.php\" method=\"post\" class=\"con
     </div>
 </form>";
 */
-echo $OUTPUT->render_from_template('local_contact/contacts');
+echo $OUTPUT->render_from_template('local_contact/contacts', null);
 echo $OUTPUT->footer();
