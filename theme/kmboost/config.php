@@ -45,8 +45,11 @@ $THEME->layouts = [
             'file' => 'categories.php',
             'regions' => []
 
-        ),
-
+    ),
+    'course' => array(
+        'file' => 'course.php',
+        'regions' => [],
+    ),
 ];
 
 $THEME->parents = ['boost'];
