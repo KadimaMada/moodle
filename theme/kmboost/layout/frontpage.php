@@ -51,7 +51,7 @@ $templatecontext = [
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
     'loggedin' => isloggedin()?0:1,
-    'frontpagehtmlblock' => get_config('theme_kmboost', 'frontpagehtmlblock')
+    'frontpagehtmlblock' => get_translated_frontpagehtmlblock()
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
