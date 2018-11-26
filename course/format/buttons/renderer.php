@@ -986,6 +986,7 @@ class format_buttons_renderer extends format_topics_renderer
         $labels = $this->get_section_labels($course, $section);
         $output = '';
         foreach ($labels as $modnum => $content) {
+            $content[3] = (!empty($content[3]) || (!empty($content[1]) || !empty($content[2]))) ? $content[3] : $content[0];    // if there is no any parsing results - no content for label - show all mod text as is
 
             $output .= html_writer::tag('div', $content[3], ['id' => "label{$modnum}", 'class' => 'label-content d-none', 'role' => 'label content', 'data-label-content' => $modnum ]);
 
