@@ -894,10 +894,11 @@ class format_buttons_renderer extends format_topics_renderer
                         $langtext = (isset($langtext[1])) ? $langtext[1] : $modulehtml;
 
                         // the main regexp:
-                        $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)(<\/div>|$)/i'; // SG - the latest regexp 20180917 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
+                        $reg = '/<div class="no-overflow">(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>$/i'; // SG - the latest regexp 20181128 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                         preg_match($reg, $langtext, $content);
 
 
+                        // [^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)(<\/div>|$)/ - SG - previouse regexp - 20180917
                         /*  SG -- 20190927 -- TOREMOVE if translation of content works fine
                        // SG -- if language was defined in text with en%, he% or ar% - parse particular conrent
                         if (isset($langtext[1])) {
