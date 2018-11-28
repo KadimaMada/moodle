@@ -894,7 +894,7 @@ class format_buttons_renderer extends format_topics_renderer
                         $langtext = (isset($langtext[1])) ? $langtext[1] : $modulehtml;
 
                         // the main regexp:
-                        $reg = '/<div class="no-overflow">(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)<\/div>$/i'; // SG - the latest regexp 20181128 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
+                        $reg = '/(?:[\s\S]*?\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)$/i'; // SG - the latest regexp 20181128 - '[[name]] {{icon}} rest of the text'. You provide only name or only icon
                         preg_match($reg, $langtext, $content);
 
 

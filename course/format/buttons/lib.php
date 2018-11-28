@@ -570,7 +570,7 @@ class format_buttons extends format_topics
      */
     public function parse_section_summary($thissection) {
         $langsummary = $this->get_translated_text($thissection->summary);
-        $langsummary = (isset($langsummary[1])) ? $langsummary[1] : $summary;
+        $langsummary = (isset($langsummary[1])) ? $langsummary[1] : $thissection->summary;
         
         // the main regexp:
         $reg = '/[^\[\{]*(?:\[\[(.*?)\]\])?(?:[\s\S]*?\{\{(.*?)\}\})?([\s\S]*?)$/i'; // SG - the latest regexp 20181001 - '[[name]] {{icon}} rest of the text - summary'. You provide only name or only icon or summary
