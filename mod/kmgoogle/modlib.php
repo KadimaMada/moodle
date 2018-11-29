@@ -714,21 +714,22 @@ function kmgoogle_render_activity_content($kmgoogle, $coursemoduleid){
     global $DB, $USER, $COURSE, $GoogleDrive;
 
     //TODO make choise open/close link
-    // $html = '
-    //     <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
-    //       <div style = "height: 100%;">
-    //       <iframe width="100%" height="100%" src="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-    //       </div>
-    //     </a>';
+    $html = '
+        <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
+          <div style = "height: 100%;">
+          <iframe width="100%" height="100%" src="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+          </div>
+        </a>';
 
 
-   $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
-   $url = 'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='.$sourceFileId;
-
-   $html = '
-       <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
-         <div style = "height: 100%;"><iframe style="border: 1px solid #ddd" width="100%" height="100%" src="'.$url.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div>
-       </a>';
+    // set
+   // $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
+   // $url = 'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='.$sourceFileId;
+   //
+   // $html = '
+   //     <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
+   //       <div style = "height: 100%;"><iframe style="border: 1px solid #ddd" width="100%" height="100%" src="'.$url.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div>
+   //     </a>';
 
     return $html;
 }
