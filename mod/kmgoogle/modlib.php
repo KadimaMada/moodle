@@ -714,13 +714,13 @@ function kmgoogle_render_activity_content($kmgoogle, $coursemoduleid){
     global $DB, $USER, $COURSE, $GoogleDrive;
 
     //TODO make choise open/close link
+    
     $html = '
         <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
           <div style = "height: 100%;">
           <iframe width="100%" height="100%" src="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
           </div>
         </a>';
-
 
     // set
    // $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
