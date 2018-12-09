@@ -171,5 +171,14 @@ function xmldb_kmgoogle_upgrade($oldversion) {
 
     }
 
+    if ($oldversion < 2018051412) {
+        $table = new xmldb_table('kmgoogle_answers');
+
+        $field = new xmldb_field('counter', XMLDB_TYPE_INTEGER, '10', null, true, null, 0, 'url');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+
     return true;
 }

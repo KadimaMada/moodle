@@ -359,8 +359,6 @@ function user_can_answer($instanceid){
         return false;
     }
 
-
-
     //If student needed click
 //    if(!$kmgoogle->studenttoclick || $kmgoogle->datelastsubmit <= time()) {
 //        return false;
@@ -382,8 +380,8 @@ function user_can_answer($instanceid){
 
     //Count of answers
     if($isstudent && $kmgoogle->submitmechanism && $kmgoogle->numberattempts){
-        $answers = $DB->get_record("kmgoogle_answers", array("instanceid" => $instanceid, "userid" => $USER->id));
-        if(count($answers) > $kmgoogle->numberattempts){
+        $answer = $DB->get_record("kmgoogle_answers", array("instanceid" => $instanceid, "userid" => $USER->id));
+        if(!empty($answer) && $answer->counter > $kmgoogle->numberattempts){
             return false;
         }
     }
@@ -490,27 +488,51 @@ function kmgoogle_update_google_url($kmgoogle, $prevkmgoogle){
 function kmgoogle_save_answer($kmgoogle, $answersrawdata, $course, $context, $comment = null) {
     global $DB, $USER;
 
-    $obj = new \stdClass();
-    $obj->instanceid = $kmgoogle->id;
-    $obj->userid = $USER->id;
-    $obj->url = $kmgoogle->copiedgoogleurl;
-    $obj->timecreated = time();
-    $obj->timemodified = time();
+    $row = $DB->get_record('kmgoogle_answers', array('instanceid' => $kmgoogle->id, 'userid' => $USER->id));
+    if(empty($row)){
+        $obj = new \stdClass();
+        $obj->instanceid = $kmgoogle->id;
+        $obj->userid = $USER->id;
+        $obj->url = $kmgoogle->copiedgoogleurl;
+        $obj->counter = 1;
+        $obj->timecreated = time();
+        $obj->timemodified = time();
 
-    $answerid = $DB->insert_record('kmgoogle_answers', $obj);
+        $answerid = $DB->insert_record('kmgoogle_answers', $obj);
 
-    if($comment != null){
-        $commentobj = new \stdClass();
-        $commentobj->contextid = $answerid;
-        $commentobj->component = 'mod_kmgoogle';
-        $commentobj->commentarea = 'report_comments';
-        $commentobj->itemid = 0;
-        $commentobj->content = $comment;
-        $commentobj->format = 0;
-        $commentobj->userid = $USER->id;
-        $commentobj->timecreated = time();
+        if($comment != null){
+            $commentobj = new \stdClass();
+            $commentobj->contextid = $answerid;
+            $commentobj->component = 'mod_kmgoogle';
+            $commentobj->commentarea = 'report_comments';
+            $commentobj->itemid = 0;
+            $commentobj->content = $comment;
+            $commentobj->format = 0;
+            $commentobj->userid = $USER->id;
+            $commentobj->timecreated = time();
 
-        $DB->insert_record('comments', $commentobj);
+            $DB->insert_record('comments', $commentobj);
+        }
+    }else{
+        $counter = $row->counter;
+        $row->counter = $counter + 1;
+        $row->timemodified = time();
+
+        $DB->update_record('kmgoogle_answers', $row);
+
+        if($comment != null){
+            $commentobj = new \stdClass();
+            $commentobj->contextid = $row->id;
+            $commentobj->component = 'mod_kmgoogle';
+            $commentobj->commentarea = 'report_comments';
+            $commentobj->itemid = 0;
+            $commentobj->content = $comment;
+            $commentobj->format = 0;
+            $commentobj->userid = $USER->id;
+            $commentobj->timecreated = time();
+
+            $DB->insert_record('comments', $commentobj);
+        }
     }
 }
 
@@ -704,8 +726,31 @@ function kmgoogle_data_for_student($kmgoogle){
     $result['name_association'] = $name_association;
 
     //Count of answers
-    $answers = $DB->get_record("kmgoogle_answers", array("instanceid" => $kmgoogle->id, "userid" => $USER->id));
-    $result['experience_number'] = count($answers) + 1;
+    $answer = $DB->get_record("kmgoogle_answers", array("instanceid" => $kmgoogle->id, "userid" => $USER->id));
+    if($answer){
+        $result['experience_number'] = $answer->counter + 1;
+    }else{
+        $result['experience_number'] = 1;
+    }
+
+    //Get comments
+    if($answer) {
+        $data = array(
+            "contextid" => $answer->id,
+            "component" => 'mod_kmgoogle',
+            "commentarea" => 'report_comments'
+        );
+        $comments = $DB->get_records("comments", $data);
+
+        foreach($comments as $comment){
+            $user = $DB->get_record("user", array('id' => $comment->userid));
+            $comment->firstname = $user->firstname;
+            $comment->lastname = $user->lastname;
+            $comment->time_formatted = date("Y-m-d H:i:s", $comment->timecreated);
+        }
+
+        $result['comments'] = array_values($comments);
+    }
 
     return $result;
 }
@@ -714,22 +759,21 @@ function kmgoogle_render_activity_content($kmgoogle, $coursemoduleid){
     global $DB, $USER, $COURSE, $GoogleDrive;
 
     //TODO make choise open/close link
-    
-    $html = '
-        <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
-          <div style = "height: 100%;">
-          <iframe width="100%" height="100%" src="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-          </div>
-        </a>';
+    // $html = '
+    //     <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
+    //       <div style = "height: 100%;">
+    //       <iframe width="100%" height="100%" src="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+    //       </div>
+    //     </a>';
 
-    // set
-   // $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
-   // $url = 'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='.$sourceFileId;
-   //
-   // $html = '
-   //     <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
-   //       <div style = "height: 100%;"><iframe style="border: 1px solid #ddd" width="100%" height="100%" src="'.$url.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div>
-   //     </a>';
+
+   $sourceFileId = $GoogleDrive->getFileIdFromGoogleUrl($kmgoogle->copiedgoogleurl);
+   $url = 'https://drive.google.com/thumbnail?authuser=0&sz=w320&id='.$sourceFileId;
+
+   $html = '
+       <a href="/mod/kmgoogle/source.php?id='.$coursemoduleid.'" style="display: block; width:60vw; height:30vh; overflow: hidden;">
+         <div style = "height: 100%;"><iframe style="border: 1px solid #ddd" width="100%" height="100%" src="'.$url.'" allowfullscreen="true" frameborder="1" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div>
+       </a>';
 
     return $html;
 }

@@ -59,21 +59,28 @@
 </style>
 
 <div class = "kmgoogle_head">
-  <h2>{{#str}} submission_status, mod_kmgoogle {{/str}}</h2><button class = "kmgoogle_toggle active"></button>
+    <h2>{{#str}} submission_status, mod_kmgoogle {{/str}}</h2><button class = "kmgoogle_toggle active"></button>
 </div>
 <div class = "kmgoogle_items">
 
-  <div class = "kmgoogle_item">
+    <div class = "kmgoogle_item">
     <span>{{title_association}}</span>
     <span>{{name_association}}</span>
-  </div>
-  <div class = "kmgoogle_item">
+    </div>
+    <div class = "kmgoogle_item">
     <span>{{#str}} experience_number, mod_kmgoogle {{/str}}</span>
     <span>{{experience_number}}</span>
-  </div>
+    </div>
 
-  <center>{{#str}} comments {{/str}}</center>
-  <center><textarea class = "kmgoogle_comment" rows="6" name="comment"></textarea></center>
+    {{#comments}}
+    <div class = "kmgoogle_item">
+        <span>{{time_formatted}} {{firstname}} {{lastname}}</span>
+        <span>{{content}}</span>
+    </div>
+    {{/comments}}
+
+    <center>{{#str}} comments {{/str}}</center>
+    <center><textarea class = "kmgoogle_comment" rows="6" name="comment"></textarea></center>
 </div>
 
 {{#js}}

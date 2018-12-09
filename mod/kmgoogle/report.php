@@ -52,6 +52,7 @@ class report_table extends table_sql {
         $columns[] = 'relation';
         $columns[] = 'activityname';
         $columns[] = 'url';
+        $columns[] = 'counter';
         $columns[] = 'comment';
         $columns[] = 'timecreated';
         $this->define_columns($columns);
@@ -65,14 +66,14 @@ class report_table extends table_sql {
         $headers[] = get_string('relation', 'kmgoogle');
         $headers[] = get_string('activityname', 'kmgoogle');
         $headers[] = get_string('url_google_drive', 'kmgoogle');
+        $headers[] = get_string('experience_number', 'kmgoogle');
         $headers[] = get_string('comments');
         $headers[] = get_string('submitted_on', 'kmgoogle');
         $this->define_headers($headers);
 
         $this->no_sorting('picture');
-        $this->no_sorting('username');
         $this->no_sorting('relation');
-        $this->no_sorting('activityname');
+        $this->no_sorting('url');
         $this->no_sorting('comment');
     }
 
@@ -95,18 +96,6 @@ class report_table extends table_sql {
 
     }
 
-    function col_username($values) {
-        global $DB;
-        // If the data is being downloaded than we don't want to show HTML.
-        $user = $DB->get_record("user", array('id' => $values->userid));
-
-        if ($this->is_downloading()) {
-            return $user->firstname.' '.$user->lastname;
-        } else {
-            return '<a href="/user/profile.php?id='.$values->userid.'">'.$user->firstname.' '.$user->lastname.'</a>';
-        }
-    }
-
     function col_relation($values) {
         global $DB, $COURSE;
         $kmgoogle = $DB->get_record("kmgoogle", array('id' => $values->instanceid));
@@ -127,13 +116,6 @@ class report_table extends table_sql {
         }
 
         return $result;
-    }
-
-    function col_activityname($values) {
-        global $DB;
-        // If the data is being downloaded than we don't want to show HTML.
-        $kmgoogle = $DB->get_record("kmgoogle", array('id' => $values->instanceid));
-        return $kmgoogle->name;
     }
 
     function col_url($values) {
@@ -212,7 +194,7 @@ if (! $kmgoogle = $DB->get_record("kmgoogle", array("id" => $cm->instance))) {
 $PAGE->set_url('/mod/kmgoogle/report.php');
 
 $table = new report_table('uniqueid');
-$table->is_downloading($download, 'test', 'testing123');
+$table->is_downloading($download, 'report', 'report');
 
 if (!$table->is_downloading()) {
     // Only print headers if not asked to download data.
@@ -257,9 +239,11 @@ $fields = '*';
 $from = '
 (SELECT * FROM
     (
-        SELECT *
-        FROM {kmgoogle_answers}
-        ORDER BY timecreated DESC
+        SELECT ka.* , CONCAT(u.firstname," ",u.lastname) AS username , k.name AS activityname
+        FROM mdl_kmgoogle_answers AS ka
+        LEFT JOIN mdl_user AS u ON(u.id=ka.userid)
+        LEFT JOIN mdl_kmgoogle AS k ON(k.id=ka.instanceid)
+        ORDER BY timecreated ASC
     ) AS answers
     '.$where.'
 ) AS groups
