@@ -75,13 +75,13 @@ class GoogleDrive
 
                     $this->authed = true;
                 } else {
-                    $this->makeAuth();
+                    //$this->makeAuth(); //TODO
                 }
             } catch (\Exception $e) {
-                die("GoogleDrive: Error token. {$e->getMessage()}, on {$e->getLine()}");
+                //die("GoogleDrive: Error token. {$e->getMessage()}, on {$e->getLine()}");
             }
         } else {
-            $this->makeAuth();
+            //$this->makeAuth(); //TODO
         }
     }
 

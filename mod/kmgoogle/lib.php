@@ -43,6 +43,10 @@ require_once ($CFG->dirroot.'/mod/kmgoogle/modlib.php');
 function kmgoogle_add_instance($kmgoogle) {
     global $DB, $COURSE;
 
+    if(!kmgoogle_if_enabled()){
+        print_error('Kmgoogle does not working. Please authorizate Google Drive ');
+    }
+
     if(!kmgoogle_if_url_google($kmgoogle->sourcegoogleurl)){
         return 0;
     }
@@ -90,6 +94,10 @@ function kmgoogle_add_instance($kmgoogle) {
  */
 function kmgoogle_update_instance($kmgoogle) {
     global $DB;
+
+    if(!kmgoogle_if_enabled()){
+        print_error('Kmgoogle does not working. Please authorizate Google Drive ');
+    }
 
     if (!$row = $DB->get_record("kmgoogle", array("id"=>$kmgoogle->instance))) {
         return 0;
@@ -243,7 +251,7 @@ function kmgoogle_get_coursemodule_info($coursemodule) {
         $info->name  = $kmgoogle->name;
 
         $info->content = kmgoogle_render_activity_content($kmgoogle, $coursemodule->id);
-        //$info->content = $kmgoogle->intro;
+        // $info->content = $kmgoogle->intro;
 
         return $info;
     } else {

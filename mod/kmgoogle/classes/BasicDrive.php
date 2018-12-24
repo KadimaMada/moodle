@@ -21,11 +21,13 @@ class BasicDrive {
     private $clientId;
     private $clientSecret;
     private $redirectUrl;
+    private $kmgoogledisabled;
 
     public function __construct() {
 
         global $DB, $CFG;
 
+        $this->kmgoogledisabled = false;
         $this->redirectUrl = $CFG->wwwroot.'/mod/kmgoogle/postback.php';
 
         $objclientid = $DB->get_record('config_plugins', array('plugin' => 'mod_kmgoogle', 'name' => 'clientid'));
@@ -45,13 +47,24 @@ class BasicDrive {
             if ($google->isAuthed()) {
                 $this->service = $google->initDrive();
             }else{
-                die("Please authorizate google drive");
+                $this->kmgoogledisabled = true;
+                //die("Please authorizate google drive");
             }
         }
     }
 
+    //If kmgoogle enabled
+    public function kmgoogle_enabled() {
+
+        if($this->kmgoogledisabled) return false;
+        else return true;
+    }
+
     //Parser Google url
     public function getFileIdFromGoogleUrl($url) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
 
         //spreadsheet
         $pos_spreadsheets = strpos($url, 'spreadsheets');
@@ -114,6 +127,10 @@ class BasicDrive {
 
     //Get Mime type of file
     public function typeOfFile($fileId) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
+
         try {
             $file = $this->service->files->get($fileId);
             $arr = explode('.', $file->getMimeType());
@@ -125,6 +142,10 @@ class BasicDrive {
 
     //Get Name of file
     public function nameOfFile($fileId) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
+
         try {
             $file = $this->service->files->get($fileId);
             return $file->getName();
@@ -135,6 +156,9 @@ class BasicDrive {
 
     //Copy file to new place
     public function copyFileToFolder($originFileId, $nameFile, $folderId = null) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
 
         $copiedFile = new Google_Service_Drive_DriveFile();
 
@@ -159,6 +183,10 @@ class BasicDrive {
 
     //Create folder
     public function createFolder($nameFile, $fileId = null, $folderId = null) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
+
         $mimeType = 'application/vnd.google-apps.folder';
 
 //        $list = $this->getAllFilesGDrive();
@@ -190,6 +218,10 @@ class BasicDrive {
 
     //copy files from folder to folder
     public function copyFilesFromFolderToFolder($sourceFileId, $targetFileId) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
+
         $pageToken = NULL;
 
         $optParams = array(
@@ -206,6 +238,10 @@ class BasicDrive {
 
     //Delete file or folder from disk
     public function deleteFile($fileId) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
+
         try {
             $this->service->files->delete($fileId);
         } catch (Exception $e) {
@@ -216,6 +252,9 @@ class BasicDrive {
     //Set permission for user
     public function setPermissionForUser($userid, $current_permission, $fileID, $permissionId = null) {
         global $DB, $USER;
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
 
         $user = $DB->get_record('user', array('id' => $userid));
 
@@ -277,6 +316,10 @@ class BasicDrive {
     }
 
     public function removePermissionForUser($fileId, $permissionId) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
+
         try {
             $this->service->permissions->delete($fileId, $permissionId);
         } catch (Exception $e) {
@@ -286,6 +329,10 @@ class BasicDrive {
 
     //Get files on Googlr Drive TODO not used
     public function getAllFilesGDrive() {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
+
         $list = array();
         $result = array();
         $pageToken = null;
@@ -323,6 +370,10 @@ class BasicDrive {
 
     //Get Revisions
     public function retrieveRevisions($fileId) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
+
         try {
             $revisions = $this->service->revisions->listRevisions($fileId);
             return $revisions->getRevisions();
@@ -334,6 +385,9 @@ class BasicDrive {
 
     //update Revision Published
     public function updateRevision($fileId, $revisionId = 1) {
+
+        //kmgoogle disabled
+        if($this->kmgoogledisabled) return false;
 
         $patchedRevision = new Google_Service_Drive_Revision();
         $patchedRevision->setPublished(true);
