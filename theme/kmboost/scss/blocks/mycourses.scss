@@ -36,6 +36,7 @@ $image-size: 50px;
   align-items: center;
   padding: 0 5em;
   .slider {
+    opacity: 0;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -58,7 +59,13 @@ $image-size: 50px;
               }
               h2 {
                 font-size: 12px;
+                padding: 0 5px;
                 color: $primary-color;
+                width: 9.5em;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-align: center;
               }
             }
 

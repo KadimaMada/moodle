@@ -90,6 +90,7 @@
       align-items: center;
   padding: 0 5em; }
   .mycoursesslick .slider {
+    opacity: 0;
     overflow: hidden;
     display: -ms-flexbox;
     display: flex;
@@ -116,7 +117,13 @@
               margin-bottom: 16px; }
             .mycoursesslick .slider .slick-list .slick-track .slick-slide .slider-item a h2 {
               font-size: 12px;
-              color: #491571; }
+              padding: 0 5px;
+              color: #491571;
+              width: 9.5em;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-align: center; }
   .mycoursesslick .btn-slider {
     width: 20px;
     height: 40px;
@@ -153,7 +160,7 @@
       flex-direction: column;
   -ms-flex-align: center;
       align-items: center;
-  margin-top: 36px; }
+  margin-top: 48px; }
   .circle-list-wrapper .circle-list {
     display: -ms-grid;
     display: grid;
@@ -262,11 +269,21 @@
           color: #491571; }
   .header-navbar .header2 .user-settings {
     border-left: 1px solid #491571;
-    margin: 15px 0;
+    margin: 18px 0;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
-        align-items: center; }
+        align-items: center;
+    padding-left: 5px; }
+    .header-navbar .header2 .user-settings .nav-item .popover-region-messages .nav-link,
+    .header-navbar .header2 .user-settings .nav-item .popover-region-notifications .nav-link {
+      padding-left: .4rem;
+      padding-right: .4rem; }
+    .header-navbar .header2 .user-settings .nav-item .popover-region-messages .icon,
+    .header-navbar .header2 .user-settings .nav-item .popover-region-notifications .icon {
+      margin: 0;
+      width: 22px;
+      height: 22px; }
     .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle::after {
       display: none; }
     .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton {
@@ -279,9 +296,9 @@
       .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .usertext {
         color: #491571; }
       .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .userpicture {
-        border-radius: 0;
-        width: 20px;
-        height: 20px; }
+        width: 22px;
+        height: 22px;
+        margin-left: 5px; }
     .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .caret {
       display: none; }
 

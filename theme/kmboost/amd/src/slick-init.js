@@ -12,6 +12,7 @@ define(['jquery', 'theme_kmboost/slick'], function($, slick) {
                 variableWidth: true,
                 rtl: dir === 'rtl'
             });
+            $('.slider').animate({opacity: 1}, 500);
         }
     };
 

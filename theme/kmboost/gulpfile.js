@@ -7,14 +7,15 @@ var plumber = require("gulp-plumber");
 var postcss = require("gulp-postcss");
 var autoprefixer = require("autoprefixer");
 var mqpacker = require("css-mqpacker");
+var csso = require("gulp-csso");
 var sequence = require("gulp-sequence");
 var del = require("del");
-// for min js
+var shell = require('gulp-shell');
 var jsmin = require('gulp-jsmin');
 
 
 gulp.task("clean", function() {
-  return del("style/style.css");
+  del("style/style.css");
 });
 
 gulp.task("style", function() {
@@ -27,37 +28,39 @@ gulp.task("style", function() {
     ]))
     .pipe(rename("style/style.css"))
     .pipe(gulp.dest('.'));
+    // .pipe(csso())
+    // .pipe(rename("style.css"))
+    // .pipe(gulp.dest("../blocks/search_custom/css"))
+    // .pipe(server.stream());
 });
 
- // minify js
+gulp.task('purge_caches', shell.task('php ../../admin/cli/purge_caches.php'))
 
+// minify js
 gulp.task('clean_js', function() {
-   return del('amd/build/*.js');
+  return del('amd/build/*.js');
 });
 
 gulp.task('min', function() {
-  gulp.src('amd/src/*.js')
-      .pipe(jsmin())
-      .pipe(rename({suffix: '.min'}))
-      .pipe(gulp.dest('amd/build'));
+    gulp.src('amd/src/*.js')
+        .pipe(jsmin())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('amd/build'));
 });
 
 gulp.task('minjs', function(cb) {
-  sequence(
-    'clean_js',
-    'min',
+  sequence('clean_js', 'min', cb);
+});
+
+gulp.watch("scss/**/*.{scss,sass}", ["style", 'purge_caches']);
+gulp.watch("amd/src/*.js", ["minjs", 'purge_caches']);
+
+gulp.task("dev", function(cb) {
+  sequence (
+    'clean',
+    'style',
+    'minjs',
+    'purge_caches',
     cb
   );
 });
-
-gulp.task("build", function(cb) {
-  sequence(
-    "clean",
-    "style",
-    "minjs",
-    cb
-  );
-});
-
-gulp.watch("amd/src/*.js", ["minjs"]);
-gulp.watch("scss/**/*.{scss,sass}", ["style"]);

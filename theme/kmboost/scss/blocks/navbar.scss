@@ -64,10 +64,23 @@
     }
     .user-settings {
       border-left: 1px solid $primary-color;
-      margin: 15px 0;
+      margin: 18px 0;
       display: flex;
       align-items: center;
+      padding-left: 5px;
       .nav-item {
+        .popover-region-messages,
+        .popover-region-notifications {
+          .nav-link {
+            padding-left:  .4rem;
+            padding-right: .4rem;
+          }
+          .icon {
+            margin: 0;
+            width: 22px;
+            height: 22px;
+          }
+        }
         .usermenu {
           .dropdown-toggle {
             &::after {
@@ -81,9 +94,10 @@
                 color: $primary-color;
               }
               .userpicture {
-                border-radius: 0;
-                width: 20px;
-                height: 20px;
+                // border-radius: 0;
+                width: 22px;
+                height: 22px;
+                margin-left: 5px;
               }
             }
             .caret {
