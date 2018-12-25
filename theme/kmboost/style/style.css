@@ -142,7 +142,7 @@
   position: relative; }
   .pagelayout-frontpage #page-wrapper {
     margin-bottom: 0;
-    min-height: calc(100vh - 210px); }
+    padding-bottom: 0; }
     .pagelayout-frontpage #page-wrapper:after {
       display: none; }
     .pagelayout-frontpage #page-wrapper #region-main .card {
@@ -160,15 +160,15 @@
       flex-direction: column;
   -ms-flex-align: center;
       align-items: center;
-  margin-top: 48px; }
+  margin-top: 7vh;
+  margin-bottom: 7vh; }
   .circle-list-wrapper .circle-list {
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: (calc(107px - 6px))[6];
         grid-template-columns: repeat(6, calc(107px - 6px));
     -ms-grid-rows: calc(107px - 6px);
-        grid-template-rows: calc(107px - 6px);
-    padding-bottom: 50px; }
+        grid-template-rows: calc(107px - 6px); }
     .circle-list-wrapper .circle-list .circle-link:hover {
       text-decoration: none; }
     .circle-list-wrapper .circle-list .circle-link .circle {
@@ -207,6 +207,11 @@
           border-radius: 50%; }
     .circle-list-wrapper .circle-list .circle-link:nth-child(2n) .circle {
       border-color: #00ddbf #00ddbf #491571 #491571; }
+
+[dir="rtl"] .circle-list-wrapper .circle-list .circle-link .circle {
+  transform: rotate(-45deg); }
+  [dir="rtl"] .circle-list-wrapper .circle-list .circle-link .circle-content {
+    transform: rotate(45deg); }
 
 .header-navbar .header1 .navbar {
   background: #491571;
@@ -256,11 +261,16 @@
         align-items: center; }
   .header-navbar .header2 .tabs {
     display: -ms-flexbox;
-    display: flex; }
+    display: flex;
+    margin: 0 auto; }
     .header-navbar .header2 .tabs .navbar-nav {
       margin: 0;
       display: -ms-flexbox;
       display: flex;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
       -ms-flex-align: center;
           align-items: center; }
       .header-navbar .header2 .tabs .navbar-nav .nav-item {
@@ -275,6 +285,10 @@
     -ms-flex-align: center;
         align-items: center;
     padding-left: 5px; }
+    .header-navbar .header2 .user-settings .count-container {
+      border-radius: 50%;
+      min-width: 12px;
+      text-align: center; }
     .header-navbar .header2 .user-settings .nav-item .popover-region-messages .nav-link,
     .header-navbar .header2 .user-settings .nav-item .popover-region-notifications .nav-link {
       padding-left: .4rem;
@@ -294,6 +308,7 @@
       -ms-flex-align: center;
           align-items: center; }
       .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .usertext {
+        display: none;
         color: #491571; }
       .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .userpicture {
         width: 22px;
@@ -612,6 +627,11 @@
   .circle-list-wrapper .circle-list {
     -ms-grid-columns: (calc(107px - 6px))[4];
     grid-template-columns: repeat(4, calc(107px - 6px)); } }
+          @media only screen and (min-width: 1100px) {
+  .header-navbar .header2 .tabs {
+    width: 610px; }
+  .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .usertext {
+    display: block; } }
           @media only screen and (max-width: 576px) {
   .mycoursesslick {
     padding: 0;

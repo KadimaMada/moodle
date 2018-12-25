@@ -60,3 +60,11 @@ $string['email'] = 'Email';
 $string['oauth2google'] = 'Gmail';
 $string['frontpagehtmlblock'] = 'Front page HTML block';
 $string['frontpagehtmlblock_desc'] = 'Put here code for html block';
+
+//footer
+$string['all_rights_reserved_Kadima_Mada'] = 'All rights reserved to Kadima Mada, World ORT 2018';
+$string['having_trouble_with_your_site'] = 'Having trouble with your site?';
+$string['contactus'] = 'You are welcome to contact us or fill out the details and we will get back to you soon';
+$string['fullname'] = 'Full name';
+$string['request_subject'] = 'Request subject';
+$string['reference_content'] = 'Reference content';

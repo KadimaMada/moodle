@@ -6,7 +6,8 @@
   position: relative;
   #page-wrapper {
     margin-bottom: 0;
-    min-height: calc(100vh - 210px);
+    // min-height: calc(100vh - 210px);
+    padding-bottom: 0;
     &:after {
       display: none;
     }
@@ -33,12 +34,12 @@ $circle-border: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 48px;
+  margin-top: 7vh;
+  margin-bottom: 7vh;
   .circle-list {
     display: grid;
     grid-template-columns: repeat(6, calc(#{$circle-size} - #{$circle-border}));
     grid-template-rows: calc(#{$circle-size} - #{$circle-border});
-    padding-bottom: 50px;
     .circle-link {
       &:hover {
         text-decoration: none;
@@ -80,6 +81,20 @@ $circle-border: 6px;
     .circle-link:nth-child(2n) {
       .circle {
         border-color: $secondary-color $secondary-color $primary-color $primary-color;
+      }
+    }
+  }
+}
+#{$RTL} {
+  .circle-list-wrapper {
+    .circle-list {
+      .circle-link {
+        .circle {
+          transform: rotate(-45deg);
+          &-content {
+            transform: rotate(45deg);
+          }
+        }
       }
     }
   }

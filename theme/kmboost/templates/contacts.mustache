@@ -31,25 +31,25 @@
 }}
 <div class="contacts-wrapper">
     <div class="contacts">
-        <h2 class="title">נתקלתם בבעיה כלשהי באתר?</h2>
-        <h5 class="sub-title">מוזמנים ליצור איתנו קשר או למלא את הפרטים ואנו נחזור אליכם בהקדם</h5>
+        <h2 class="title">{{#str}} having_trouble_with_your_site, theme_kmboost {{/str}}</h2>
+        <h5 class="sub-title">{{#str}} contactus, theme_kmboost {{/str}}</h5>
         <div class="info">
             <div class="info-left">
                 <form action="../../local/contact/index.php" method="post">
                 <div class="info-row">
-                    <label for="info-name">שם מלא</label>
+                    <label for="info-name">{{#str}} fullname, theme_kmboost {{/str}}</label>
                     <input type="text" id="info-name">
                 </div>
                 <div class="info-row">
-                    <label for="info-email">כתובת דוא”ל</label>
+                    <label for="info-email">{{#str}} email, theme_kmboost {{/str}}</label>
                     <input type="email" id="info-email">
                 </div>
                 <div class="info-row">
-                    <label for="info-subject">נושא הפניה</label>
+                    <label for="info-subject">{{#str}} request_subject, theme_kmboost {{/str}}</label>
                     <input type="text" id="info-subject">
                 </div>
                 <div class="info-row">
-                    <label for="info-content">תוכן הפניה</label>
+                    <label for="info-content">{{#str}} reference_content, theme_kmboost {{/str}}</label>
                     <textarea type="text" id="info-content"></textarea>
                 </div>
                 <div class="info-row">
