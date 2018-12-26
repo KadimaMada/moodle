@@ -54,7 +54,7 @@ foreach($allcats as $catid => $catinfo) {
     $othercats[] = array (
         'name' => $catinfo->get_formatted_name(),
         'description'=> $chelper->get_category_formatted_description($catinfo),
-        'image' => get_cat_image($coursecat, $courserenderer)    
+        'image' => get_cat_image($coursecat, $courserenderer)
     );
 }
 */
@@ -63,10 +63,10 @@ foreach($allcats as $catid => $catinfo) {
  * Function retreives course category summary image
  * @param coursecat $coursecat
  * @param $courserenderer
- * 
+ *
  * @return url image url
  */
-/* 
+/*
 SG - TOREMOVE lately
 function get_cat_image($coursecat, $courserenderer) {
     $context = context_coursecat::instance($coursecat->id);
@@ -108,11 +108,10 @@ $templatecontext = [
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
     //'currentcat' => $currentcat, // SG TOREMOVE lately
-    //'othercats' => $othercats    
+    //'othercats' => $othercats
     // SG TOREMOVE lately
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
 
 echo $OUTPUT->render_from_template('theme_kmboost/categories', $templatecontext);
-
