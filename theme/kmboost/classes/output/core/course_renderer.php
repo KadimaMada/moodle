@@ -168,7 +168,7 @@ class course_renderer extends \core_course_renderer {
         $content = '';
         $content .= html_writer::start_tag('div', array('class' => 'categories-wrapper'));
         // show subcategories
-        $content .= html_writer::start_tag('ul', array('class' => 'categories'));
+        $content .= html_writer::start_tag('ul', array('class' => 'categories category_banner'));
         foreach ($subcategories as $id => $subcategory) {
             $content .= html_writer::start_tag('li', array('class' => 'category'));
             $content .= html_writer::tag('div', $chelper->get_category_formatted_description($subcategory), array('class' => 'category-image'));
@@ -180,9 +180,17 @@ class course_renderer extends \core_course_renderer {
         $content .= html_writer::start_tag('ul', array('class' => 'categories courses'));
         foreach ($courses as $id => $course) {
             $content .= html_writer::start_tag('li', array('class' => 'category course'));
+
+            $courseImgLink = "background-image: url({$this->get_course_image($course)})";
+            $url = new moodle_url('/course/view.php', array('id' => $course->id));
+
+            $content .= html_writer::start_tag('a', array('href' => $url,'class' => 'course_link'));
+            $content .= html_writer::tag('span', '',  array('class' => 'course_img', 'style' =>  $courseImgLink));
+            $content .= html_writer::tag('span', $chelper->get_course_formatted_name($course),  array('class' => 'course_name'));
+            $content .= html_writer::end_tag('a');
             // $content .= html_writer::tag('div', $chelper->get_course_formatted_summary($course), array('class' => 'category-image'));    // SG - show course summary
-            $content .= html_writer::img($this->get_course_image($course), 'category-image', array('class' => 'category-image'));          // SG - show course overview image only
-            $content .= html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)), $chelper->get_course_formatted_name($course), array('class' => 'category-label'));
+            //$content .= html_writer::img($this->get_course_image($course), 'category-image', array('class' => 'category-image'));          // SG - show course overview image only
+            //$content .= html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)), $chelper->get_course_formatted_name($course), array('class' => 'category-label'));
             $content .= html_writer::end_tag('li'); // close .category.course
         }
         $content .= html_writer::end_tag('ul'); // close .categories.courses
@@ -249,7 +257,7 @@ class course_renderer extends \core_course_renderer {
             'value' => $value
         ];
 
-        return $this->render_from_template('theme_boost/course_search_form', $data);
+    /*     return $this->render_from_template('theme_boost/course_search_form', $data); */
     }
 
 } // end course_renderer class

@@ -399,6 +399,67 @@
         overflow: hidden;
         text-overflow: ellipsis; }
 
+#page-course-index-category #page-header {
+  background-color: #fff; }
+
+#page-course-index-category #page-footer {
+  max-height: 210px; }
+
+#page-course-index-category #page-wrapper {
+  margin-bottom: 0; }
+
+#page-course-index-category .card {
+  border: none; }
+
+#page-course-index-category #page-content {
+  background-color: #fff;
+  margin-right: 0;
+  margin-left: 0;
+  width: 100%; }
+  #page-course-index-category #page-content .categories-wrapper .category_banner {
+    border: 1px solid #500c76;
+    max-width: 664px !important;
+    width: 664px;
+    height: 180px;
+    margin-bottom: 24px; }
+    #page-course-index-category #page-content .categories-wrapper .category_banner .category {
+      max-width: 100%;
+      margin-right: 15px; }
+    #page-course-index-category #page-content .categories-wrapper .category_banner .category-image {
+      width: 100%;
+      height: 100%; }
+  #page-course-index-category #page-content .categories-wrapper .categories {
+    max-width: 450px; }
+    #page-course-index-category #page-content .categories-wrapper .categories .category.course {
+      list-style-type: none;
+      display: block;
+      width: 100px;
+      margin-bottom: 16px; }
+      #page-course-index-category #page-content .categories-wrapper .categories .category.course:nth-of-type(4n) {
+        margin-right: 0; }
+  #page-course-index-category #page-content .categories-wrapper .course_link {
+    display: block;
+    width: 100%;
+    height: auto;
+    text-decoration: none; }
+  #page-course-index-category #page-content .categories-wrapper .course_img {
+    display: block;
+    background-position: 50% 50%;
+    background-size: cover;
+    width: 100px;
+    height: 100px; }
+  #page-course-index-category #page-content .categories-wrapper .course_name {
+    display: block;
+    font-size: 18px;
+    color: #000;
+    font-weight: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    white-space: pre; }
+    #page-course-index-category #page-content .categories-wrapper .course_name:hover {
+      font-weight: bold; }
+
 #page-footer {
   color: #491571;
   width: 100%;
