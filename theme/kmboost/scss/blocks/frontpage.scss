@@ -151,16 +151,81 @@ $circle-border: 6px;
 
     }
 }
-#{$RTL} {
+html[dir="ltr"] {
     .circle-list-wrapper {
         .circle-list {
             .circle-link {
-                .circle {
-                    transform: rotate(-45deg);
-                    &-content {
-                        transform: rotate(45deg);
-                    }
+                &::after {
+                    display: block;
+                    position: absolute;
+                    content: "";
+                    width: 107px;
+                    height: 107px;
+                    border-color: $primary-color $primary-color transparent transparent !important;
+                    border: 6px solid;
+                    border-radius: 50%;
+                    top: 0;
+                    z-index: 3;
                 }
+                &::before {
+                    display: block;
+                    position: absolute;
+                    content: "";
+                    width: 107px;
+                    height: 107px;
+                    border-color: $secondary-color $secondary-color transparent transparent !important;
+                    border: 6px solid;
+                    border-radius: 50%;
+                    top: 0;
+                    z-index: 3;
+                }
+                &:nth-of-type(odd)::after {
+                    transform: rotate(-135deg);
+                }
+                &:nth-of-type(odd)::before {
+                    transform: rotate(45deg);
+                }
+                &:nth-of-type(even)::after {
+                    transform: rotate(45deg);
+                }
+                &:nth-of-type(even)::before {
+                    transform: rotate(-135deg);
+                }
+
+                &:nth-of-type(2n+7)::after {
+                    border-color: $secondary-color $secondary-color transparent transparent !important;
+                    z-index: 2;
+                }
+                &:nth-of-type(2n+7)::before {
+                    border-color: $primary-color $primary-color transparent transparent !important;
+                    z-index: 3;
+                }
+                &:nth-of-type(2n+8)::after {
+                    border-color: $secondary-color $secondary-color transparent transparent !important;
+                    z-index: 2;
+                }
+                &:nth-of-type(2n+8)::before {
+                    border-color: $primary-color $primary-color transparent transparent !important;
+
+                    z-index: 3;
+                }
+                &:nth-of-type(2n+13)::after {
+                    border-color: $primary-color $primary-color transparent transparent !important;
+
+                }
+                &:nth-of-type(2n+13)::before {
+                    border-color: $secondary-color $secondary-color transparent transparent !important;
+                    z-index: 2;
+                }
+                &:nth-of-type(2n+14)::after {
+                    border-color: $primary-color $primary-color transparent transparent !important;
+                    z-index: 1;
+                }
+                &:nth-of-type(2n+14)::before {
+                    border-color: $secondary-color $secondary-color transparent transparent !important;
+                    transform: rotate(-134deg);
+                }
+
             }
         }
     }
