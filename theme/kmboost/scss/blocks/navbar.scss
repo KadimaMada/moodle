@@ -46,6 +46,10 @@
     margin: 0 15px;
     border-bottom: 2px solid #e5dbeb;
     z-index: 100;
+    .dropdown-menu.show{
+      max-height: 90vh;
+      overflow-y: scroll;
+    }
     .logo {
       display: flex;
       align-items: center;

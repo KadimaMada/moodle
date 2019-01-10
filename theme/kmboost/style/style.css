@@ -387,6 +387,9 @@ html[dir="ltr"] .circle-list-wrapper .circle-list .circle-link:nth-of-type(2n+14
   margin: 0 15px;
   border-bottom: 2px solid #e5dbeb;
   z-index: 100; }
+  .header-navbar .header2 .dropdown-menu.show {
+    max-height: 90vh;
+    overflow-y: scroll; }
   .header-navbar .header2 .logo {
     display: -ms-flexbox;
     display: flex;
