@@ -28,7 +28,11 @@
 
 $circle-size: 107px;
 $circle-border: 6px;
-
+.pagelayout-frontpage {
+    #page-content {
+        background-color: #ffffff;
+    }
+}
 .circle-list-wrapper {
     display: flex;
     flex-direction: column;
