@@ -12,7 +12,7 @@ var sequence = require("gulp-sequence");
 var del = require("del");
 var shell = require('gulp-shell');
 var jsmin = require('gulp-jsmin');
-
+var cache = require('gulp-cached');
 
 gulp.task("clean", function() {
   del("style/style.css");
@@ -43,6 +43,7 @@ gulp.task('clean_js', function() {
 
 gulp.task('min', function() {
     gulp.src('amd/src/*.js')
+        .pipe(cache('minjs'))
         .pipe(jsmin())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('amd/build'));
@@ -53,7 +54,7 @@ gulp.task('minjs', function(cb) {
 });
 
 gulp.watch("scss/**/*.{scss,sass}", ["style", 'purge_caches']);
-gulp.watch("amd/src/*.js", ["minjs", 'purge_caches']);
+gulp.watch("amd/src/*.js", ["min", 'purge_caches']);
 
 gulp.task("dev", function(cb) {
   sequence (

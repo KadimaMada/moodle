@@ -3,7 +3,7 @@
   "private": true,
   "description": "Moodle",
   "scripts": {
-    "dev": "gulp dev" 
+    "dev": "gulp dev"
   },
   "devDependencies": {
     "autoprefixer": "6.7.x",
@@ -11,6 +11,7 @@
     "css-mqpacker": "^5.0.1",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
+    "gulp-cached": "^1.1.1",
     "gulp-csso": "^3.0.0",
     "gulp-inject": "^4.3.2",
     "gulp-jsmin": "^0.1.5",
