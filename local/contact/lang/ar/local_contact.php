@@ -96,12 +96,12 @@ $string['norecaptcha'] = 'No ReCAPTCHA';
 $string['norecaptcha_description'] = 'Don\'t use ReCAPTCHA with forms procesed by Contact form.';
 
 // Form labels
-$string['form_title'] = 'Did you encounter any problems with the site?';
-$string['form_sub-title'] = 'Please contact us or fill out the details and we will get back to you as soon as possible';
-$string['form_name'] = 'Full Name';
-$string['form_email'] = 'Email address';
-$string['form_subject'] = 'Subject';
-$string['form_content'] = 'Reference content';
+$string['form_title'] = 'נתקלתם בבעיה כלשהי באתר?';
+$string['form_sub-title'] = 'מוזמנים ליצור איתנו קשר או למלא את הפרטים ואנו נחזור אליכם בהקדם';
+$string['form_name'] = 'שם מלא';
+$string['form_email'] = 'כתובת דוא”ל';
+$string['form_subject'] = 'נושא הפניה';
+$string['form_content'] = 'תוכן הפניה';
 $string['form_send'] = 'Send';
 $string['form_info_phone'] = '073-3729887';
 $string['form_info_mobile'] = '052-22122777';

@@ -1,6 +1,7 @@
 @import "../variables";
 
 .header-navbar {
+
   .header1 {
     .navbar {
       background: $primary-color;
@@ -43,7 +44,12 @@
     display: flex;
     justify-content: space-between;
     margin: 0 15px;
-    border-bottom: 1px solid $primary-color;
+    border-bottom: 2px solid #e5dbeb;
+    z-index: 100;
+    .dropdown-menu.show{
+      max-height: 80vh;
+      overflow-y: auto;
+    }
     .logo {
       display: flex;
       align-items: center;
