@@ -553,17 +553,20 @@ html[dir="ltr"] .circle-list-wrapper .circle-list .circle-link:nth-of-type(2n+14
   margin-left: 0;
   width: 100%; }
   #page-course-index-category #page-content .categories-wrapper .category_banner {
-    border: 1px solid #500c76;
-    max-width: 664px !important;
-    width: 664px;
-    height: 180px;
-    margin-bottom: 24px; }
-    #page-course-index-category #page-content .categories-wrapper .category_banner .category {
-      max-width: 100%;
-      margin-right: 15px; }
-    #page-course-index-category #page-content .categories-wrapper .category_banner .category-image {
-      width: 100%;
-      height: 100%; }
+    display: none;
+    /*  border: 1px solid #500c76;
+                max-width: 664px !important;
+                width: 664px;
+                height: 180px;
+                margin-bottom: 24px;
+                .category {
+                    max-width: 100%;
+                    margin-right: 15px;
+                }
+                .category-image {
+                    width: 100%;
+                    height: 100%;
+                } */ }
   #page-course-index-category #page-content .categories-wrapper .categories {
     max-width: 450px; }
     #page-course-index-category #page-content .categories-wrapper .categories .category.course {
