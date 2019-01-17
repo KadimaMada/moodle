@@ -388,8 +388,8 @@ html[dir="ltr"] .circle-list-wrapper .circle-list .circle-link:nth-of-type(2n+14
   border-bottom: 2px solid #e5dbeb;
   z-index: 100; }
   .header-navbar .header2 .dropdown-menu.show {
-    max-height: 90vh;
-    overflow-y: scroll; }
+    max-height: 80vh;
+    overflow-y: auto; }
   .header-navbar .header2 .logo {
     display: -ms-flexbox;
     display: flex;
@@ -776,7 +776,9 @@ html[dir="ltr"] .circle-list-wrapper .circle-list .circle-link:nth-of-type(2n+14
       .contacts-wrapper .contacts .info .info-left .info-row {
         display: -ms-flexbox;
         display: flex;
-        margin-bottom: 15px; }
+        margin-bottom: 15px;
+        -ms-flex-pack: justify;
+            justify-content: space-between; }
         .contacts-wrapper .contacts .info .info-left .info-row label {
           min-width: 100px;
           font-weight: 600; }
@@ -786,6 +788,13 @@ html[dir="ltr"] .circle-list-wrapper .circle-list .circle-link:nth-of-type(2n+14
           width: 240px; }
         .contacts-wrapper .contacts .info .info-left .info-row textarea {
           height: 100px; }
+        .contacts-wrapper .contacts .info .info-left .info-row input[type="submit"] {
+          background: none;
+          cursor: pointer;
+          transition: .2s; }
+          .contacts-wrapper .contacts .info .info-left .info-row input[type="submit"]:hover {
+            background-color: #491571;
+            color: #fff; }
       .contacts-wrapper .contacts .info .info-right {
         display: -ms-flexbox;
         display: flex;

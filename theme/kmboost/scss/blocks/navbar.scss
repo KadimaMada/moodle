@@ -47,8 +47,8 @@
     border-bottom: 2px solid #e5dbeb;
     z-index: 100;
     .dropdown-menu.show{
-      max-height: 90vh;
-      overflow-y: scroll;
+      max-height: 80vh;
+      overflow-y: auto;
     }
     .logo {
       display: flex;

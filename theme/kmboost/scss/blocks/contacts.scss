@@ -48,6 +48,7 @@
         .info-row {
           display: flex;
           margin-bottom: 15px;
+          justify-content: space-between;
           label {
             min-width: 100px;
             font-weight: 600;
@@ -59,6 +60,15 @@
           }
           textarea {
             height: 100px;
+          }
+          input[type="submit"] {
+            background: none;
+            cursor: pointer;
+            transition: .2s;
+            &:hover {
+              background-color: $primary-color;
+              color: #fff;
+            }
           }
         }
       }
