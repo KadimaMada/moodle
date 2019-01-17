@@ -78,6 +78,8 @@ $circle-border: 6px;
                         width: calc(#{$circle-size} - 20px);
                         height: calc(#{$circle-size} - 20px);
                         border-radius: 50%;
+                        background-size: cover;
+                        background-position: center;
                     }
                 }
             }
@@ -158,7 +160,7 @@ $circle-border: 6px;
 html[dir="ltr"] {
     .circle-list-wrapper {
         .circle-list {
-            .circle-link {
+            a {
                 &::after {
                     display: block;
                     position: absolute;
