@@ -43,7 +43,7 @@ $circle-border: 6px;
         display: grid;
         grid-template-columns: repeat(6, calc(#{$circle-size} - #{$circle-border}));
         grid-template-rows: calc(#{$circle-size} - #{$circle-border}) calc(#{$circle-size} - #{$circle-border}) calc(#{$circle-size} - #{$circle-border});
-        .circle-link {
+        a {
             position: relative;
             &:hover {
                 text-decoration: none;
