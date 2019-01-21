@@ -1,0 +1,19 @@
+#kmbuttons{
+  padding:0;
+}
+
+.labels-wrapper {
+  .nav-item {
+    cursor: pointer;
+    background-color: #7af2ff;
+    transition: all .3s ease-in-out;
+    &:hover {
+      background-color: #7af2ff;
+      transition: all .3s ease-in-out;
+    }
+    &.active{
+      background-color: #85c7ce;
+      transition: all .3s ease-in-out;
+    }
+  }
+}
