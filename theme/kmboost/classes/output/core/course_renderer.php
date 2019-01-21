@@ -127,18 +127,24 @@ class course_renderer extends \core_course_renderer {
 
         // Add course search form.
         $output .= $this->course_search_form();
-        // Start out custom categories output
-        $output .= html_writer::start_tag('div', array('id' => 'page-content','class' => 'row')); 
-        $output .= html_writer::start_tag('div', array('id' => 'region-main-box','class' => 'col-12')); 
-        $output .= html_writer::start_tag('div', array('class' => 'current-category')); 
-        $output .= html_writer::tag('h3', $coursecat->get_formatted_name(), array('class' => 'currenct-category-title'));
-        $output .= html_writer::tag('div', $chelper->get_category_formatted_description($coursecat), array('class' => 'current-category-image'));
-        $output .= html_writer::end_tag('div'); // close .current-category
-        // Display categories and their content - courses, if present
-        $output .= $this->coursecat_custom_tree($chelper, $coursecat);
-        $output .= html_writer::end_tag('div'); // close #region-main-box .col-12
-        $output .= html_writer::end_tag('div'); // close #page-content .row
 
+        if (!$category) {
+            // Display course category tree.
+            $output .= $this->coursecat_tree($chelper, $coursecat);
+        } else {
+            // Start out custom categories output
+            $output .= html_writer::start_tag('div', array('id' => 'page-content','class' => 'row')); 
+            $output .= html_writer::start_tag('div', array('id' => 'region-main-box','class' => 'col-12')); 
+            $output .= html_writer::start_tag('div', array('class' => 'current-category')); 
+            $output .= html_writer::tag('h3', $coursecat->get_formatted_name(), array('class' => 'currenct-category-title'));
+            $output .= html_writer::tag('div', $chelper->get_category_formatted_description($coursecat), array('class' => 'current-category-image'));
+            $output .= html_writer::end_tag('div'); // close .current-category
+            // Display categories and their content - courses, if present
+            $output .= $this->coursecat_custom_tree($chelper, $coursecat);
+            $output .= html_writer::end_tag('div'); // close #region-main-box .col-12
+            $output .= html_writer::end_tag('div'); // close #page-content .row
+        }
+        
         return $output;
     }
 
