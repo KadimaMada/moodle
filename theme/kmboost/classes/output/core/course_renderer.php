@@ -176,23 +176,18 @@ class course_renderer extends \core_course_renderer {
         // show subcategories
         $content .= html_writer::start_tag('ul', array('class' => 'categories category_banner'));
         foreach ($subcategories as $id => $subcategory) {
-            $content .= html_writer::start_tag('li', array('class' => 'category col-md-2 col-xs-4 col-xs-height col-xs-top'));
-
-            /* $content .= html_writer::tag('div', $chelper->get_category_formatted_description($subcategory), array('class' => 'category-image')); */
-
             $url = new moodle_url('/course/index.php', array('categoryid' => $subcategory->id));
-            $src = 'https://dummyimage.com/100x100/000/fff.jpg&text=image+here';
+            $subcatdescr = $chelper->get_category_formatted_description($subcategory);
+            // extract img src from description
+            preg_match("/\<img.+src\=(?:\"|\')(.+?)(?:\"|\')(?:.+?)\>/", $subcatdescr, $matches);
+            // get img from decription or set default one
+            $catcoverimg = (isset($matches[1])) ? $matches[1] : $this->page->theme->image_url('default-bg', 'theme');
 
-            $content .= html_writer::start_tag('a', array('href' => $url,'class' => 'category-label'));
-                $content .= html_writer::img($src, '$alt', array('height' => '100', 'class' => 'class2'));
-                $content .= html_writer::tag('span', $subcategory->get_formatted_name(),  array('class' => 'сдфіі'));
-            $content .= html_writer::end_tag('a'); // close .category-label
-
-            /* $content .= html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $subcategory->id)), $subcategory->get_formatted_name(), array('class' => 'category-label')); */
-
-
-
-
+            $content .= html_writer::start_tag('li', array('class' => 'category col-md-2 col-xs-4 col-xs-height col-xs-top'));
+                $content .= html_writer::start_tag('a', array('href' => $url,'class' => 'category-label'));
+                    $content .= html_writer::img($catcoverimg, 'cat img', array('class' => 'class2 category-image', 'height' => '100'));
+                    $content .= html_writer::tag('span', $subcategory->get_formatted_name());
+                $content .= html_writer::end_tag('a'); // close .category-label
             $content .= html_writer::end_tag('li'); // close .category
         }
         $content .= html_writer::end_tag('ul'); // close .categories
