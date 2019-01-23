@@ -1,0 +1,30 @@
+#page-course-index {
+    #region-main-box{
+        background-color: #fff !important;
+    }
+    .categories-wrapper {
+        margin-bottom: 20px;
+    }
+    .categories  {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        list-style-type: none;
+        .category  {
+            list-style-type: none;
+        }
+        .category-label{
+            display: block;
+    text-align: center;
+    img {
+        margin-bottom: 10px;
+    }
+        }
+        .category span {
+            display: block;
+        }
+    }
+}

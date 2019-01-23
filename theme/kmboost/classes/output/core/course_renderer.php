@@ -84,7 +84,7 @@ class course_renderer extends \core_course_renderer {
             }
             $this->page->set_title($title);
         }
-        
+
         // SG - 20180918 -- leave original code for categories preparation and options
         // Prepare parameters for courses and categories lists in the tree
         $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_AUTO)
@@ -128,23 +128,23 @@ class course_renderer extends \core_course_renderer {
         // Add course search form.
         $output .= $this->course_search_form();
 
-        if (!$category) {
-            // Display course category tree.
-            $output .= $this->coursecat_tree($chelper, $coursecat);
-        } else {
-            // Start out custom categories output
-            $output .= html_writer::start_tag('div', array('id' => 'page-content','class' => 'row')); 
-            $output .= html_writer::start_tag('div', array('id' => 'region-main-box','class' => 'col-12')); 
-            $output .= html_writer::start_tag('div', array('class' => 'current-category')); 
-            $output .= html_writer::tag('h3', $coursecat->get_formatted_name(), array('class' => 'currenct-category-title'));
-            $output .= html_writer::tag('div', $chelper->get_category_formatted_description($coursecat), array('class' => 'current-category-image'));
-            $output .= html_writer::end_tag('div'); // close .current-category
-            // Display categories and their content - courses, if present
-            $output .= $this->coursecat_custom_tree($chelper, $coursecat);
-            $output .= html_writer::end_tag('div'); // close #region-main-box .col-12
-            $output .= html_writer::end_tag('div'); // close #page-content .row
-        }
-        
+        // if (!$category) {
+        //     // Display course category tree.
+        //     $output .= $this->coursecat_tree($chelper, $coursecat);
+        // } else {
+          // Start out custom categories output
+          $output .= html_writer::start_tag('div', array('id' => 'page-content','class' => 'row'));
+          $output .= html_writer::start_tag('div', array('id' => 'region-main-box','class' => 'col-12'));
+          $output .= html_writer::start_tag('div', array('class' => 'current-category'));
+          $output .= html_writer::tag('h3', $coursecat->get_formatted_name(), array('class' => 'currenct-category-title'));
+          $output .= html_writer::tag('div', $chelper->get_category_formatted_description($coursecat), array('class' => 'current-category-image'));
+          $output .= html_writer::end_tag('div'); // close .current-category
+          // Display categories and their content - courses, if present
+          $output .= $this->coursecat_custom_tree($chelper, $coursecat);
+          $output .= html_writer::end_tag('div'); // close #region-main-box .col-12
+          $output .= html_writer::end_tag('div'); // close #page-content .row
+        // }
+
         return $output;
     }
 
@@ -176,9 +176,23 @@ class course_renderer extends \core_course_renderer {
         // show subcategories
         $content .= html_writer::start_tag('ul', array('class' => 'categories category_banner'));
         foreach ($subcategories as $id => $subcategory) {
-            $content .= html_writer::start_tag('li', array('class' => 'category'));
-            $content .= html_writer::tag('div', $chelper->get_category_formatted_description($subcategory), array('class' => 'category-image'));
-            $content .= html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $subcategory->id)), $subcategory->get_formatted_name(), array('class' => 'category-label'));
+            $content .= html_writer::start_tag('li', array('class' => 'category col-md-2 col-xs-4 col-xs-height col-xs-top'));
+
+            /* $content .= html_writer::tag('div', $chelper->get_category_formatted_description($subcategory), array('class' => 'category-image')); */
+
+            $url = new moodle_url('/course/index.php', array('categoryid' => $subcategory->id));
+            $src = 'https://dummyimage.com/100x100/000/fff.jpg&text=image+here';
+
+            $content .= html_writer::start_tag('a', array('href' => $url,'class' => 'category-label'));
+                $content .= html_writer::img($src, '$alt', array('height' => '100', 'class' => 'class2'));
+                $content .= html_writer::tag('span', $subcategory->get_formatted_name(),  array('class' => 'сдфіі'));
+            $content .= html_writer::end_tag('a'); // close .category-label
+
+            /* $content .= html_writer::link(new moodle_url('/course/index.php', array('categoryid' => $subcategory->id)), $subcategory->get_formatted_name(), array('class' => 'category-label')); */
+
+
+
+
             $content .= html_writer::end_tag('li'); // close .category
         }
         $content .= html_writer::end_tag('ul'); // close .categories
@@ -213,7 +227,7 @@ class course_renderer extends \core_course_renderer {
      * @return string
      */
     private function get_course_image($course) {
-        
+
         $coursecoverimgurl = '';
         foreach ($course->get_course_overviewfiles() as $file) {
             $isimage = $file->is_valid_image();
@@ -225,7 +239,7 @@ class course_renderer extends \core_course_renderer {
         }
         return $coursecoverimgurl;
     }
-    
+
     /**
      * Renders html to display a course search form.
      *

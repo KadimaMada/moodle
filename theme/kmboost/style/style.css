@@ -834,16 +834,44 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
             width: 16px;
             height: 16px;
             background: url([[pix:theme_kmboost|contacts/link-icon]]) no-repeat center center; }
-          @media only screen and (min-width: 576px) and (max-width: 768px) {
+
+#page-course-index #region-main-box {
+  background-color: #fff !important; }
+
+#page-course-index .categories-wrapper {
+  margin-bottom: 20px; }
+
+#page-course-index .categories {
+  margin: 0;
+  padding: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-align: start;
+      align-items: flex-start;
+  list-style-type: none; }
+  #page-course-index .categories .category {
+    list-style-type: none; }
+  #page-course-index .categories .category-label {
+    display: block;
+    text-align: center; }
+    #page-course-index .categories .category-label img {
+      margin-bottom: 10px; }
+  #page-course-index .categories .category span {
+    display: block; }
+  @media only screen and (min-width: 576px) and (max-width: 768px) {
   .circle-list-wrapper .circle-list {
     -ms-grid-columns: (calc(107px - 6px))[4];
     grid-template-columns: repeat(4, calc(107px - 6px)); } }
-          @media only screen and (min-width: 1100px) {
+  @media only screen and (min-width: 1100px) {
   .header-navbar .header2 .tabs {
     width: 610px; }
   .header-navbar .header2 .user-settings .nav-item .usermenu .dropdown-toggle .userbutton .usertext {
     display: block; } }
-          @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 576px) {
   .mycoursesslick {
     padding: 0;
     border-top: none; }
@@ -910,21 +938,21 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
   .login-popup-wrapper .login-popup .links .link-label {
     font-size: 10px;
     font-weight: bold; } }
-          @media (max-width: 865px) {
+  @media (max-width: 865px) {
   .mycoursesslick {
     max-width: 742px; }
   .mycoursesslick .slider {
     max-width: 534px; }
   .mycoursesslick .slider .slick-slide {
     width: 177px !important; } }
-          @media (max-width: 770px) {
+  @media (max-width: 770px) {
   .mycoursesslick {
     max-width: 500px; }
   .mycoursesslick .slider {
     max-width: 400px; }
   .mycoursesslick .slider .slick-slide {
     width: 198px !important; } }
-          @media (max-width: 560px) {
+  @media (max-width: 560px) {
   .mycoursesslick {
     max-width: 400px; }
   .mycoursesslick .slider {
