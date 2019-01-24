@@ -157,7 +157,6 @@ class course_renderer extends \core_course_renderer {
      * @return string
      */
     protected function coursecat_custom_tree(coursecat_helper $chelper, $coursecat) {
-
         // first, get subcategories for current category (children)
         $subcategories = array();
         if (!$chelper->get_categories_display_option('nodisplay')) {
@@ -174,7 +173,8 @@ class course_renderer extends \core_course_renderer {
         $content = '';
         $content .= html_writer::start_tag('div', array('class' => 'categories-wrapper'));
         // show subcategories
-        $content .= html_writer::start_tag('ul', array('class' => 'categories category_banner'));
+        $content .= html_writer::start_tag('ul', array('class' => 'categories courses'));
+        // $content .= html_writer::start_tag('ul', array('class' => 'categories category_banner'));
         foreach ($subcategories as $id => $subcategory) {
             $url = new moodle_url('/course/index.php', array('categoryid' => $subcategory->id));
             $subcatdescr = $chelper->get_category_formatted_description($subcategory);
@@ -183,7 +183,8 @@ class course_renderer extends \core_course_renderer {
             // get img from decription or set default one
             $catcoverimg = (isset($matches[1])) ? $matches[1] : $this->page->theme->image_url('default-bg', 'theme');
 
-            $content .= html_writer::start_tag('li', array('class' => 'category col-md-2 col-xs-4 col-xs-height col-xs-top mb-4'));
+            $categoryclass = ($coursecat->id == 0)? 'category col-md-2 col-xs-4 col-xs-height col-xs-top mb-4' : 'category course';
+            $content .= html_writer::start_tag('li', array('class' => $categoryclass));
                 $content .= html_writer::start_tag('a', array('href' => $url,'class' => 'category-label'));
                     $content .= html_writer::img($catcoverimg, 'cat img', array('class' => 'class2 category-image', 'height' => '100'));
                     $content .= html_writer::tag('span', $subcategory->get_formatted_name());

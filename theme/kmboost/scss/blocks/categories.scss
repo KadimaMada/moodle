@@ -107,8 +107,8 @@ $image-in-row: 4;
         width: 100%;
         .categories-wrapper {
             .category_banner {
-                display: none;
-               /*  border: 1px solid #500c76;
+                // display: none;
+               border: 1px solid #500c76;
                 max-width: 664px !important;
                 width: 664px;
                 height: 180px;
@@ -120,7 +120,7 @@ $image-in-row: 4;
                 .category-image {
                     width: 100%;
                     height: 100%;
-                } */
+                }
             }
             .categories {
                 max-width: 450px;

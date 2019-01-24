@@ -28,10 +28,6 @@ gulp.task("style", function() {
     ]))
     .pipe(rename("style/style.css"))
     .pipe(gulp.dest('.'));
-    // .pipe(csso())
-    // .pipe(rename("style.css"))
-    // .pipe(gulp.dest("../blocks/search_custom/css"))
-    // .pipe(server.stream());
 });
 
 gulp.task('purge_caches', shell.task('php ../../admin/cli/purge_caches.php'))
