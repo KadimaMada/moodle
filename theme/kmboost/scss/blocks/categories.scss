@@ -81,6 +81,14 @@ $image-in-row: 4;
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
+                        display: flex;
+                        flex-direction: column;
+                        &> span {
+                          text-align: center;
+                          white-space: nowrap;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                        }
                     }
                 }
             }

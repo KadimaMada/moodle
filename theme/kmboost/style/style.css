@@ -535,7 +535,16 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
         font-size: 18px;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis; }
+        text-overflow: ellipsis;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+        #page-course-index-category #page-content .categories-wrapper .categories .category-label > span {
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis; }
 
 #page-course-index-category #page-header {
   background-color: #fff; }
