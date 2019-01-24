@@ -105,5 +105,5 @@ $string['form_content'] = 'Reference content';
 $string['form_send'] = 'Send';
 $string['form_info_phone'] = '073-3729887';
 $string['form_info_mobile'] = '052-22122777';
-$string['form_info_email'] = 'support.km@wokm.org.il';
+$string['form_info_email'] = 'support@km2007.org';
 $string['form_info_site'] = 'www.wokm.org';
