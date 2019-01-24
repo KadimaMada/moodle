@@ -36,7 +36,7 @@
             <h5 class="sub-title">{{#str}}loginas,theme_kmboost{{/str}}</h5>
         </div>
         <div class="links">
-            <a href="/local/contact/view.php" class="link link-mail">
+            <a href="{{config.wwwroot}}/login/index.php" class="link link-mail">
                 <div class="link-image"></div>
                 <p class="link-label">{{#str}}email,theme_kmboost{{/str}}</p>
             </a>
@@ -46,7 +46,7 @@
                 <p class="link-label">{{#str}}oauth2google,theme_kmboost{{/str}}</p>
             </a>
             {{/oauth2googleurl}}
-            <form action="/login/index.php" method="post" id="guestlogin">
+            <form action="{{config.wwwroot}}/login/index.php" method="post" id="guestlogin">
                 <input type="hidden" name="username" value="guest">
                 <input type="hidden" name="password" value="guest">
                 <button class="link link-guest" type="submit">
