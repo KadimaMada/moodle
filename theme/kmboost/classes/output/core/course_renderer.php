@@ -183,7 +183,7 @@ class course_renderer extends \core_course_renderer {
             // get img from decription or set default one
             $catcoverimg = (isset($matches[1])) ? $matches[1] : $this->page->theme->image_url('default-bg', 'theme');
 
-            $content .= html_writer::start_tag('li', array('class' => 'category col-md-2 col-xs-4 col-xs-height col-xs-top'));
+            $content .= html_writer::start_tag('li', array('class' => 'category col-md-2 col-xs-4 col-xs-height col-xs-top mb-4'));
                 $content .= html_writer::start_tag('a', array('href' => $url,'class' => 'category-label'));
                     $content .= html_writer::img($catcoverimg, 'cat img', array('class' => 'class2 category-image', 'height' => '100'));
                     $content .= html_writer::tag('span', $subcategory->get_formatted_name());
