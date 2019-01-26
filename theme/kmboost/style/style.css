@@ -701,8 +701,8 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
     .login-popup-wrapper .login-popup .links {
       display: -ms-grid;
       display: grid;
-      -ms-grid-columns: 160px 160px 160px;
-          grid-template-columns: 160px 160px 160px;
+      -ms-grid-columns: 240px 240px;
+          grid-template-columns: 240px 240px;
       margin: 30px 0 45px; }
       .login-popup-wrapper .login-popup .links form {
         display: -ms-flexbox;
