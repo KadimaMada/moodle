@@ -67,6 +67,10 @@ $potentialidps =  $authplugin->loginpage_idp_list('/');
 foreach ($potentialidps as $idp) {
     if ($idp['name']=="Google"){
         $templatecontext['oauth2googleurl']=$idp['url']->out();
+	$params=$idp['url']->params();
+	$templatecontext['oauth2sesskey']=$params['sesskey'];
+	$templatecontext['oauth2wants']=urlencode($params['wantsurl']);
+	$templatecontext['oauth2id']=$params['id'];
     }
 }
 
