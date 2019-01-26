@@ -37,7 +37,7 @@
         </div>
         <div class="links">
             {{#oauth2googleurl}}
-            <a href="{{oauth2googleurl}}" class="link link-mail">
+            <a href="{{#oauth2googleurl}}{{.}}{{/oauth2googleurl}}{{^oauth2googleurl}}#{{/oauth2googleurl}}" class="link link-mail">
                 <div class="link-image"></div>
                 <p class="link-label">{{#str}}oauth2google,theme_kmboost{{/str}}</p>
             </a>
