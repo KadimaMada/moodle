@@ -504,6 +504,9 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
   #page-course-index-category #page-content .current-category-image {
     width: 100%;
     max-width: 664px; }
+    #page-course-index-category #page-content .current-category-image p {
+      -ms-flex-align: center;
+          align-items: center; }
 
 #page-course-index-category #page-content .categories-wrapper {
   display: -ms-flexbox;

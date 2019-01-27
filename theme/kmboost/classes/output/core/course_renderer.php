@@ -157,6 +157,7 @@ class course_renderer extends \core_course_renderer {
      * @return string
      */
     protected function coursecat_custom_tree(coursecat_helper $chelper, $coursecat) {
+        global $PAGE;
         // first, get subcategories for current category (children)
         $subcategories = array();
         if (!$chelper->get_categories_display_option('nodisplay')) {
@@ -200,7 +201,16 @@ class course_renderer extends \core_course_renderer {
             $courseImgLink = "background-image: url({$this->get_course_image($course)})";
             $url = new moodle_url('/course/view.php', array('id' => $course->id));
 
-            $content .= html_writer::start_tag('a', array('href' => $url,'class' => 'course_link'));
+            $content .= html_writer::start_tag(
+                'a', array(
+                    'href' => $url,
+                    'class' => 'course_link',
+                    'data-tooltip' => "tooltip",
+                    'data-placement' => "bottom",
+                    'data-original-title' => $chelper->get_course_formatted_name($course),
+                    'title' => $chelper->get_course_formatted_name($course)
+                  )
+            );
             $content .= html_writer::tag('span', '',  array('class' => 'course_img', 'style' =>  $courseImgLink));
             $content .= html_writer::tag('span', $chelper->get_course_formatted_name($course),  array('class' => 'course_name'));
             $content .= html_writer::end_tag('a');
