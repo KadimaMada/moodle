@@ -1,1 +1,9 @@
-define(["jquery"],function(n){return{init:function(){n(".btn-up").click(function(){n(body).animate({scrollTop:0},2e3)})}}});
+define([ 'jquery' ], function($) {
+	return {
+		init: function() {
+			$('.btn-up').click(function() {
+				$("body, html").animate({ scrollTop: 0 }, 500);
+			});
+		}
+	};
+});
