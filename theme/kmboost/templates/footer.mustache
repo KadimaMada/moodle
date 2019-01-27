@@ -54,6 +54,12 @@
             <p>{{#str}}all_rights_reserved_Kadima_Mada , theme_kmboost {{/str}}</p>
         </div>
     </div>
-    <a class="btn-up" href=""></a>
+    <a class="btn-up" href="#"></a>
     {{{ output.standard_end_of_body_html }}}
 </footer>
+{{#js}}
+    require(['theme_kmboost/btnUp'], function(mod) {
+    mod.init();
+    });
+{{/js}}
+
