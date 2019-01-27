@@ -610,7 +610,8 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
 #page-footer {
   color: #491571;
   width: 100%;
-  position: relative; }
+  position: relative;
+  overflow: hidden; }
   #page-footer .container {
     width: 100%;
     max-width: 652px;
