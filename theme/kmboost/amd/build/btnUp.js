@@ -1,1 +1,0 @@
-define(["jquery"],function(t){return{init:function(){t(".btn-up").click(function(n){n.preventDefault(),t("body, html").animate({scrollTop:0},500)})}}});

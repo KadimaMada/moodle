@@ -11,36 +11,6 @@
     <div id="page" class="container-fluid">
         {{{ output.full_header }}}
 
-        <!--<div id="page-content" class="row">
-            <div id="region-main-box" class="col-12">
-
-                <div class="current-category">
-                    <h3 class="currenct-category-title">{{{currentcat.name}}}</h3>
-                    <img
-                        class="current-category-image"
-                        src="{{{currentcat.image}}}"
-                        alt="category-image"
-                    >
-                </div>
-
-                {{#othercats}}
-                    <div class="categories-wrapper">
-                        <ul class="categories">
-                            <li class="category">
-                                <img
-                                    class="category-image"
-                                    src="{{{image}}}"
-                                    alt="category-image"
-                                >
-                                <p class="category-label">{{{name}}}</p>
-                            </li>
-                        </ul>
-                    </div>
-                {{/othercats}} -->
-
-
-
-
                 {{#hasregionmainsettingsmenu}}
                     <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
                         <div> {{{ output.region_main_settings_menu }}} </div>
@@ -53,7 +23,7 @@
                                 <div class="region_main_settings_menu_proxy"></div>
                             {{/hasregionmainsettingsmenu}}
 
-                             {{{ output.main_content }}} 
+                             {{{ output.main_content }}}
                             {{{ output.course_content_footer }}}
                         </div>
                     </div>
@@ -63,8 +33,7 @@
                         {{{ sidepreblocks }}}
                     </section>
                 {{/hasblocks}}
-            <!--</div>
-        </div> -->
+
     </div>
     {{> theme_boost/nav-drawer }}
 </div>
@@ -76,6 +45,7 @@
 {{#js}}
     require(['theme_boost/loader']);
     require(['theme_boost/drawer'], function(mod) {
-    mod.init();
+      mod.init();
     });
+    require(['jquery','theme_boost/tooltip'], function($){$('[data-tooltip="tooltip"]').tooltip()});
 {{/js}}

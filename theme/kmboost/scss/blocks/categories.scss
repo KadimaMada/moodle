@@ -53,6 +53,9 @@ $image-in-row: 4;
             &-image {
                 width: 100%;
                 max-width: 664px;
+                p {
+                  align-items: center;
+                }
             }
         }
         .categories-wrapper {
