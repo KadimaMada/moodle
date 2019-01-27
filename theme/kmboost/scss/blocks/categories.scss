@@ -54,7 +54,7 @@ $image-in-row: 4;
                 width: 100%;
                 max-width: 664px;
                 p {
-                  align-items: center;
+                  text-align: center;
                 }
             }
         }
@@ -162,7 +162,7 @@ $image-in-row: 4;
                 background-size: cover;
                 width: 100px;
                 height: 100px;
-               
+
             }
             .course_name {
                 display: block;
@@ -173,7 +173,7 @@ $image-in-row: 4;
                 text-overflow: ellipsis;
                 text-align: center;
                 white-space: pre;
-               
+
             }
         }
     }
