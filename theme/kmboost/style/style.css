@@ -592,6 +592,9 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
     width: 100%;
     height: auto;
     text-decoration: none; }
+    #page-course-index-category #page-content .categories-wrapper .course_link:hover .course_name {
+      text-shadow: 0 0 1px black;
+      background-color: #500c76; }
   #page-course-index-category #page-content .categories-wrapper .course_img {
     display: block;
     background-position: 50% 50%;
@@ -607,13 +610,12 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
     text-overflow: ellipsis;
     text-align: center;
     white-space: pre; }
-    #page-course-index-category #page-content .categories-wrapper .course_name:hover {
-      font-weight: bold; }
 
 #page-footer {
   color: #491571;
   width: 100%;
-  position: relative; }
+  position: relative;
+  overflow: hidden; }
   #page-footer .container {
     width: 100%;
     max-width: 652px;

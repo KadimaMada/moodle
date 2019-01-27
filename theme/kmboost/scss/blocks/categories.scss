@@ -150,7 +150,12 @@ $image-in-row: 4;
                 width: 100%;
                 height: auto;
                 text-decoration: none;
-
+                &:hover {
+                    .course_name {
+                        text-shadow: 0 0 1px black;
+                        background-color: #500c76;
+                    }
+                }
             }
             .course_img {
                 display: block;
@@ -158,6 +163,7 @@ $image-in-row: 4;
                 background-size: cover;
                 width: 100px;
                 height: 100px;
+               
             }
             .course_name {
                 display: block;
@@ -168,9 +174,7 @@ $image-in-row: 4;
                 text-overflow: ellipsis;
                 text-align: center;
                 white-space: pre;
-                &:hover {
-                    font-weight: bold;
-                }
+               
             }
         }
     }
