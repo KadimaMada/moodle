@@ -917,6 +917,8 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
     margin-left: 10px; }
   .header-navbar .header2 .user-settings {
     border: none; }
+  .header2 .logo a img {
+    max-width: 150px; }
   #page-footer .container .info {
     margin-bottom: 20px; }
   #page-footer .container .info > p {
@@ -968,3 +970,7 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
     max-width: 300px; }
   .mycoursesslick .slider .slick-slide {
     width: 298px !important; } }
+  @media (max-width: 578px) {
+  .category-image {
+    width: 100%;
+    height: auto; } }
