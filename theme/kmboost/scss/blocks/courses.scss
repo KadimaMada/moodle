@@ -16,6 +16,7 @@
         .category  {
             list-style-type: none;
         }
+       
         .category-label{
             display: block;
     text-align: center;
@@ -26,5 +27,11 @@
         .category span {
             display: block;
         }
+    }
+}
+@media (max-width: 578px){
+    .category-image {
+        width: 100%;
+        height: auto;
     }
 }

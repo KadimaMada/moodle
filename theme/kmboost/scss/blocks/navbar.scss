@@ -195,3 +195,8 @@
     }
   }
 }
+@media #{$is-mobile}{
+  .header2 .logo a img{
+    max-width: 150px;
+  }
+}
