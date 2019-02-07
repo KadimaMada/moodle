@@ -11,7 +11,35 @@ define(['jquery', 'theme_kmboost/slick'], function($, slick) {
                 prevArrow: '#mycoursesprev',
                 nextArrow: '#mycoursesnext',
                 variableWidth: true,
-                rtl: dir === 'rtl'
+                rtl: dir === 'rtl',
+                responsive: [
+                    {
+                      breakpoint: 768,
+                      settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                      }
+                    },
+                    {
+                      breakpoint: 580,
+                      settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                      }
+                    },
+                    {
+                      breakpoint: 400,
+                      settings: {
+                        slidesToShow: 1,
+                        centerMode: true,
+                        slidesToScroll: 1,
+                        arrows: false
+                    
+                      }
+                    }
+               
+                  ]
             });
             $('.slider').animate({opacity: 1}, 500);
         }
