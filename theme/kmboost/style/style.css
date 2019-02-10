@@ -349,7 +349,7 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
 
 .header-navbar .header1 .navbar {
   background: #491571;
-  color: #fffff; }
+  color: #ffffff; }
   .header-navbar .header1 .navbar-brand .logo {
     display: none !important; }
   .header-navbar .header1 .navbar-brand .site-name {
@@ -970,6 +970,14 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
     max-width: 300px; }
   .mycoursesslick .slider .slick-slide {
     width: 298px !important; } }
+  @media (max-width: 450px) {
+  .mycoursesslick {
+    max-width: 100%; } }
+  @media (max-width: 400px) {
+  .mycoursesslick {
+    max-width: 100%; }
+  .slick-slide {
+    border: none; } }
   @media (max-width: 578px) {
   .category-image {
     width: 100%;
