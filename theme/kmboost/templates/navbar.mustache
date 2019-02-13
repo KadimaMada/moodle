@@ -30,7 +30,13 @@
                             data-side="left"
                             data-preference="drawer-open-nav"
                     >
-                        {{#pix}}i/menubars{{/pix}}
+                     
+                        <div id="hamburger_menu_btn">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                         <span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
                     </button>
                 </div>
@@ -77,3 +83,16 @@
         </ul>
     </div>
 </div>
+
+
+{{#js}}
+ 
+    require(['jquery'], function($){
+        $("document").ready(function(){
+	$('#hamburger_menu_btn').click(function(){
+		$(this).toggleClass('open');
+	});
+});
+
+    });
+{{/js}}
