@@ -575,8 +575,9 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
       margin-right: 15px;
       overflow: hidden; }
       #page-course-index-category #page-content .categories-wrapper .categories .category-image {
-        width: 158px;
-        height: 158px; }
+        width: 100px;
+        height: 100px;
+        margin: 0 auto; }
       #page-course-index-category #page-content .categories-wrapper .categories .category-label {
         font-size: 18px;
         white-space: nowrap;
@@ -965,11 +966,6 @@ html[dir="ltr"] .circle-list-wrapper .circle-list a:nth-of-type(2n+14)::before {
     border: none; }
   .header2 .logo a img {
     max-width: 150px; }
-  #page-course-index-category #page-content .categories-wrapper .categories {
-    max-width: 460px; }
-  #page-course-index-category #page-content .categories-wrapper .categories .category-image {
-    width: 100px;
-    height: 100px; }
   #page-course-index-category #page-content .categories-wrapper .categories .category.course {
     width: 100px; }
   #page-footer .container .info {

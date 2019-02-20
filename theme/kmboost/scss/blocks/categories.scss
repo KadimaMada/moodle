@@ -75,8 +75,9 @@ $image-size: 158px;
                     margin-right: $image-margin;
                     overflow: hidden;
                     &-image {
-                        width: $image-size;
-                        height: $image-size;
+                        width: 100px;
+                        height: 100px;
+                        margin: 0 auto;
                     }
                     &-label {
                         font-size: 18px;
@@ -181,21 +182,7 @@ $image-size: 158px;
 }
 
 @media #{$is-mobile} {
-    #page-course-index-category {
-        #page-content {
-            .categories-wrapper {
-                .categories {
-                    max-width: $image-in-row * (100px + $image-margin);
-                    .category {
-                        &-image {
-                            width: 100px;
-                            height: 100px;
-                        }
-                    }
-                }
-            }
-        }
-    }
+
     #page-course-index-category {
         #page-content {
             .categories-wrapper {
