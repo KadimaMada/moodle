@@ -205,10 +205,6 @@ class course_renderer extends \core_course_renderer {
                 'a', array(
                     'href' => $url,
                     'class' => 'course_link',
-                    'data-tooltip' => "tooltip",
-                    'data-placement' => "bottom",
-                    'data-original-title' => $chelper->get_course_formatted_name($course),
-                    'title' => $chelper->get_course_formatted_name($course)
                   )
             );
             $content .= html_writer::tag('span', '',  array('class' => 'course_img', 'style' =>  $courseImgLink));

@@ -56,6 +56,7 @@ $string['logo'] = 'Logo';
 $string['logodesc'] = 'The logo is only displayed in the header of the front page and login page.<br /> If the height of your logo is more than 75px add div.logo {height: 100px;} to the Custom CSS box below, amending accordingly if the height is other than 100px. If a logo is not added here, the logo in Appearance > Logos will be used.';
 $string['welcome'] = 'ברוכים הבאים';
 $string['loginas'] = 'התחבר באמצעות';
+$string['login_by_name_password'] = 'تسجيل الدخول بالاسم وكلمة المرور';
 $string['email'] = 'כתובת דוא”ל';
 $string['oauth2google'] = 'הזדהות אחידה';
 $string['frontpagehtmlblock'] = 'Front page HTML block';
