@@ -81,16 +81,10 @@ $image-size: 158px;
                     }
                     &-label {
                         font-size: 18px;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
                         display: flex;
                         flex-direction: column;
                         &> span {
                           text-align: center;
-                          white-space: nowrap;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
                         }
                     }
                 }
@@ -171,11 +165,10 @@ $image-size: 158px;
                 font-size: 18px;
                 color: #000;
                 font-weight: normal;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                // overflow: hidden;
+                // text-overflow: ellipsis;
                 text-align: center;
-                white-space: pre;
-
+                // white-space: pre;
             }
         }
     }
