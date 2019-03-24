@@ -42,13 +42,14 @@ $THEME->layouts = [
         'options' => array('nonavbar' => true),
     ),
      'coursecategory' => array(
-            'file' => 'categories.php',
-            'regions' => []
+          'file' => 'categories.php',
+          'regions' => []
 
     ),
     'course' => array(
         'file' => 'course.php',
-        'regions' => [],
+        'regions' => array('side-pre'),
+        'defaultregion' => 'side-pre',
     ),
 ];
 
